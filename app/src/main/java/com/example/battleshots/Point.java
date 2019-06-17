@@ -23,4 +23,21 @@ public class Point {
     public void setY(int y) {
         this.y = y;
     }
+
+    @Override
+    public boolean equals(Object object) {
+        Point other = (Point) object;
+        if (this == object) {
+            return true;
+        }
+        else if (this.getClass() != object.getClass()) {
+            return false;
+        }
+        else if (this.x != other.x || this.y != other.y) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
 }
