@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "313355073544",
+    "firebase_url": "https://battle-shots-ef8a0.firebaseio.com",
+    "project_id": "battle-shots-ef8a0",
+    "storage_bucket": "battle-shots-ef8a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:313355073544:android:e00ee47d2c9107d7",
+        "android_client_info": {
+          "package_name": "com.example.battleshots"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "313355073544-57eo0fjl6vpn3lk5g3c9eo3gnvl7qkqm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.battleshots",
+            "certificate_hash": "0ffb9d4e91e4be2c8d284b46b4c2180731ee3729"
+          }
+        },
+        {
+          "client_id": "313355073544-r2kb6iobi1dr6q1k100ehair84d25gh1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFYN73npVVrDXmm7ObbgmcJTPCUrnsoFc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "313355073544-r2kb6iobi1dr6q1k100ehair84d25gh1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
