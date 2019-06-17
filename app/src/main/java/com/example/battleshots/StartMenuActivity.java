@@ -23,4 +23,9 @@ public class StartMenuActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), JoinGameActivity.class);
         startActivity(intent);
     }
+
+    public void setupMap(View view) {
+        Intent intent = new Intent(getApplicationContext(), setupActivity.class);
+        startActivity(intent);
+    }
 }

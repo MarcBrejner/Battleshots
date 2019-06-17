@@ -15,4 +15,10 @@
         android:layout_height="68dp"
         android:onClick="createGame" />
 
+    <Button
+        android:text="Game Setup"
+        android:layout_width="215dp"
+        android:layout_height="68dp"
+        android:onClick="setupMap"/>
+
 </LinearLayout>
