@@ -52,10 +52,20 @@ public class Ship {
     }
 
     public boolean isDestroyed() {
-        if (ship != null) {
-            return true;
-        } else {
-            return false;
+        int amountOfShipPartsHitted = 0;
+        for (Point shipPart : ship) {
+            if (shipPart.getHitted()) {
+                amountOfShipPartsHitted++;
+            }
+        }
+        return amountOfShipPartsHitted == length;
+    }
+
+    public void checkShot(Point shot) {
+        for (Point shipPart : ship) {
+            if (shipPart.equals(shot)) {
+                shipPart.setHitted(true);
+            }
         }
     }
 }

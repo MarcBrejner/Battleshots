@@ -2,10 +2,12 @@ package com.example.battleshots;
 
 public class Point {
     private int x, y;
+    private boolean isHitted;
 
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
+        isHitted = false;
     }
 
     public int getX() {
@@ -39,5 +41,13 @@ public class Point {
         else {
             return true;
         }
+    }
+
+    public void setHitted(boolean hitted) {
+        isHitted = hitted;
+    }
+
+    public boolean getHitted() {
+        return isHitted;
     }
 }

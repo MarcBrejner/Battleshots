@@ -6,6 +6,7 @@ public class GameModel {
     private ArrayList<Ship> ships = new ArrayList<Ship>();
     private int shipAmount = 0;
 
+
     public GameModel() {
 
     }
