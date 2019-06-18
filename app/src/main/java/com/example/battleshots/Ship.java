@@ -7,7 +7,7 @@ public class Ship {
 
     private Direction direction;
     private Point point;
-    private int length, gridSize;
+    private int length;
     private String shipName;
     private List<Point> ship, grid;
 
@@ -17,7 +17,6 @@ public class Ship {
         this.grid = grid;
         ship = new ArrayList<Point>(length);
         this.length = length;
-        this.gridSize = gridSize;
         this.direction = direction;
         createShip();
     }
@@ -25,19 +24,27 @@ public class Ship {
     public void createShip() {
         if (direction == Direction.LEFT) {
             for(int i = 0; i < length; i++) {
-                ship.add(new Point(point.getX()+i, point.getY(), Status.OCCUPIED));
+                Point newPoint = new Point(point.getX()+i, point.getY(), Status.OCCUPIED);
+                grid.get(grid.indexOf(newPoint)).setStatus(Status.OCCUPIED);
+                ship.add(newPoint);
             }
         } else if (direction == Direction.RIGHT){
             for(int i = 0; i < length; i++) {
-                ship.add(new Point(point.getX()-i, point.getY(), Status.OCCUPIED));
+                Point newPoint = new Point(point.getX()-i, point.getY(), Status.OCCUPIED);
+                grid.get(grid.indexOf(newPoint)).setStatus(Status.OCCUPIED);
+                ship.add(newPoint);
             }
         } else if (direction == Direction.UP) {
             for(int i = 0; i < length; i++) {
-                ship.add(new Point(point.getX(), point.getY()-i, Status.OCCUPIED));
+                Point newPoint = new Point(point.getX(), point.getY()-i, Status.OCCUPIED);
+                grid.get(grid.indexOf(newPoint)).setStatus(Status.OCCUPIED);
+                ship.add(newPoint);
             }
         } else if (direction == Direction.DOWN) {
             for(int i = 0; i < length; i++) {
-                ship.add(new Point(point.getX(), point.getY()+i, Status.OCCUPIED));
+                Point newPoint = new Point(point.getX(), point.getY()+i, Status.OCCUPIED);
+                grid.get(grid.indexOf(newPoint)).setStatus(Status.OCCUPIED);
+                ship.add(newPoint);
             }
         }
     }
@@ -69,15 +76,13 @@ public class Ship {
 
     public void checkShot(Point shot) {
         for (Point shipPart : ship) {
-            for(Point point: grid) {
-                if (shot.equals(shipPart) && shipPart.getStatus() != Status.HIT) {
+                if (shot.equals(shipPart) && shipPart.getStatus() == Status.OCCUPIED) {
                     shipPart.setStatus(Status.HIT);
-                    if(point.equals(shipPart) && point.getStatus() != Status.HIT) {
-                        point.setStatus(Status.HIT);
-                    }
+                    grid.get(grid.indexOf(shipPart)).setStatus(Status.HIT);
+                    } else {
+                    grid.get(grid.indexOf(shot)).setStatus(Status.MISS);
                 }
-
             }
         }
     }
-}
+
