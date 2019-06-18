@@ -43,8 +43,7 @@ public class setupActivity extends AppCompatActivity {
 
     public void rotateShip(View view) {
         switch (view.getId()) {
-
-
+            //TODO: add cases to switch direction (ID+8 = DOWN, ID-8 = UP, ID+1 = RIGHT, ID-1 = LEFT)
         }
 
     }

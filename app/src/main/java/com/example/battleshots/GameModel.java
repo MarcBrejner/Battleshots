@@ -6,7 +6,6 @@ import java.util.List;
 public class GameModel {
     private List<Ship> ships = new ArrayList<Ship>();
     private List<Point> grid;
-    private List<Integer> cell;
     private Point startPoint;
     private int gridSize;
     private int shipAmount = 0;
@@ -14,7 +13,6 @@ public class GameModel {
 
     public GameModel(int gridSize) {
         grid = new ArrayList<Point>();
-        cell = new ArrayList<Integer>(gridSize*gridSize);
         makeGrid(gridSize);
     }
 
@@ -41,7 +39,7 @@ public class GameModel {
                 direction == Direction.LEFT && gridSize <= (length-1)+point.getX() ||
                 direction == Direction.RIGHT && gridSize > (length-1)-point.getX()) {
             throw new ShipException("Ship out of boundaries");
-            // Needs a toast message with the string "Ship out of boundaries"
+            // TODO: Needs a toast message with the string "Ship out of boundaries"
         }
         else {
             Ship ship = new Ship(grid, point, length, direction, "Ship_" + ++shipAmount);
@@ -52,7 +50,7 @@ public class GameModel {
         }
     }
     public int convertPointToIndex(Point point) {
-        return point.getX() + point.getY() * gridSize;
+        return point.getX() * gridSize + point.getY();
     }
 
     public int getShipAmount() {
