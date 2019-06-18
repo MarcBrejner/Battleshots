@@ -2,12 +2,12 @@ package com.example.battleshots;
 
 public class Point {
     private int x, y;
-    private boolean isHitted;
+    private Status status;
 
-    public Point(int x, int y) {
+    public Point(int x, int y, Status status) {
         this.x = x;
         this.y = y;
-        isHitted = false;
+        this.status = status;
     }
 
     public int getX() {
@@ -26,6 +26,14 @@ public class Point {
         this.y = y;
     }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
     @Override
     public boolean equals(Object object) {
         Point other = (Point) object;
@@ -41,13 +49,5 @@ public class Point {
         else {
             return true;
         }
-    }
-
-    public void setHitted(boolean hitted) {
-        isHitted = hitted;
-    }
-
-    public boolean getHitted() {
-        return isHitted;
     }
 }

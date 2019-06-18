@@ -1,20 +1,23 @@
 package com.example.battleshots;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Ship {
 
     private Direction direction;
     private Point point;
-    private int length;
+    private int length, gridSize;
     private String shipName;
-    private ArrayList<Point> ship;
+    private List<Point> ship, grid;
 
-    public Ship(Point point, int length, Direction direction, String name) {
+    public Ship(List<Point> grid, Point point, int length, Direction direction, String name) {
         shipName = name;
         this.point = point;
+        this.grid = grid;
         ship = new ArrayList<Point>(length);
         this.length = length;
+        this.gridSize = gridSize;
         this.direction = direction;
         createShip();
     }
@@ -22,19 +25,19 @@ public class Ship {
     public void createShip() {
         if (direction == Direction.LEFT) {
             for(int i = 0; i < length; i++) {
-                ship.add(new Point(point.getX()+i, point.getY()));
+                ship.add(new Point(point.getX()+i, point.getY(), Status.OCCUPIED));
             }
         } else if (direction == Direction.RIGHT){
             for(int i = 0; i < length; i++) {
-                ship.add(new Point(point.getX()-i, point.getY()));
+                ship.add(new Point(point.getX()-i, point.getY(), Status.OCCUPIED));
             }
         } else if (direction == Direction.UP) {
             for(int i = 0; i < length; i++) {
-                ship.add(new Point(point.getX(), point.getY()-i));
+                ship.add(new Point(point.getX(), point.getY()-i, Status.OCCUPIED));
             }
         } else if (direction == Direction.DOWN) {
             for(int i = 0; i < length; i++) {
-                ship.add(new Point(point.getX(), point.getY()+i));
+                ship.add(new Point(point.getX(), point.getY()+i, Status.OCCUPIED));
             }
         }
     }
@@ -43,7 +46,7 @@ public class Ship {
         return ship.size();
     }
 
-    public ArrayList<Point> getShip() {
+    public List<Point> getShip() {
         return ship;
     }
 
@@ -51,20 +54,29 @@ public class Ship {
         return shipName;
     }
 
+    public void setShipName(String name) {
+        shipName = name;
+    }
+
     public boolean isDestroyed() {
-        int amountOfShipPartsHitted = 0;
         for (Point shipPart : ship) {
-            if (shipPart.getHitted()) {
-                amountOfShipPartsHitted++;
+            if (shipPart.getStatus() != Status.HIT) {
+                return false;
             }
         }
-        return amountOfShipPartsHitted == length;
+        return true;
     }
 
     public void checkShot(Point shot) {
         for (Point shipPart : ship) {
-            if (shipPart.equals(shot)) {
-                shipPart.setHitted(true);
+            for(Point point: grid) {
+                if (shot.equals(shipPart) && shipPart.getStatus() != Status.HIT) {
+                    shipPart.setStatus(Status.HIT);
+                    if(point.equals(shipPart) && point.getStatus() != Status.HIT) {
+                        point.setStatus(Status.HIT);
+                    }
+                }
+
             }
         }
     }
