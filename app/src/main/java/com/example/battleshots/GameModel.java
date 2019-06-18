@@ -6,12 +6,16 @@ import java.util.List;
 public class GameModel {
     private List<Ship> ships = new ArrayList<Ship>();
     private List<Point> grid;
+    private List<Integer> cell;
+    private Point startPoint;
     private int gridSize;
     private int shipAmount = 0;
 
 
-    public GameModel() {
-
+    public GameModel(int gridSize) {
+        grid = new ArrayList<Point>();
+        cell = new ArrayList<Integer>(gridSize*gridSize);
+        makeGrid(gridSize);
     }
 
     public void makeGrid(int size) {
@@ -23,25 +27,40 @@ public class GameModel {
         }
     }
 
-    public void addShip(Point point, int length, Direction direction) throws ShipOutOfBoundariesException{
-        if (direction == Direction.DOWN && gridSize <= length+point.getY() ||
-                direction == Direction.UP && gridSize > length-point.getY() ||
-                direction == Direction.LEFT && gridSize <= length+point.getX() ||
-                direction == Direction.RIGHT && gridSize > length-point.getX()) {
-            throw new ShipOutOfBoundariesException("Ship out of boundaries");
+    public void setStartPoisiton(Point point){
+        startPoint = point;
+    }
+
+    public Point getStartPoint() {
+        return startPoint;
+    }
+
+    public void addShip(Point point, int length, Direction direction) throws ShipException{
+        if (direction == Direction.DOWN && gridSize <= (length-1)+point.getY() ||
+                direction == Direction.UP && gridSize > (length-1)-point.getY() ||
+                direction == Direction.LEFT && gridSize <= (length-1)+point.getX() ||
+                direction == Direction.RIGHT && gridSize > (length-1)-point.getX()) {
+            throw new ShipException("Ship out of boundaries");
             // Needs a toast message with the string "Ship out of boundaries"
         }
         else {
             Ship ship = new Ship(grid, point, length, direction, "Ship_" + ++shipAmount);
             ships.add(ship);
-
+            for(Point shipPart: ship.getShip()) {
+                grid.get(convertPointToIndex(shipPart)).setStatus(Status.OCCUPIED);
+            }
         }
+    }
+    public int convertPointToIndex(Point point) {
+        return point.getX() + point.getY() * gridSize;
     }
 
     public int getShipAmount() {
         return ships.size();
     }
 
-
+    public List<Point> getGrid() {
+        return grid;
+    }
 
 }

@@ -22,29 +22,23 @@ public class Ship {
     }
 
     public void createShip() {
-        if (direction == Direction.LEFT) {
+        if (length == 1) {
+           ship.add(point);
+        } else if (direction == Direction.LEFT) {
             for(int i = 0; i < length; i++) {
-                Point newPoint = new Point(point.getX()+i, point.getY(), Status.OCCUPIED);
-                grid.get(grid.indexOf(newPoint)).setStatus(Status.OCCUPIED);
-                ship.add(newPoint);
+                ship.add(new Point(point.getX()+i, point.getY(), Status.OCCUPIED));
             }
         } else if (direction == Direction.RIGHT){
             for(int i = 0; i < length; i++) {
-                Point newPoint = new Point(point.getX()-i, point.getY(), Status.OCCUPIED);
-                grid.get(grid.indexOf(newPoint)).setStatus(Status.OCCUPIED);
-                ship.add(newPoint);
+                ship.add(new Point(point.getX()-i, point.getY(), Status.OCCUPIED));
             }
         } else if (direction == Direction.UP) {
             for(int i = 0; i < length; i++) {
-                Point newPoint = new Point(point.getX(), point.getY()-i, Status.OCCUPIED);
-                grid.get(grid.indexOf(newPoint)).setStatus(Status.OCCUPIED);
-                ship.add(newPoint);
+                ship.add(new Point(point.getX(), point.getY()-i, Status.OCCUPIED));
             }
         } else if (direction == Direction.DOWN) {
             for(int i = 0; i < length; i++) {
-                Point newPoint = new Point(point.getX(), point.getY()+i, Status.OCCUPIED);
-                grid.get(grid.indexOf(newPoint)).setStatus(Status.OCCUPIED);
-                ship.add(newPoint);
+                ship.add(new Point(point.getX(), point.getY()+i, Status.OCCUPIED));
             }
         }
     }
