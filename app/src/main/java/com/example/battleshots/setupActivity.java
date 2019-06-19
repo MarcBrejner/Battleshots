@@ -35,10 +35,8 @@ public class setupActivity extends AppCompatActivity {
         } else {
             btn.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
         }
-
+        setStartPosition();
         String text = Integer.toString(btn.getId());
-        server.addShipToDatabase(new Ship(gameModel.getGrid(), new Point(1,2,Status.OCCUPIED),
-                3, Direction.LEFT, "Ship1"));
         Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
 
@@ -53,7 +51,7 @@ public class setupActivity extends AppCompatActivity {
         if(!positionSetted) {
             throw new ShipException("Start position of the ship is not found");
         } else {
-            gameModel.addShip(gameModel.getStartPoint(), shipSize, direction);
+            server.addShipToDatabase(gameModel.addShip(gameModel.getStartPoint(), shipSize, direction));
             positionSetted = false;
         }
     }

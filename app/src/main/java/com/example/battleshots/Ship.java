@@ -9,12 +9,11 @@ public class Ship {
     private Point point;
     private int length;
     private String shipName;
-    private List<Point> ship, grid;
+    private List<Point> ship;
 
-    public Ship(List<Point> grid, Point point, int length, Direction direction, String name) {
+    public Ship(Point point, int length, Direction direction, String name) {
         shipName = name;
         this.point = point;
-        this.grid = grid;
         ship = new ArrayList<Point>(length);
         this.length = length;
         this.direction = direction;
@@ -22,23 +21,28 @@ public class Ship {
     }
 
     public void createShip() {
+        point.setStatus(Status.DEPLOYED);
         if (length == 1) {
            ship.add(point);
         } else if (direction == Direction.LEFT) {
-            for(int i = 0; i < length; i++) {
-                ship.add(new Point(point.getX()+i, point.getY(), Status.OCCUPIED));
+            ship.add(point);
+            for(int i = 1; i < length; i++) {
+                ship.add(new Point(point.getX()+i, point.getY(), Status.DEPLOYED));
             }
         } else if (direction == Direction.RIGHT){
-            for(int i = 0; i < length; i++) {
-                ship.add(new Point(point.getX()-i, point.getY(), Status.OCCUPIED));
+            ship.add(point);
+            for(int i = 1; i < length; i++) {
+                ship.add(new Point(point.getX()-i, point.getY(), Status.DEPLOYED));
             }
         } else if (direction == Direction.UP) {
-            for(int i = 0; i < length; i++) {
-                ship.add(new Point(point.getX(), point.getY()-i, Status.OCCUPIED));
+            ship.add(point);
+            for(int i = 1; i < length; i++) {
+                ship.add(new Point(point.getX(), point.getY()-i, Status.DEPLOYED));
             }
         } else if (direction == Direction.DOWN) {
-            for(int i = 0; i < length; i++) {
-                ship.add(new Point(point.getX(), point.getY()+i, Status.OCCUPIED));
+            ship.add(point);
+            for(int i = 1; i < length; i++) {
+                ship.add(new Point(point.getX(), point.getY()+i, Status.DEPLOYED));
             }
         }
     }
@@ -67,16 +71,5 @@ public class Ship {
         }
         return true;
     }
-
-    public void checkShot(Point shot) {
-        for (Point shipPart : ship) {
-                if (shot.equals(shipPart) && shipPart.getStatus() == Status.OCCUPIED) {
-                    shipPart.setStatus(Status.HIT);
-                    grid.get(grid.indexOf(shipPart)).setStatus(Status.HIT);
-                    } else {
-                    grid.get(grid.indexOf(shot)).setStatus(Status.MISS);
-                }
-            }
-        }
-    }
+}
 

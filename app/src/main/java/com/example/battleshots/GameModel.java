@@ -20,7 +20,7 @@ public class GameModel {
         gridSize = size;
         for(int i = 0; i < size; i++) {
             for(int j = 0; j < size; j++) {
-                grid.add(new Point(i, j, Status.VACANT));
+                grid.add(new Point(j, i, Status.VACANT));
             }
         }
     }
@@ -33,7 +33,7 @@ public class GameModel {
         return startPoint;
     }
 
-    public void addShip(Point point, int length, Direction direction) throws ShipException{
+    public Ship addShip(Point point, int length, Direction direction) throws ShipException{
         if (direction == Direction.DOWN && gridSize <= (length-1)+point.getY() ||
                 direction == Direction.UP && gridSize > (length-1)-point.getY() ||
                 direction == Direction.LEFT && gridSize <= (length-1)+point.getX() ||
@@ -42,15 +42,20 @@ public class GameModel {
             // TODO: Needs a toast message with the string "Ship out of boundaries"
         }
         else {
-            Ship ship = new Ship(grid, point, length, direction, "Ship_" + ++shipAmount);
+            Ship ship = new Ship(point, length, direction, "Ship_" + ++shipAmount);
             ships.add(ship);
             for(Point shipPart: ship.getShip()) {
-                grid.get(convertPointToIndex(shipPart)).setStatus(Status.OCCUPIED);
+                grid.get(convertPointToIndex(shipPart)).setStatus(Status.DEPLOYED);
             }
+            return ship;
         }
     }
     public int convertPointToIndex(Point point) {
         return point.getX() * gridSize + point.getY();
+    }
+
+    public Point convertIndexToPoint(int index) {
+        return new Point(index/gridSize,index%gridSize);
     }
 
     public int getShipAmount() {
@@ -61,4 +66,24 @@ public class GameModel {
         return grid;
     }
 
+    public void checkShot(Point shot) {
+        Boolean shipGotHitted = false;
+        for (Ship ship : ships) {
+            if (ship.getShip().contains(shot) && !shipGotHitted) {
+                for (Point shipPart : ship.getShip()) {
+                    if (shot.equals(shipPart) && shipPart.getStatus() == Status.DEPLOYED) {
+                        shipPart.setStatus(Status.HIT);
+                        grid.get(grid.indexOf(shipPart)).setStatus(Status.HIT);
+                        shipGotHitted = true;
+                        break;
+                    }
+                }
+            } else {
+                break;
+            }
+        }
+        if (!shipGotHitted) {
+            grid.get(grid.indexOf(shot)).setStatus(Status.MISS);
+        }
+    }
 }
