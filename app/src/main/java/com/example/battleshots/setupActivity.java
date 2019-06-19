@@ -1,14 +1,11 @@
 package com.example.battleshots;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class setupActivity extends AppCompatActivity {
 
@@ -18,6 +15,7 @@ public class setupActivity extends AppCompatActivity {
     Direction direction = Direction.LEFT;
     private boolean positionSetted = false;
     GameModel gameModel;
+    private int clicked = 0;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +28,10 @@ public class setupActivity extends AppCompatActivity {
     public void onClick(View view) {
         Button btn = (Button) findViewById(view.getId());
         btnID = btn.getId();
-        if (btn.getText() != "clicked") {
-            btn.setText("clicked");
+        if (btn.getBackground().getConstantState() == getResources().getDrawable(R.drawable.defaultbutton).getConstantState()) {
+            btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chosenbutton));
         } else {
-            btn.setText("");
+            btn.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
         }
 
         String text = Integer.toString(btn.getId());
@@ -44,8 +42,8 @@ public class setupActivity extends AppCompatActivity {
     public void rotateShip(View view) {
         switch (view.getId()) {
             //TODO: add cases to switch direction (ID+8 = DOWN, ID-8 = UP, ID+1 = RIGHT, ID-1 = LEFT)
-        }
 
+        }
     }
 
     public void savePositions(View view) throws ShipException {

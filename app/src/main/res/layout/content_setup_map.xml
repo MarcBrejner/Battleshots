@@ -17,50 +17,79 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Place your ships on the grid"
-            android:textSize="30sp" />
+            android:textSize="24sp" />
 
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:padding="0dp">
 
         <Button
-            android:id="@+id/button_00"
+            android:id="@+id/button_a0"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text=""
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
 
         <Button
-            android:id="@+id/button_01"
+            android:id="@+id/button_a1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
 
         <Button
-            android:id="@+id/button_02"
+            android:id="@+id/button_a2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
 
         <Button
-            android:id="@+id/button_03"
+            android:id="@+id/button_a3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
 
         <Button
-            android:id="@+id/button_04"
+            android:id="@+id/button_a4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_a5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_a6"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_a7"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
 
 
     </LinearLayout>
@@ -71,40 +100,68 @@
         android:layout_weight="1">
 
         <Button
-            android:id="@+id/button_05"
+            android:id="@+id/button_b0"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
 
         <Button
-            android:id="@+id/button_06"
+            android:id="@+id/button_b1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
 
         <Button
-            android:id="@+id/button_07"
+            android:id="@+id/button_b2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
 
         <Button
-            android:id="@+id/button_08"
+            android:id="@+id/button_b3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="onClick"/>
-
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
 
         <Button
-            android:id="@+id/button_09"
+            android:id="@+id/button_b4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_b5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_b6"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_b7"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
 
 
     </LinearLayout>
@@ -115,40 +172,68 @@
         android:layout_weight="1">
 
         <Button
-            android:id="@+id/button_10"
+            android:id="@+id/button_c0"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
 
         <Button
-            android:id="@+id/button_11"
+            android:id="@+id/button_c1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
 
         <Button
-            android:id="@+id/button_12"
+            android:id="@+id/button_c2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
 
         <Button
-            android:id="@+id/button_13"
+            android:id="@+id/button_c3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="onClick"/>
-
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
 
         <Button
-            android:id="@+id/button_14"
+            android:id="@+id/button_c4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_c5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_c6"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_c7"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
 
 
     </LinearLayout>
@@ -159,40 +244,68 @@
         android:layout_weight="1">
 
         <Button
-            android:id="@+id/button_15"
+            android:id="@+id/button_d0"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
 
         <Button
-            android:id="@+id/button_16"
+            android:id="@+id/button_d1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
 
         <Button
-            android:id="@+id/button_17"
+            android:id="@+id/button_d2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
 
         <Button
-            android:id="@+id/button_18"
+            android:id="@+id/button_d3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="onClick"/>
-
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
 
         <Button
-            android:id="@+id/button_19"
+            android:id="@+id/button_d4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_d5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_d6"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_d7"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
 
 
     </LinearLayout>
@@ -203,40 +316,282 @@
         android:layout_weight="1">
 
         <Button
-            android:id="@+id/button_20"
+            android:id="@+id/button_e0"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
 
         <Button
-            android:id="@+id/button_21"
+            android:id="@+id/button_e1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
 
         <Button
-            android:id="@+id/button_22"
+            android:id="@+id/button_e2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
 
         <Button
-            android:id="@+id/button_23"
+            android:id="@+id/button_e3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="onClick"/>
-
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
 
         <Button
-            android:id="@+id/button_24"
+            android:id="@+id/button_e4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_e5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_e6"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_e7"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/button_f0"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_f1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_f2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_f3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_f4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_f5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_f6"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_f7"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/button_g0"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_g1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_g2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_g3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_g4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_g5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_g6"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"
+            />
+
+        <Button
+            android:id="@+id/button_g7"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/button_h0"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_h1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_h2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_h3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_h4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_h5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_h6"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
+
+        <Button
+            android:id="@+id/button_h7"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:background="@drawable/defaultbutton"/>
 
     </LinearLayout>
 
