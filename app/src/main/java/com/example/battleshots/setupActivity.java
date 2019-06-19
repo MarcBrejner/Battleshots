@@ -27,6 +27,12 @@ public class setupActivity extends AppCompatActivity {
         server = new Server();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        server.addGameModelToDatabase(gameModel);
+    }
+
     public void onClick(View view) {
         Button btn = (Button) findViewById(view.getId());
         btnID = btn.getId();
