@@ -15,6 +15,7 @@ public class setupActivity extends AppCompatActivity {
     Direction direction = Direction.LEFT;
     private boolean positionSetted = false;
     GameModel gameModel;
+    Server server;
     private int clicked = 0;
 
 
@@ -23,6 +24,7 @@ public class setupActivity extends AppCompatActivity {
         setContentView(R.layout.content_setup_map);
         shipSize = 2;
         gameModel = new GameModel(gridSize);
+        server = new Server();
     }
 
     public void onClick(View view) {
@@ -35,7 +37,8 @@ public class setupActivity extends AppCompatActivity {
         }
 
         String text = Integer.toString(btn.getId());
-
+        server.addShipToDatabase(new Ship(gameModel.getGrid(), new Point(1,2,Status.OCCUPIED),
+                3, Direction.LEFT, "Ship1"));
         Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
 
