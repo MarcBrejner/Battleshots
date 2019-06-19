@@ -13,7 +13,7 @@ public class setupActivity extends AppCompatActivity {
     private String TAG = "Setup-UserInterface";
     private int btnID, shipSize, gridSize = 8, btnDefault = 2131230759;
     Direction direction = Direction.LEFT;
-    private boolean positionSetted = false;
+    private boolean positionSet = false;
     GameModel gameModel;
     Server server;
     private int clicked = 0;
@@ -22,7 +22,7 @@ public class setupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_setup_map);
-        shipSize = 2;
+        shipSize = 1;
         gameModel = new GameModel(gridSize);
         server = new Server();
     }
@@ -42,8 +42,6 @@ public class setupActivity extends AppCompatActivity {
             btn.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
         }
         setStartPosition();
-        String text = Integer.toString(btn.getId());
-        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
 
     public void rotateShip(View view) {
@@ -54,17 +52,17 @@ public class setupActivity extends AppCompatActivity {
     }
 
     public void savePositions(View view) throws ShipException {
-        if(!positionSetted) {
+        if(!positionSet) {
             throw new ShipException("Start position of the ship is not found");
         } else {
-            server.addShipToDatabase(gameModel.addShip(gameModel.getStartPoint(), shipSize, direction));
-            positionSetted = false;
+            server.addShipToDatabase(this, gameModel.addShip(gameModel.getStartPoint(), shipSize, direction));
+            positionSet = false;
         }
     }
 
     public void setStartPosition() {
         Point point = gameModel.getGrid().get(btnID-btnDefault);
         gameModel.setStartPoisiton(point);
-        positionSetted = true;
+        positionSet = true;
     }
 }
