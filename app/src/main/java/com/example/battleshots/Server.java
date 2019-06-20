@@ -2,7 +2,6 @@ package com.example.battleshots;
 
 import android.app.Activity;
 import android.nfc.Tag;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
@@ -20,12 +19,13 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Server {
     FirebaseDatabase database;
+    DatabaseReference gameDatabase;
 
     Server(){
         database = FirebaseDatabase.getInstance();
     }
 
-    /*
+
     public void addShipToDatabase(final Activity context, Ship ship){
         gameDatabase.child("game_model").child(ship.getShipName()).setValue(ship).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -39,27 +39,23 @@ public class Server {
             }
         });
     }
-    */
 
-    public void createGame(String gameID, Player player1) {
-        DatabaseReference reference = database.getReference();
-        reference.child("Game").child(gameID).setValue(gameID);
-        reference.child("Game").child(gameID).child("Player 1").setValue(player1);
+    public void addGameModelToDatabase(GameModel gameModel) {
+        gameDatabase = database.getReference();
+        gameDatabase.child("game_model").setValue("GameID").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
     }
 
-    public void joinGame(String joinGameID, Player player2){
-        DatabaseReference reference = database.getReference();
-        reference.child("Game").child(joinGameID).child("Player 2").setValue(player2);
-    }
-
-    /*
     public void deleteGameDataBase() {
         gameDatabase.removeValue();
     }
-    */
 
 
-   /* public void updateGame(final DataManager data){
+
+    public void updateGame(final DataManager data){
         gameDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -72,6 +68,6 @@ public class Server {
             }
         });
     }
-    */
+
 
 }
