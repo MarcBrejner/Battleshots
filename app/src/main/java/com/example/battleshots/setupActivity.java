@@ -16,7 +16,6 @@ public class setupActivity extends AppCompatActivity {
     private boolean positionSet = false;
     GameModel gameModel;
     Server server;
-    private int clicked = 0;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +36,7 @@ public class setupActivity extends AppCompatActivity {
         Button btn = (Button) findViewById(view.getId());
         btnID = btn.getId();
         if(btnID != prevbtnID) {
-            btnClickAmount++;
             prevbtnID = btnID;
-            rotateShip();
             if (btn.getBackground().getConstantState() == getResources().getDrawable(R.drawable.defaultbutton).getConstantState()) {
                 btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chosenbutton));
             } else {
@@ -54,19 +51,19 @@ public class setupActivity extends AppCompatActivity {
 
     public void rotateShip() {
         switch (btnClickAmount%4) {
-            case 1:
+            case 0:
                 direction = Direction.LEFT;
                 Toast.makeText(getApplicationContext(), "Clicked" + btnClickAmount + "– Direction: Left", Toast.LENGTH_SHORT).show();
                 break;
-            case 2:
+            case 1:
                 direction = Direction.UP;
                 Toast.makeText(getApplicationContext(), "Clicked" + btnClickAmount + "– Direction: Up", Toast.LENGTH_SHORT).show();
                 break;
-            case 3:
+            case 2:
                 direction = Direction.RIGHT;
                 Toast.makeText(getApplicationContext(), "Clicked" + btnClickAmount + "– Direction: Right", Toast.LENGTH_SHORT).show();
                 break;
-            case 0:
+            case 3:
                 direction = Direction.DOWN;
                 Toast.makeText(getApplicationContext(), "Clicked" + btnClickAmount + "– Direction: Down", Toast.LENGTH_SHORT).show();
                 break;
@@ -77,13 +74,16 @@ public class setupActivity extends AppCompatActivity {
         if(!positionSet) {
             throw new ShipException("Start position of the ship is not found");
         } else {
-            server.addShipToDatabase(this, gameModel.addShip(gameModel.getStartPoint(), shipSize, direction));
+            // Index 0 gets player1, needs a method to figure out which player is who.
+            server.addShipToDatabase(this, gameModel.getPlayers().get(0)
+                    .addShip(gameModel.getStartPoint(), shipSize, direction, gameModel));
             positionSet = false;
         }
     }
 
     public void setStartPosition() {
-        Point point = gameModel.getGrid().get(btnID-btnDefault);
+        // Index 0 gets player1, needs a method to figure out which player is who.
+        Point point = gameModel.getPlayers().get(0).getGrid().get(btnID-btnDefault);
         gameModel.setStartPoisiton(point);
         positionSet = true;
     }

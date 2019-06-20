@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-    private String name;
+    private String playerName;
+    private int gridSize, shipAmount;
     private List<Point> grid;
-    private List<Ship> ship;
+    private List<Ship> ships;
 
-    public String getName() {
-        return name;
+    public String getPlayerName() {
+        return playerName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
     }
 
     public List<Point> getGrid() {
@@ -24,16 +25,48 @@ public class Player {
         this.grid = grid;
     }
 
-    public List<Ship> getShip() {
-        return ship;
+    public List<Ship> getShips() {
+        return ships;
     }
 
     public void setShip(List<Ship> ship) {
-        this.ship = ship;
+        this.ships = ship;
     }
 
-    public Player(String name) {
-        this.name = name;
-
+    public Player(String name, int gridSize) {
+        this.playerName = name;
+        this.gridSize = gridSize;
+        makeGrid();
     }
+
+    public Ship addShip(Point point, int length, Direction direction, GameModel gameModel) throws ShipException{
+        if (direction == Direction.DOWN && gridSize <= (length-1)+point.getY() ||
+                direction == Direction.UP && 0 > point.getY()-(length-1) ||
+                direction == Direction.LEFT && gridSize <= (length-1)+point.getX() ||
+                direction == Direction.RIGHT && 0 > point.getX()-(length-1)) {
+            throw new ShipException("Ship out of boundaries");
+            // TODO: Needs a toast message with the string "Ship out of boundaries"
+        }
+        else {
+            Ship ship = new Ship(point, length, direction, "Ship_" + ++shipAmount);
+            ships.add(ship);
+            for(Point shipPart: ship.getShip()) {
+                grid.get(gameModel.convertPointToIndex(shipPart)).setStatus(Status.DEPLOYED);
+            }
+            return ship;
+        }
+    }
+
+    public void makeGrid() {
+        for(int i = 0; i < gridSize; i++) {
+            for(int j = 0; j < gridSize; j++) {
+                grid.add(new Point(j, i, Status.VACANT));
+            }
+        }
+    }
+
+    public int getShipAmount() {
+        return ships.size();
+    }
+
 }
