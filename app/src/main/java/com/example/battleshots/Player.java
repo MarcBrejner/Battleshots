@@ -1,5 +1,6 @@
 package com.example.battleshots;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,33 +10,11 @@ public class Player {
     private List<Point> grid;
     private List<Ship> ships;
 
-    public String getPlayerName() {
-        return playerName;
-    }
-
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
-    public List<Point> getGrid() {
-        return grid;
-    }
-
-    public void setGrid(List<Point> grid) {
-        this.grid = grid;
-    }
-
-    public List<Ship> getShips() {
-        return ships;
-    }
-
-    public void setShip(List<Ship> ship) {
-        this.ships = ship;
-    }
-
     public Player(String name, int gridSize) {
         this.playerName = name;
         this.gridSize = gridSize;
+        grid = new ArrayList<>();
+        ships = new ArrayList<>();
         makeGrid();
     }
 
@@ -67,6 +46,30 @@ public class Player {
 
     public int getShipAmount() {
         return ships.size();
+    }
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
+
+    public List<Point> getGrid() {
+        return grid;
+    }
+
+    public void setGrid(List<Point> grid) {
+        this.grid = grid;
+    }
+
+    public List<Ship> getShips() {
+        return ships;
+    }
+
+    public void setShip(List<Ship> ship) {
+        this.ships = ship;
     }
 
 }

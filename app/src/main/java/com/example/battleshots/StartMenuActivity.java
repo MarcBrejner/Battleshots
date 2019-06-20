@@ -20,27 +20,34 @@ public class StartMenuActivity extends AppCompatActivity {
 
 
     public String playerName;
+    public Player currentPlayer;
+    Server server;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_menu);
-        openDialog();
+        openNameDialog();
+
+        server = new Server();
+        currentPlayer = new Player(playerName,8);
+
 
 
     }
 
     public void createGame(View view) {
         Intent intent = new Intent(getApplicationContext(), CreateGameActivity.class);
-        intent.putExtra("pName", playerName);
+        intent.putExtra("pName",playerName);
         startActivity(intent);
 
     }
 
     public void joinGame(View view) {
         Intent intent = new Intent(getApplicationContext(), JoinGameActivity.class);
-        startActivity(intent);
+        openJoinDialog();
+        //startActivity(intent);
     }
 
     public void setupMap(View view) {
@@ -54,7 +61,7 @@ public class StartMenuActivity extends AppCompatActivity {
     }
 
 
-    public void openDialog() {
+    public void openNameDialog() {
 
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 
@@ -99,12 +106,58 @@ public class StartMenuActivity extends AppCompatActivity {
 
     }
 
+    public void openJoinDialog() {
+
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+
+        // Set Title
+        TextView title = new TextView(this);
+        // Title Properties
+        title.setText("Enter game room ID");
+        title.setPadding(10, 10, 10, 10);   // Set Position
+        title.setGravity(Gravity.CENTER);
+        title.setTextColor(Color.BLACK);
+        title.setTextSize(20);
+        alertDialog.setCustomTitle(title);
+
+        //Set up input
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        alertDialog.setView(input);
+
+
+
+        // Set OK Button
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL,"OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                server.joinGame(input.getText().toString() , currentPlayer);
+            }
+        });
+
+
+        new Dialog(getApplicationContext());
+        alertDialog.show();
+
+        // Set Properties for OK Button
+        final Button okBT = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+        LinearLayout.LayoutParams neutralBtnLP = (LinearLayout.LayoutParams) okBT.getLayoutParams();
+        neutralBtnLP.gravity = Gravity.FILL_HORIZONTAL;
+        okBT.setPadding(0, 10, 0, 10);   // Set Position
+        okBT.setTextColor(Color.BLUE);
+        okBT.setLayoutParams(neutralBtnLP);
+
+    }
+
     public String getPlayerName() {
         return playerName;
     }
 
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
     }
 
 

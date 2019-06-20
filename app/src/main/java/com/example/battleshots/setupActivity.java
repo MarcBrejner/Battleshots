@@ -29,7 +29,7 @@ public class setupActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        server.addGameModelToDatabase(gameModel);
+        //server.addGameModelToDatabase(gameModel);
     }
 
     public void onClick(View view) {
@@ -70,7 +70,7 @@ public class setupActivity extends AppCompatActivity {
         }
     }
 
-    public void savePositions(View view) throws ShipException {
+    /*public void savePositions(View view) throws ShipException {
         if(!positionSet) {
             throw new ShipException("Start position of the ship is not found");
         } else {
@@ -80,6 +80,7 @@ public class setupActivity extends AppCompatActivity {
             positionSet = false;
         }
     }
+    */
 
     public void setStartPosition() {
         // Index 0 gets player1, needs a method to figure out which player is who.
