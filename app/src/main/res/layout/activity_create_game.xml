@@ -1,9 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".CreateGameActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal|center_vertical"
+                android:orientation="vertical"
+                tools:context=".CreateGameActivity" >
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+            android:id="@+id/gamehosted_id"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textColorHighlight="@android:color/primary_text_dark"
+            android:textSize="30sp"/>
+
+    <TextView
+            android:id="@+id/gameidtext_id"
+            android:layout_width="300dp"
+            android:layout_height="150dp"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textColorHighlight="@android:color/primary_text_dark"
+            android:textSize="30sp"/>
+
+    <TextView
+            android:id="@+id/text_view_p1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Current players:"
+            android:textSize="30sp" />
+    <TextView
+            android:id="@+id/player1_id"
+            android:layout_width="300dp"
+            android:layout_height="35dp"
+            android:textColor="@android:color/holo_red_light"
+            android:textColorHighlight="@android:color/primary_text_dark"
+            android:textSize="27sp"/>
+    <TextView
+            android:id="@+id/player2_id"
+            android:layout_width="300dp"
+            android:layout_height="35dp"
+            android:textColor="@android:color/holo_blue_bright"
+            android:textColorHighlight="@android:color/primary_text_dark"
+            android:textSize="27sp"/>
+
+    <Button
+            android:text="Start Game"
+            android:layout_width="215dp"
+            android:layout_height="68dp"/>
+
+
+</LinearLayout>

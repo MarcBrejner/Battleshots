@@ -21,7 +21,7 @@ public class Server {
     FirebaseDatabase database;
     DatabaseReference gameDatabase;
 
-    public Server(){
+    Server(){
         database = FirebaseDatabase.getInstance();
     }
 
