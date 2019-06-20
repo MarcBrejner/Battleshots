@@ -77,8 +77,7 @@ public class setupActivity extends AppCompatActivity {
         if(!positionSet) {
             throw new ShipException("Start position of the ship is not found");
         } else {
-            server.addShipToDatabase(this, gameModel.addShip(gameModel.getStartPoint(),
-                    shipSize, direction));
+            server.addShipToDatabase(this, gameModel.addShip(gameModel.getStartPoint(), shipSize, direction));
             positionSet = false;
         }
     }

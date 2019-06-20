@@ -48,6 +48,12 @@ public class StartMenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void battleMap(View view) {
+        Intent intent = new Intent(getApplicationContext(), BattleActivity.class);
+        startActivity(intent);
+    }
+
+
     public void openDialog() {
 
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
