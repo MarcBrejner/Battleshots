@@ -35,9 +35,9 @@ public class GameModel {
 
     public Ship addShip(Point point, int length, Direction direction) throws ShipException{
         if (direction == Direction.DOWN && gridSize <= (length-1)+point.getY() ||
-                direction == Direction.UP && gridSize > (length-1)-point.getY() ||
+                direction == Direction.UP && 0 > point.getY()-(length-1) ||
                 direction == Direction.LEFT && gridSize <= (length-1)+point.getX() ||
-                direction == Direction.RIGHT && gridSize > (length-1)-point.getX()) {
+                direction == Direction.RIGHT && 0 > point.getX()-(length-1)) {
             throw new ShipException("Ship out of boundaries");
             // TODO: Needs a toast message with the string "Ship out of boundaries"
         }

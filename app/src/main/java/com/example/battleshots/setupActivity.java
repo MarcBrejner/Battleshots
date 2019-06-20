@@ -11,8 +11,8 @@ public class setupActivity extends AppCompatActivity {
 
     public static int[] playerShips;
     private String TAG = "Setup-UserInterface";
-    private int btnID, shipSize, gridSize = 8, btnDefault = 2131230759;
-    Direction direction = Direction.LEFT;
+    private int btnID, btnClickAmount = 0, prevbtnID, shipSize, gridSize = 8, btnDefault = 2131230759;
+    Direction direction;
     private boolean positionSet = false;
     GameModel gameModel;
     Server server;
@@ -36,18 +36,40 @@ public class setupActivity extends AppCompatActivity {
     public void onClick(View view) {
         Button btn = (Button) findViewById(view.getId());
         btnID = btn.getId();
-        if (btn.getBackground().getConstantState() == getResources().getDrawable(R.drawable.defaultbutton).getConstantState()) {
-            btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chosenbutton));
+        if(btnID != prevbtnID) {
+            btnClickAmount++;
+            prevbtnID = btnID;
+            rotateShip();
+            if (btn.getBackground().getConstantState() == getResources().getDrawable(R.drawable.defaultbutton).getConstantState()) {
+                btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chosenbutton));
+            } else {
+                btn.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
+            }
         } else {
-            btn.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
+            btnClickAmount++;
+            rotateShip();
         }
         setStartPosition();
     }
 
-    public void rotateShip(View view) {
-        switch (view.getId()) {
-            //TODO: add cases to switch direction (ID+8 = DOWN, ID-8 = UP, ID+1 = RIGHT, ID-1 = LEFT)
-
+    public void rotateShip() {
+        switch (btnClickAmount%4) {
+            case 1:
+                direction = Direction.LEFT;
+                Toast.makeText(getApplicationContext(), "Clicked" + btnClickAmount + "– Direction: Left", Toast.LENGTH_SHORT).show();
+                break;
+            case 2:
+                direction = Direction.UP;
+                Toast.makeText(getApplicationContext(), "Clicked" + btnClickAmount + "– Direction: Up", Toast.LENGTH_SHORT).show();
+                break;
+            case 3:
+                direction = Direction.RIGHT;
+                Toast.makeText(getApplicationContext(), "Clicked" + btnClickAmount + "– Direction: Right", Toast.LENGTH_SHORT).show();
+                break;
+            case 0:
+                direction = Direction.DOWN;
+                Toast.makeText(getApplicationContext(), "Clicked" + btnClickAmount + "– Direction: Down", Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 
@@ -55,7 +77,8 @@ public class setupActivity extends AppCompatActivity {
         if(!positionSet) {
             throw new ShipException("Start position of the ship is not found");
         } else {
-            server.addShipToDatabase(this, gameModel.addShip(gameModel.getStartPoint(), shipSize, direction));
+            server.addShipToDatabase(this, gameModel.addShip(gameModel.getStartPoint(),
+                    shipSize, direction));
             positionSet = false;
         }
     }
