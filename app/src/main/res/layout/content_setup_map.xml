@@ -596,7 +596,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button_confirm"
+        android:id="@+id/button_save"
         android:layout_width="264dp"
         android:layout_height="84dp"
         android:layout_gravity="center_vertical"
