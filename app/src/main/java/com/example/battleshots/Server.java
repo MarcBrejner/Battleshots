@@ -49,6 +49,12 @@ public class Server {
         });
     }
 
+    public void deleteGameDataBase() {
+        gameDatabase.removeValue();
+    }
+
+
+
     public void updateGame(final DataManager data){
         gameDatabase.addValueEventListener(new ValueEventListener() {
             @Override

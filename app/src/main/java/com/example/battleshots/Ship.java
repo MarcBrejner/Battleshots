@@ -14,7 +14,7 @@ public class Ship {
     public Ship(Point point, int length, Direction direction, String name) {
         shipName = name;
         this.point = point;
-        ship = new ArrayList<Point>(length);
+        ship = new ArrayList<>(length);
         this.length = length;
         this.direction = direction;
         createShip();
