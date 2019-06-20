@@ -7,24 +7,47 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal|center_vertical"
     android:orientation="vertical"
-    tools:context=".StartMenuActivity">
+    tools:context=".StartMenuActivity"
+    android:background="@color/blue">
+
+    <ImageView
+            android:id="@+id/logo_id"
+            android:layout_width="250dp"
+            android:layout_height="138dp"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/splashscreen"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/logo_id"
+            android:layout_centerHorizontal="true"
+            android:text="Battle Shots"
+            android:textSize="40dp"
+            android:textColor="@color/white"/>
 
     <Button
-        android:text="Create Game"
-        android:layout_width="215dp"
-        android:layout_height="68dp"
-        android:onClick="createGame" />
+            android:text="Create Game"
+            android:layout_width="215dp"
+            android:layout_height="68dp"
+            android:onClick="createGame"
+            android:background="@color/white"
+            android:layout_margin="40dp"/>
 
     <Button
         android:text="Join Game"
         android:layout_width="215dp"
         android:layout_height="68dp"
-        android:onClick="joinGame"/>
+        android:onClick="joinGame"
+        android:background="@color/white"
+        android:layout_margin="40dp"/>
 
     <Button
-        android:text="Game Setup"
-        android:layout_width="215dp"
-        android:layout_height="68dp"
-        android:onClick="setupMap"/>
+            android:text="Game Setup"
+            android:layout_width="50dp"
+            android:layout_height="20dp"
+            android:onClick="setupMap"
+            android:background="@color/white"
+            android:layout_margin="50dp"/>
 
 </LinearLayout>
