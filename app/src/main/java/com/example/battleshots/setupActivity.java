@@ -120,25 +120,25 @@ public class setupActivity extends AppCompatActivity {
     public void rotateShip() {
         Button btn = findViewById(btnID);
         switch (btnClickAmount%4) {
-            case 1:
+            case 0:
                 direction = Direction.LEFT;
                 Toast.makeText(getApplicationContext(), "Clicked" + btnClickAmount + "– Direction: Left", Toast.LENGTH_SHORT).show();
                 btn.setRotation(90);
                 placeBigShip(btn, direction);
                 break;
-            case 2:
+            case 1:
                 direction = Direction.UP;
                 Toast.makeText(getApplicationContext(), "Clicked" + btnClickAmount + "– Direction: Up", Toast.LENGTH_SHORT).show();
                 btn.setRotation(180);
                 placeBigShip(btn, direction);
                 break;
-            case 3:
+            case 2:
                 direction = Direction.RIGHT;
                 Toast.makeText(getApplicationContext(), "Clicked" + btnClickAmount + "– Direction: Right", Toast.LENGTH_SHORT).show();
                 btn.setRotation(270);
                 placeBigShip(btn, direction);
                 break;
-            case 4:
+            case 3:
                 direction = Direction.DOWN;
                 Toast.makeText(getApplicationContext(), "Clicked" + btnClickAmount + "– Direction: Down", Toast.LENGTH_SHORT).show();
                 btn.setRotation(0);

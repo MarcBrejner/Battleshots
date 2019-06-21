@@ -11,16 +11,15 @@ public class GameModel {
     public GameModel(String playerName) {
         if (players == null) {
             players = new ArrayList<>();
-
         }
         if (players.size() < 3) {
-            players.add(new Player(playerName, gridSize));
+            players.add(new Player(playerName));
         }
     }
 
     public void addPlayerToGameModel(String playerName) {
         // Where we want to add the second player to the list.
-        players.add(new Player(playerName, gridSize));
+        players.add(new Player(playerName));
     }
 
     public List<Player> getPlayers() {

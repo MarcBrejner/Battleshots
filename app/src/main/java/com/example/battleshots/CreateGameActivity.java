@@ -26,6 +26,7 @@ public class CreateGameActivity extends AppCompatActivity {
     Intent startMenuIntent;
     Map<String, Object> playerInfo;
     private boolean hasEnoughPlayers;
+    ValueEventListener valueEventListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +38,7 @@ public class CreateGameActivity extends AppCompatActivity {
         gameModel = new GameModel(startMenuIntent.getStringExtra("pName"));
         player1 = gameModel.getPlayers().get(0);
         server.createGame(gameID, player1);
-
-        //add Dummy player to game
-        player2 = new Player("Waiting for player 2",8);
+        player2 = new Player("Waiting for player 2");
         server.joinGame(gameID,player2);
         // playerList = new ArrayList<>();
 
@@ -54,9 +53,9 @@ public class CreateGameActivity extends AppCompatActivity {
         player1TextView.setText("Player 1 : " + player1.getPlayerName());
 
         final TextView player2TextView = (TextView) findViewById(R.id.player2_id);
-        player2TextView.setText("Player 2 : " + player2);
+        player2TextView.setText("Player 2 : " + player2.getPlayerName());
 
-        server.gameRef.addValueEventListener(new ValueEventListener() {
+        server.gameRef.child(gameID).addValueEventListener(valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 playerInfo = (HashMap<String, Object>)dataSnapshot.child("Player 2").getValue();
@@ -68,27 +67,24 @@ public class CreateGameActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
 
         });
 
-
-
-
-        /* @Override
+  /*  @Override
     protected void onResume() {
         if(playerList.size() == 2) {
             hasEnoughPlayers = true;
         }
         super.onResume();
-    } */
+    }*/
 
     }
 
     @Override
     protected void onDestroy() {
         server.deleteGameDataBase();
+        server.gameRef.child(gameID).removeEventListener(valueEventListener);
         super.onDestroy();
     }
 

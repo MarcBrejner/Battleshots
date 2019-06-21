@@ -33,14 +33,9 @@ public class Server {
 
         this.gameID = gameID;
         reference = database.getReference();
-
-        reference.child("Game").child(gameID).setValue(gameID);
-
-        gameRef = reference.child("Game").child(gameID);
-
-        gameRef.child("Player 1").setValue(player1);
-
-        gameRef.child("isStarted").setValue(false);
+        gameRef = reference.child("Game");
+        gameRef.child(gameID).setValue(gameID);
+        reference.child("Game").child(gameID).child("Player 1").setValue(player1);
     }
 
     public void joinGame(String joinGameID, Player player2){
@@ -83,9 +78,6 @@ public class Server {
         return gameRef;
     }
 
-    /*public void startGame(String gameID){
-        gameRef.child()
-    }*/
 
 
 }

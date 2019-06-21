@@ -28,10 +28,10 @@ import java.util.List;
 public class StartMenuActivity extends AppCompatActivity implements Serializable {
 
 
-    public String playerName, gameName;
+    public String playerName;
     public Player currentPlayer;
     Server server;
-    private boolean gameExist = false;
+    ChildEventListener childEventListener;
     List<String> values = new ArrayList<>();
 
     @Override
@@ -41,9 +41,9 @@ public class StartMenuActivity extends AppCompatActivity implements Serializable
         openNameDialog();
 
         server = new Server();
-        currentPlayer = new Player(playerName, 8);
+        currentPlayer = new Player(playerName);
 
-        server.database.getReference().addChildEventListener(new ChildEventListener() {
+        server.database.getReference().addChildEventListener(childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 for (DataSnapshot i : dataSnapshot.getChildren()) {
@@ -74,6 +74,12 @@ public class StartMenuActivity extends AppCompatActivity implements Serializable
             }
         });
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        server.database.getReference().removeEventListener(childEventListener);
+        super.onDestroy();
     }
 
 
