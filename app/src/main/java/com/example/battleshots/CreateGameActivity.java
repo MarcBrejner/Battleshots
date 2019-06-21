@@ -37,6 +37,8 @@ public class CreateGameActivity extends AppCompatActivity {
         gameModel = new GameModel(startMenuIntent.getStringExtra("pName"));
         player1 = gameModel.getPlayers().get(0);
         server.createGame(gameID, player1);
+
+        //add Dummy player to game
         player2 = new Player("Waiting for player 2",8);
         server.joinGame(gameID,player2);
         // playerList = new ArrayList<>();
@@ -54,7 +56,7 @@ public class CreateGameActivity extends AppCompatActivity {
         final TextView player2TextView = (TextView) findViewById(R.id.player2_id);
         player2TextView.setText("Player 2 : " + player2);
 
-        server.gameRef.child(gameID).addValueEventListener(new ValueEventListener() {
+        server.gameRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 playerInfo = (HashMap<String, Object>)dataSnapshot.child("Player 2").getValue();
@@ -66,17 +68,21 @@ public class CreateGameActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
 
         });
 
-  /*  @Override
+
+
+
+        /* @Override
     protected void onResume() {
         if(playerList.size() == 2) {
             hasEnoughPlayers = true;
         }
         super.onResume();
-    }*/
+    } */
 
     }
 

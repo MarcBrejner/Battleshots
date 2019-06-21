@@ -114,9 +114,6 @@ public class setupActivity extends AppCompatActivity {
             }
 
         }
-
-
-
     }
 
 
