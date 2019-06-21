@@ -28,8 +28,8 @@ import java.util.List;
 public class StartMenuActivity extends AppCompatActivity implements Serializable {
 
 
-    public String playerName;
-    public Player currentPlayer;
+    public String playerName, joinGameID;
+
     Server server;
     ChildEventListener childEventListener;
     List<String> values = new ArrayList<>();
@@ -41,7 +41,6 @@ public class StartMenuActivity extends AppCompatActivity implements Serializable
         openNameDialog();
 
         server = new Server();
-        currentPlayer = new Player(playerName);
 
         server.database.getReference().addChildEventListener(childEventListener = new ChildEventListener() {
             @Override
@@ -176,8 +175,11 @@ public class StartMenuActivity extends AppCompatActivity implements Serializable
             public void onClick(DialogInterface dialog, int which) {
 
                 if (values.contains(input.getText().toString())) {
-                    currentPlayer.setPlayerName(getPlayerName());
-                    server.joinGame(input.getText().toString(), currentPlayer);
+                    joinGameID = input.getText().toString();
+                    Intent intent = new Intent(getApplicationContext(), JoinGameActivity.class);
+                    intent.putExtra("joinGameID", joinGameID);
+                    intent.putExtra("pName", playerName);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), "Game ID doesn't exist", Toast.LENGTH_SHORT).show();
                 }
@@ -207,9 +209,6 @@ public class StartMenuActivity extends AppCompatActivity implements Serializable
         this.playerName = playerName;
     }
 
-    public Player getCurrentPlayer() {
-        return currentPlayer;
-    }
 
 
 

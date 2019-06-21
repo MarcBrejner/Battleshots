@@ -30,7 +30,6 @@ public class CreateGameActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        hasEnoughPlayers = false;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_game);
         gameID = generateGameID();
@@ -53,14 +52,15 @@ public class CreateGameActivity extends AppCompatActivity {
         player1TextView.setText("Player 1 : " + player1.getPlayerName());
 
         final TextView player2TextView = (TextView) findViewById(R.id.player2_id);
-        player2TextView.setText("Player 2 : " + player2.getPlayerName());
+        player2TextView.setText("Player 2 : " + "Waiting for player 2");
 
-        server.gameRef.child(gameID).addValueEventListener(valueEventListener = new ValueEventListener() {
+        server.gameRef.addValueEventListener(valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 playerInfo = (HashMap<String, Object>)dataSnapshot.child("Player 2").getValue();
                 String playerName = (String) playerInfo.get("playerName");
                 if (playerName != null) {
+                    player2.setPlayerName(playerName);
                     player2TextView.setText("Player 2 : " + playerName);
                 }
             }
@@ -71,13 +71,7 @@ public class CreateGameActivity extends AppCompatActivity {
 
         });
 
-  /*  @Override
-    protected void onResume() {
-        if(playerList.size() == 2) {
-            hasEnoughPlayers = true;
-        }
-        super.onResume();
-    }*/
+
 
     }
 
@@ -89,13 +83,11 @@ public class CreateGameActivity extends AppCompatActivity {
     }
 
     public void startGame(View view){
-
-
-        if (hasEnoughPlayers) {
-            // Intent intent = new Intent(getApplicationContext(), setupActivity.class);
-            // startActivity(intent);
+        if (!player2.getPlayerName().equals("Waiting for player 2")) {
+            Toast.makeText(getApplicationContext(), "Game can be started", Toast.LENGTH_SHORT).show();
+            server.startGame();
         } else {
-            // Toast.makeText(getApplicationContext(), "Need two players to start game", Toast.LENGTH_SHORT).show();;
+            Toast.makeText(getApplicationContext(), "Need two players to start game", Toast.LENGTH_SHORT).show();
         }
     }
 

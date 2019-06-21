@@ -30,12 +30,12 @@ public class Server {
     }
 
     public void createGame(String gameID, Player player1) {
-
         this.gameID = gameID;
         reference = database.getReference();
-        gameRef = reference.child("Game");
-        gameRef.child(gameID).setValue(gameID);
-        reference.child("Game").child(gameID).child("Player 1").setValue(player1);
+        reference.child("Game").child(gameID).setValue(gameID);
+        gameRef = reference.child("Game").child(gameID);
+        gameRef.child("Player 1").setValue(player1);
+        gameRef.child("isStarted").setValue(false);
     }
 
     public void joinGame(String joinGameID, Player player2){
@@ -56,6 +56,7 @@ public class Server {
             }
         });
     }
+
 
     public String getGameID() {
         return gameID;
@@ -79,5 +80,7 @@ public class Server {
     }
 
 
-
+    public void startGame() {
+        gameRef.child("isStarted").setValue(true);
+    }
 }
