@@ -1,13 +1,20 @@
 package com.example.battleshots;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
-import java.util.Random;
+import java.util.*;
 
 public class CreateGameActivity extends AppCompatActivity {
 
@@ -15,33 +22,61 @@ public class CreateGameActivity extends AppCompatActivity {
     Server server = new Server();
     public Player player1;
     GameModel gameModel;
-    public String player2 = null;
+    public Player player2;
     Intent startMenuIntent;
-
-
+    Map<String, Object> playerInfo;
+    private boolean hasEnoughPlayers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        hasEnoughPlayers = false;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_game);
         gameID = generateGameID();
         startMenuIntent = getIntent();
         gameModel = new GameModel(startMenuIntent.getStringExtra("pName"));
         player1 = gameModel.getPlayers().get(0);
-        server.createGame(gameID,player1);
+        server.createGame(gameID, player1);
+        player2 = new Player("Waiting for player 2",8);
+        server.joinGame(gameID,player2);
+        // playerList = new ArrayList<>();
 
 
         TextView gameHostedTextView = (TextView) findViewById(R.id.gamehosted_id);
         gameHostedTextView.setText("Your Game has been hosted");
 
         TextView gameIdTextView = (TextView) findViewById(R.id.gameidtext_id);
-        gameIdTextView.setText("Game ID : "+gameID);
+        gameIdTextView.setText("Game ID : " + gameID);
 
         TextView player1TextView = (TextView) findViewById(R.id.player1_id);
-        player1TextView.setText("Player 1 : "+player1.getPlayerName());
+        player1TextView.setText("Player 1 : " + player1.getPlayerName());
 
-        TextView player2TextView = (TextView) findViewById(R.id.player2_id);
-        player2TextView.setText("Player 2 : "+player2);
+        final TextView player2TextView = (TextView) findViewById(R.id.player2_id);
+        player2TextView.setText("Player 2 : " + player2);
+
+        server.gameRef.child(gameID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                playerInfo = (HashMap<String, Object>)dataSnapshot.child("Player 2").getValue();
+                String playerName = (String) playerInfo.get("playerName");
+                if (playerName != null) {
+                    player2TextView.setText("Player 2 : " + playerName);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+
+        });
+
+  /*  @Override
+    protected void onResume() {
+        if(playerList.size() == 2) {
+            hasEnoughPlayers = true;
+        }
+        super.onResume();
+    }*/
 
     }
 
@@ -51,9 +86,16 @@ public class CreateGameActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    /* public void startGame(View view){
-        server.createGame(gameID);
-    } */
+    public void startGame(View view){
+
+
+        if (hasEnoughPlayers) {
+            // Intent intent = new Intent(getApplicationContext(), setupActivity.class);
+            // startActivity(intent);
+        } else {
+            // Toast.makeText(getApplicationContext(), "Need two players to start game", Toast.LENGTH_SHORT).show();;
+        }
+    }
 
 
 
@@ -74,8 +116,8 @@ public class CreateGameActivity extends AppCompatActivity {
 
     }
 
-
 }
+
 
 
 

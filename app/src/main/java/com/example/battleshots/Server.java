@@ -1,6 +1,7 @@
 package com.example.battleshots;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.nfc.Tag;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
@@ -41,7 +42,6 @@ public class Server {
         reference = database.getReference();
         reference.child("Game").child(joinGameID).child("Player 2").setValue(player2);
     }
-
 
     public void addShipToDatabase(final Activity context, Ship ship){
         reference.child("Game").child(ship.getShipName()).setValue(ship).addOnSuccessListener(new OnSuccessListener<Void>() {

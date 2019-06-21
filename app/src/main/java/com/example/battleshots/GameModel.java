@@ -28,6 +28,7 @@ public class GameModel {
     }
 
 
+
     public void setStartPosition(Point point){
         startPoint = point;
     }

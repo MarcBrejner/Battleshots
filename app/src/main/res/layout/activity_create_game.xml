@@ -39,7 +39,7 @@
     <TextView
             android:id="@+id/player2_id"
             android:layout_width="300dp"
-            android:layout_height="40dp"
+            android:layout_height="100dp"
             android:textColor="@android:color/holo_blue_bright"
             android:textColorHighlight="@android:color/primary_text_dark"
             android:textSize="27sp"/>
