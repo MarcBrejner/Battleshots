@@ -63,6 +63,8 @@ public class   Ship {
         shipName = name;
     }
 
+    public void setDirection(Direction direction) {this.direction = direction; }
+
     public boolean isDestroyed() {
         for (Point shipPart : ship) {
             if (shipPart.getStatus() != Status.HIT) {
