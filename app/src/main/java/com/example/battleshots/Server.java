@@ -39,7 +39,12 @@ public class Server {
     }
 
     public void joinGame(String joinGameID, Player player2){
+        this.gameID = joinGameID;
+
         reference = database.getReference();
+
+        gameRef = reference.child("Game").child(joinGameID);
+
         reference.child("Game").child(joinGameID).child("Player 2").setValue(player2);
     }
 

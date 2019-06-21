@@ -20,41 +20,53 @@ public class JoinGameActivity extends AppCompatActivity {
 
     public String gameID;
     Server server = new Server();
-    GameModel gameModel;
+
     public Player player2;
     Intent startMenuIntent;
+
     Map<String, Object> info;
     ValueEventListener valueEventListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_game);
 
+
         startMenuIntent = getIntent();
         gameID = startMenuIntent.getStringExtra("joinGameID");
+
 
         player2 = new Player(startMenuIntent.getStringExtra("pName"));
         server.joinGame(gameID, player2);
 
-        TextView gameIdTextView = (TextView) findViewById(R.id.gameidtext_id);
+
+        final TextView gameIdTextView = (TextView) findViewById(R.id.gameidtext_id);
         gameIdTextView.setText("Game ID : " + gameID);
 
-         /*server.gameRef.addListenerForSingleValueEvent(valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    info = (HashMap<String, Object>) dataSnapshot.getValue();
-                Boolean isStarting = (Boolean) info.get("isStarted");
-                if (isStarting) {
-                    startGame();
-                }
-                }
+         server.gameRef.addValueEventListener(valueEventListener = new ValueEventListener() {
+             @Override
+             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                 info = (HashMap<String, Object>) dataSnapshot.getValue();
+                 Boolean isStarting = (Boolean) info.get("isStarted");
+                 //Toasttest
+                 Toast.makeText(getApplicationContext(),"Game is Starting", Toast.LENGTH_SHORT).show();
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                 if(isStarting) {
+                     //Launch setupActivity
+                     Intent intent = new Intent(getApplicationContext(), setupActivity.class);
+                     intent.putExtra("gameID", gameID);
+                     startActivity(intent);
+                     // startGame();
+                 }
+             }
 
-            }
-        });
+             @Override
+             public void onCancelled(@NonNull DatabaseError databaseError) {
+             }
+
+         });
 
      /*   server.gameRef.child(gameID).addValueEventListener(valueEventListener = new ValueEventListener() {
             @Override
@@ -67,6 +79,7 @@ public class JoinGameActivity extends AppCompatActivity {
             }
   });
 
+
   /*  @Override
     protected void onResume() {
         if(playerList.size() == 2) {
@@ -76,7 +89,11 @@ public class JoinGameActivity extends AppCompatActivity {
     }*/
 
     }
-
+    @Override
+    protected void onPause(){
+        server.gameRef.removeEventListener(valueEventListener);
+        super.onPause();
+    }
 
     public void startGame(){
         Toast.makeText(getApplicationContext(), "Game is Starting", Toast.LENGTH_SHORT).show();

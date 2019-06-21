@@ -21,8 +21,8 @@ public class CreateGameActivity extends AppCompatActivity {
     public String gameID;
     Server server = new Server();
     public Player player1;
+    public String player2Name = "Waiting for player 2";
     GameModel gameModel;
-    public Player player2;
     Intent startMenuIntent;
     Map<String, Object> playerInfo;
     private boolean hasEnoughPlayers;
@@ -32,16 +32,24 @@ public class CreateGameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_game);
+
+        //Generate random gameID
         gameID = generateGameID();
+
+
+        //get Player1 from startMenuIntent
         startMenuIntent = getIntent();
         gameModel = new GameModel(startMenuIntent.getStringExtra("pName"));
         player1 = gameModel.getPlayers().get(0);
+
+        //Create game and add player 1
         server.createGame(gameID, player1);
-        player2 = new Player("Waiting for player 2");
-        server.joinGame(gameID,player2);
-        // playerList = new ArrayList<>();
 
+        //Add Dummy player to the game
+        Player dummyPlayer = new Player("Waiting for player 2");
+        server.joinGame(gameID,dummyPlayer);
 
+        //Set textViews
         TextView gameHostedTextView = (TextView) findViewById(R.id.gamehosted_id);
         gameHostedTextView.setText("Your Game has been hosted");
 
@@ -60,8 +68,8 @@ public class CreateGameActivity extends AppCompatActivity {
                 playerInfo = (HashMap<String, Object>)dataSnapshot.child("Player 2").getValue();
                 String playerName = (String) playerInfo.get("playerName");
                 if (playerName != null) {
-                    player2.setPlayerName(playerName);
                     player2TextView.setText("Player 2 : " + playerName);
+                    player2Name = playerName;
                 }
             }
 
@@ -78,14 +86,28 @@ public class CreateGameActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         server.deleteGameDataBase();
-        server.gameRef.child(gameID).removeEventListener(valueEventListener);
+        server.gameRef.removeEventListener(valueEventListener);
         super.onDestroy();
     }
 
+    @Override
+    protected void onPause(){
+        server.gameRef.removeEventListener(valueEventListener);
+        super.onPause();
+    }
+
     public void startGame(View view){
-        if (!player2.getPlayerName().equals("Waiting for player 2")) {
+        if (!player2Name.equals("Waiting for player 2")) {
+            //test
             Toast.makeText(getApplicationContext(), "Game can be started", Toast.LENGTH_SHORT).show();
-            server.startGame();
+
+            //Game is started
+            server.gameRef.child("isStarted").setValue(true);
+
+            //Launch setupactivity
+            Intent intent = new Intent(getApplicationContext(), setupActivity.class);
+            intent.putExtra("gameID", gameID);
+            startActivity(intent);
         } else {
             Toast.makeText(getApplicationContext(), "Need two players to start game", Toast.LENGTH_SHORT).show();
         }
