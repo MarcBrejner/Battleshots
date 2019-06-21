@@ -7,6 +7,11 @@ public class GameModel {
     private Point startPoint;
     final int gridSize = 8;
     private List<Player> players;
+    boolean isHit=false;
+
+    public boolean getIsHit() {
+        return isHit;
+    }
 
     public GameModel(String playerName) {
         if (players == null) {
@@ -61,6 +66,7 @@ public class GameModel {
                                 player.getGrid().get(player.getGrid()
                                         .indexOf(shipPart)).setStatus(Status.HIT);
                                 shipGotHitted = true;
+                                isHit = true;
                                 break;
                             }
                         }
@@ -71,6 +77,7 @@ public class GameModel {
                 if (!shipGotHitted) {
                     player.getGrid().get(player.getGrid().indexOf(shot))
                             .setStatus(Status.MISS);
+                    isHit = false;
                 }
             }
         }
