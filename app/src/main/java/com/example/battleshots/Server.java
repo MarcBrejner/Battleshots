@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -18,16 +17,32 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class Server {
-    FirebaseDatabase database;
-    DatabaseReference gameDatabase;
+    public FirebaseDatabase database;
+    DatabaseReference reference;
+    String gameID;
+    DatabaseReference gameRef;
 
     Server(){
         database = FirebaseDatabase.getInstance();
     }
 
+    public void createGame(String gameID, Player player1) {
+
+        this.gameID = gameID;
+        reference = database.getReference();
+        gameRef = reference.child("Game");
+        gameRef.child(gameID).setValue(gameID);
+        reference.child("Game").child(gameID).child("Player 1").setValue(player1);
+    }
+
+    public void joinGame(String joinGameID, Player player2){
+        reference = database.getReference();
+        reference.child("Game").child(joinGameID).child("Player 2").setValue(player2);
+    }
+
 
     public void addShipToDatabase(final Activity context, Ship ship){
-        gameDatabase.child("game_model").child(ship.getShipName()).setValue(ship).addOnSuccessListener(new OnSuccessListener<Void>() {
+        reference.child("Game").child(ship.getShipName()).setValue(ship).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(context.getApplicationContext(), "Ship deployed", Toast.LENGTH_SHORT).show();
@@ -40,9 +55,13 @@ public class Server {
         });
     }
 
+    public String getGameID() {
+        return gameID;
+    }
+
     public void addGameModelToDatabase(GameModel gameModel) {
-        gameDatabase = database.getReference();
-        gameDatabase.child("game_model").setValue("GameID").addOnSuccessListener(new OnSuccessListener<Void>() {
+        reference = database.getReference();
+        reference.child("game_model").setValue("GameID").addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
             }
@@ -50,13 +69,15 @@ public class Server {
     }
 
     public void deleteGameDataBase() {
-        gameDatabase.removeValue();
+        gameRef.child(gameID).removeValue();
     }
 
-
+    public DatabaseReference getGameRef() {
+        return gameRef;
+    }
 
     public void updateGame(final DataManager data){
-        gameDatabase.addValueEventListener(new ValueEventListener() {
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 

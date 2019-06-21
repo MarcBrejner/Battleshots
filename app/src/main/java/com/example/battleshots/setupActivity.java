@@ -22,7 +22,6 @@ public class setupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_setup_map);
         shipSize = 1;
-        gameModel = new GameModel(gridSize);
         server = new Server();
     }
 
@@ -70,7 +69,7 @@ public class setupActivity extends AppCompatActivity {
         }
     }
 
-    /*public void savePositions(View view) throws ShipException {
+    public void savePositions(View view) throws ShipException {
         if(!positionSet) {
             throw new ShipException("Start position of the ship is not found");
         } else {
@@ -80,12 +79,12 @@ public class setupActivity extends AppCompatActivity {
             positionSet = false;
         }
     }
-    */
+
 
     public void setStartPosition() {
         // Index 0 gets player1, needs a method to figure out which player is who.
         Point point = gameModel.getPlayers().get(0).getGrid().get(btnID-btnDefault);
-        gameModel.setStartPoisiton(point);
+        gameModel.setStartPosition(point);
         positionSet = true;
     }
 }

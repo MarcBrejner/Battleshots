@@ -5,19 +5,22 @@ import java.util.List;
 
 public class GameModel {
     private Point startPoint;
-    private int gridSize;
-    private int shipAmount = 0;
+    final int gridSize = 8;
     private List<Player> players;
 
-    public GameModel(int gridSize) {
-        players = new ArrayList<>();
-        this.gridSize = gridSize;
-        players.add(new Player("Peter", gridSize));
+    public GameModel(String playerName) {
+        if (players == null) {
+            players = new ArrayList<>();
+
+        }
+        if (players.size() < 3) {
+            players.add(new Player(playerName, gridSize));
+        }
     }
 
     public void addPlayerToGameModel(String playerName) {
         // Where we want to add the second player to the list.
-        players.add(new Player(playerName,gridSize));
+        players.add(new Player(playerName, gridSize));
     }
 
     public List<Player> getPlayers() {
@@ -25,7 +28,7 @@ public class GameModel {
     }
 
 
-    public void setStartPoisiton(Point point){
+    public void setStartPosition(Point point){
         startPoint = point;
     }
 

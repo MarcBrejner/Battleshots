@@ -6,13 +6,14 @@ import java.util.List;
 
 public class Player {
     private String playerName;
-    private int gridSize, shipAmount;
+    private int gridSize;
+    private int shipAmount = 4;
     private List<Point> grid;
     private List<Ship> ships;
 
     public Player(String name, int gridSize) {
-        this.playerName = name;
         this.gridSize = gridSize;
+        this.playerName = name;
         grid = new ArrayList<>();
         ships = new ArrayList<>();
         makeGrid();

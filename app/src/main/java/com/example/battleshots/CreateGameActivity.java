@@ -14,7 +14,8 @@ public class CreateGameActivity extends AppCompatActivity {
     public String gameID;
     Server server = new Server();
     public Player player1;
-    public String player2 = "Søren Ryge";
+    GameModel gameModel;
+    public String player2 = null;
     Intent startMenuIntent;
 
 
@@ -24,10 +25,11 @@ public class CreateGameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_game);
         gameID = generateGameID();
-
         startMenuIntent = getIntent();
-        player1 = new Player(startMenuIntent.getStringExtra("pName").toString(),8);
+        gameModel = new GameModel(startMenuIntent.getStringExtra("pName"));
+        player1 = gameModel.getPlayers().get(0);
         server.createGame(gameID,player1);
+
 
         TextView gameHostedTextView = (TextView) findViewById(R.id.gamehosted_id);
         gameHostedTextView.setText("Your Game has been hosted");
@@ -41,6 +43,12 @@ public class CreateGameActivity extends AppCompatActivity {
         TextView player2TextView = (TextView) findViewById(R.id.player2_id);
         player2TextView.setText("Player 2 : "+player2);
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        server.deleteGameDataBase();
+        super.onDestroy();
     }
 
     /* public void startGame(View view){
