@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/setup_map"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -28,6 +28,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/defaultbutton"
+            android:rotation="0"
             android:onClick="onClick" />
 
         <Button
@@ -656,7 +657,7 @@
         android:layout_height="84dp">
 
         <Button
-            android:id="@+id/button_confirm_position"
+            android:id="@+id/button_save_position"
             android:layout_width="124dp"
             android:layout_height="84dp"
             android:layout_alignParentStart="true"
@@ -667,6 +668,27 @@
 
 
     </RelativeLayout>
+    <GridLayout
+            android:layout_width="113dp"
+            android:layout_height="124dp"
+            android:layout_alignParentStart="true"
+            android:columnCount="4"
+            android:orientation="horizontal"
+            android:rowCount="4">
 
+        <ImageView
+                android:id="@+id/ship_one"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@mipmap/ship_one"
+        />
+        <ImageView
+                android:src="@mipmap/ship_three"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/ship_three"
+        />
+
+    </GridLayout>
 
 </LinearLayout>
