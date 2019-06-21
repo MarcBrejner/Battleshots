@@ -10,11 +10,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class setupActivity extends AppCompatActivity {
 
     public static int[] playerShips;
-    private String TAG = "Setup-UserInterface";
-    private int btnID, btnClickAmount = 0, prevbtnID, shipSize, shipPlaced, shipAmount, gridSize = 8, btnDefault = 2131230759;
+    private String gameID, playerID;
+    private int btnID, btnClickAmount = 0, prevbtnID, shipSize, gridSize = 8, btnDefault = 2131230759;
+    List<Integer> btnList = new ArrayList<>();
     Direction direction = Direction.DOWN;
     private int shipOneID, shipTwoID, shipThreeID, shipFourID;
     private boolean positionSet = false;
@@ -27,30 +31,29 @@ public class setupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_setup_map);
-        shipSize = 0;
+
+        gameID = getIntent().getStringExtra("gameID");
+        playerID = getIntent().getStringExtra("playerID");
+
         server = new Server();
 
-        ImageView boat1 = findViewById(R.id.ship_one);
-        boat1.setOnTouchListener(new View.OnTouchListener() {
+        makeListOfButtons();
 
+        ImageView boat1 = findViewById(R.id.ship_one);
+        boat1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    shipSize = 1;
-                }
-                return false;
+            public void onClick(View v) {
+                shipSize = 1;
+                Toast.makeText(getApplicationContext(), "Ship Size is 1", Toast.LENGTH_SHORT).show();
             }
         });
 
         ImageView boat3 = findViewById(R.id.ship_three);
-        boat3.setOnTouchListener(new View.OnTouchListener() {
-
+        boat3.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    shipSize = 3;
-                }
-                return false;
+            public void onClick(View v) {
+                shipSize = 3;
+                Toast.makeText(getApplicationContext(), "Ship Size is 3", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -61,10 +64,19 @@ public class setupActivity extends AppCompatActivity {
         //server.addGameModelToDatabase(gameModel);
     }
 
+    public void makeListOfButtons() {
+        for(int i = 0; i < gridSize*gridSize; i++) {
+            btnList.add(btnDefault+i);
+        }
+    }
+
     public void onClick(View view) {
         Button btn = (Button) findViewById(view.getId());
         Button prevBtn = findViewById(prevbtnID);
         btnID = btn.getId();
+        if (shipSize == 0) {
+            Toast.makeText(getApplicationContext(), "Pick a ship", Toast.LENGTH_SHORT).show();
+        }
         if(btnID != prevbtnID) {
             if(prevbtnID != 0 && shipOneID != 0 && shipSize == 1) {
                 clearOldShip(shipOneID);
@@ -85,7 +97,7 @@ public class setupActivity extends AppCompatActivity {
             } else {
                 btn.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
             }
-        } else {
+        } else if (btnID == prevbtnID) {
             btnClickAmount++;
             rotateShip();
         }
@@ -141,9 +153,9 @@ public class setupActivity extends AppCompatActivity {
         if(shipSize == 3) {
             //startBtn.setText(Integer.toString(btnID-btnDefault));
             shipThreeID = startBtn.getId();
-            startBtn.setBackground(ContextCompat.getDrawable(this,R.mipmap.ship_three_front));
+            startBtn.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_three_front));
             tmpBtn1.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_three_middle));
-            tmpBtn2.setBackground(ContextCompat.getDrawable(this,R.mipmap.ship_three_end));
+            tmpBtn2.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_three_end));
             prvBtn1.setBackground(ContextCompat.getDrawable(this, R.drawable.defaultbutton));
             prvBtn1.setRotation(0);
             prvBtn2.setBackground(ContextCompat.getDrawable(this, R.drawable.defaultbutton));
@@ -337,6 +349,7 @@ public class setupActivity extends AppCompatActivity {
             tmbBtn1.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
             tmbBtn2.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
             tmbBtn3.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
+
         } else if(direction == Direction.UP) {
             Button tmbBtn1 = findViewById(btnID-8);
             Button tmbBtn2 = findViewById(btnID-16);
@@ -348,6 +361,7 @@ public class setupActivity extends AppCompatActivity {
             tmbBtn1.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
             tmbBtn2.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
             tmbBtn3.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
+
         } else if (direction == Direction.LEFT) {
             Button tmbBtn1 = findViewById(btnID-1);
             Button tmbBtn2 = findViewById(btnID-2);

@@ -57,6 +57,7 @@ public class JoinGameActivity extends AppCompatActivity {
                      //Launch setupActivity
                      Intent intent = new Intent(getApplicationContext(), setupActivity.class);
                      intent.putExtra("gameID", gameID);
+                     intent.putExtra("playerID", 2);
                      startActivity(intent);
                      // startGame();
                  }

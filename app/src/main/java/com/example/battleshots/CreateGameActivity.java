@@ -44,6 +44,7 @@ public class CreateGameActivity extends AppCompatActivity {
 
         //Create game and add player 1
         server.createGame(gameID, player1);
+        Toast.makeText(getApplicationContext(), player1.toString(), Toast.LENGTH_SHORT).show();
 
         //Add Dummy player to the game
         Player dummyPlayer = new Player("Waiting for player 2");
@@ -107,6 +108,7 @@ public class CreateGameActivity extends AppCompatActivity {
             //Launch setupactivity
             Intent intent = new Intent(getApplicationContext(), setupActivity.class);
             intent.putExtra("gameID", gameID);
+            intent.putExtra("playerID", 1);
             startActivity(intent);
         } else {
             Toast.makeText(getApplicationContext(), "Need two players to start game", Toast.LENGTH_SHORT).show();

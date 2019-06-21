@@ -18,34 +18,44 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class Server {
     public FirebaseDatabase database;
     DatabaseReference reference;
     String gameID;
+    Map<String, Object> info;
     DatabaseReference gameRef;
 
     Server(){
         database = FirebaseDatabase.getInstance();
+        reference = database.getReference();
     }
 
     public void createGame(String gameID, Player player1) {
         this.gameID = gameID;
-        reference = database.getReference();
+        info = convertPlayerInfoToMap(player1);
         reference.child("Game").child(gameID).setValue(gameID);
         gameRef = reference.child("Game").child(gameID);
-        gameRef.child("Player 1").setValue(player1);
+        gameRef.child("Player 1").updateChildren(info);
         gameRef.child("isStarted").setValue(false);
+    }
+
+    public Map<String, Object> convertPlayerInfoToMap(Player player) {
+        info = new HashMap<>();
+        info.put("grid", player.getGrid());
+        info.put("playerName", player.getPlayerName());
+        info.put("ships", player.getShips());
+        return info;
     }
 
     public void joinGame(String joinGameID, Player player2){
         this.gameID = joinGameID;
-
-        reference = database.getReference();
-
+        info = convertPlayerInfoToMap(player2);
         gameRef = reference.child("Game").child(joinGameID);
-
-        reference.child("Game").child(joinGameID).child("Player 2").setValue(player2);
+        gameRef.child("Player 2").updateChildren(info);;
     }
 
     public void addShipToDatabase(final Activity context, Ship ship){
@@ -77,7 +87,7 @@ public class Server {
     }
 
     public void deleteGameDataBase() {
-        gameRef.child(gameID).removeValue();
+        gameRef.removeValue();
     }
 
     public DatabaseReference getGameRef() {
