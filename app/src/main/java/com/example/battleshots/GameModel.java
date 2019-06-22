@@ -57,15 +57,15 @@ public class GameModel {
     public void checkShot(Point shot, String playerName) {
         for (Player player : players) {
             if (player.getPlayerName().equals(playerName)) {
-                Boolean shipGotHitted = false;
+                Boolean shipGotHit = false;
                 for (Ship ship : player.getShips()) {
-                    if (ship.getShip().contains(shot) && !shipGotHitted) {
+                    if (ship.getShip().contains(shot) && !shipGotHit) {
                         for (Point shipPart : ship.getShip()) {
                             if (shot.equals(shipPart) && shipPart.getStatus() == Status.DEPLOYED) {
                                 shipPart.setStatus(Status.HIT);
                                 player.getGrid().get(player.getGrid()
                                         .indexOf(shipPart)).setStatus(Status.HIT);
-                                shipGotHitted = true;
+                                shipGotHit = true;
                                 isHit = true;
                                 break;
                             }
@@ -74,7 +74,7 @@ public class GameModel {
                         break;
                     }
                 }
-                if (!shipGotHitted) {
+                if (!shipGotHit) {
                     player.getGrid().get(player.getGrid().indexOf(shot))
                             .setStatus(Status.MISS);
                     isHit = false;

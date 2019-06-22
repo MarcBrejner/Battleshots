@@ -56,4 +56,8 @@ public class Point {
             return true;
         }
     }
+
+    public String toString() {
+        return "x: " + x + "y: " + y;
+    }
 }

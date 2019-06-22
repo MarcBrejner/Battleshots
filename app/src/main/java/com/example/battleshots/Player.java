@@ -1,15 +1,14 @@
 package com.example.battleshots;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
     private String playerName;
-    private int gridSize = 8;
-    private int shipAmount = 4;
+    private int gridSize = 8, shipAmount;
     private List<Point> grid;
     private List<Ship> ships;
+    public boolean hasShip = false;
 
     public Player(String name) {
         this.playerName = name;
@@ -18,21 +17,25 @@ public class Player {
         makeGrid();
     }
 
-    public Ship addShip(Point point, int length, Direction direction, GameModel gameModel) throws ShipException{
+    public void addShip(Point point, int length, Direction direction, GameModel gameModel){
+        List<Point> shipList = new ArrayList<>();
+        for (Ship ship: ships) {
+            for (Point shipPart: ship.getShip()) {
+                shipList.add(shipPart);
+            }
+        }
         if (direction == Direction.DOWN && gridSize <= (length-1)+point.getY() ||
                 direction == Direction.UP && 0 > point.getY()-(length-1) ||
                 direction == Direction.LEFT && gridSize <= (length-1)+point.getX() ||
-                direction == Direction.RIGHT && 0 > point.getX()-(length-1)) {
-            throw new ShipException("Ship out of boundaries");
-            // TODO: Needs a toast message with the string "Ship out of boundaries"
-        }
-        else {
+                direction == Direction.RIGHT && 0 > point.getX()-(length-1) ||
+                shipList.contains(point)) {
+                hasShip = true;
+        } else {
             Ship ship = new Ship(point, length, direction, "Ship_" + ++shipAmount);
             ships.add(ship);
             for(Point shipPart: ship.getShip()) {
                 grid.get(gameModel.convertPointToIndex(shipPart)).setStatus(Status.DEPLOYED);
             }
-            return ship;
         }
     }
 

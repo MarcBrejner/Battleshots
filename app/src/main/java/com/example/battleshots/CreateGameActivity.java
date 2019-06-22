@@ -109,6 +109,7 @@ public class CreateGameActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), setupActivity.class);
             intent.putExtra("gameID", gameID);
             intent.putExtra("playerID", 1);
+            intent.putExtra("pName", player1.getPlayerName());
             startActivity(intent);
         } else {
             Toast.makeText(getApplicationContext(), "Need two players to start game", Toast.LENGTH_SHORT).show();

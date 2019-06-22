@@ -9,36 +9,50 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class setupActivity extends AppCompatActivity {
 
-    public static int[] playerShips;
     private String gameID, playerID;
-    private int btnID, btnClickAmount = 0, prevbtnID, shipSize, gridSize = 8, btnDefault = 2131230759;
+    private int btnID, btnClickAmount = 0, prevbtnID, shipSize, gridSize = 8, btnDefault = 2131230763;
     List<Integer> btnList = new ArrayList<>();
     Direction direction = Direction.DOWN;
+    private String rotationFlag, occupiedFlag = "";
     private int shipOneID, shipTwoID, shipThreeID, shipFourID;
     private boolean positionSet = false;
-    private String rotationFlag = "";
-    private boolean hasBoat1, hasBoat2, hasBoat3, hasBoat4 = false;
 
     GameModel gameModel;
     Server server;
+    DatabaseReference playerRef;
+    String playerName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_setup_map);
 
-        gameID = getIntent().getStringExtra("gameID");
-        playerID = getIntent().getStringExtra("playerID");
-
         server = new Server();
 
+        if (getIntent().getStringExtra("gameID") != null) {
+            gameID = getIntent().getStringExtra("gameID");
+            playerID = getIntent().getStringExtra("playerID");
+            playerName = getIntent().getStringExtra("pName");
+            gameModel = new GameModel(playerName);
+        } else {
+            gameModel = new GameModel("test");
+            gameID = "1";
+            playerID = "1";
+            server.createGame(gameID ,gameModel.getPlayers().get(0));
+
+        }
+
         makeListOfButtons();
+
+        playerRef = server.reference.child("Game").child(gameID).child("Player "+playerID);
+
 
         ImageView boat1 = findViewById(R.id.ship_one);
         boat1.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +63,15 @@ public class setupActivity extends AppCompatActivity {
             }
         });
 
+        /* ImageView boat2 = findViewById(R.id.ship_two);
+        boat2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shipSize = 2;
+                Toast.makeText(getApplicationContext(), "Ship Size is 2", Toast.LENGTH_SHORT).show();
+            }
+        }; */
+
         ImageView boat3 = findViewById(R.id.ship_three);
         boat3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +80,15 @@ public class setupActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Ship Size is 3", Toast.LENGTH_SHORT).show();
             }
         });
+
+        /* ImageView boat4 = findViewById(R.id.ship_two);
+        boat2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shipSize = 4;
+                Toast.makeText(getApplicationContext(), "Ship Size is 4", Toast.LENGTH_SHORT).show();
+            }
+        }; */
     }
 
     @Override
@@ -78,13 +110,21 @@ public class setupActivity extends AppCompatActivity {
         if (shipSize == 0) {
             Toast.makeText(getApplicationContext(), "Pick a ship", Toast.LENGTH_SHORT).show();
         }
-        if(btnID != prevbtnID) {
+        if (btnID == prevbtnID) {
+            btnClickAmount++;
+            rotateShip();
+        } else if (shipSize == 3 && shipThreeID == btnID) {
+            btnClickAmount++;
+            rotateShip();
+        }
+        else if(btnID != prevbtnID && shipSize > 0) {
+            setStartPosition();
             if(prevbtnID != 0 && shipOneID != 0 && shipSize == 1) {
                 clearOldShip(shipOneID);
-            } else if (prevbtnID != 0 && hasBoat2 && shipSize == 2) {
-           //     clearOldShip();
+            } else if (prevbtnID != 0 && shipTwoID != 0 && shipSize == 2) {
+                //     clearOldShip(shipTwoID);
             } else if (prevbtnID != 0 && shipThreeID != 0 && shipSize == 3) {
-                 clearOldShip(shipThreeID);
+                clearOldShip(shipThreeID);
             }
             prevbtnID = btnID;
             btnClickAmount = 0;
@@ -95,22 +135,16 @@ public class setupActivity extends AppCompatActivity {
                 } else if (shipSize == 3) {
                     placeBigShip(btn, direction, rotationFlag);
                 }
-            } else {
-                btn.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
             }
-        } else if (btnID == prevbtnID) {
-            btnClickAmount++;
-            rotateShip();
         }
-       // setStartPosition();
     }
 
     public void placeBigShip(Button startBtn, Direction direction, String rotationFlag) {
         int tmpId = startBtn.getId();
-        /*if (isOccupied(startBtn)) {
+        if (isOccupied(startBtn)) {
             Toast.makeText(getApplicationContext(), "There is already a ship", Toast.LENGTH_SHORT).show();
             return;
-        }*/
+        }
         int dir = 0;
         int prevDir = 0;
 
@@ -134,15 +168,15 @@ public class setupActivity extends AppCompatActivity {
             }
 
         } else if (direction == Direction.DOWN) {
-            if (btnID-btnDefault+(shipSize-1)*8>67 && (btnID-btnDefault+4)%8<shipSize-1) {
+            if (btnID-btnDefault+(shipSize-1)*8>63 && (btnID-btnDefault)%8<shipSize-1) {
                 dir = -8;
                 direction=Direction.UP;
                 prevDir = 1;
-            } else if (btnID-btnDefault+(shipSize-1)*8>67 && (btnID-btnDefault+4)%8>8-shipSize){
+            } else if (btnID-btnDefault+(shipSize-1)*8>63 && (btnID-btnDefault)%8>8-shipSize){
                 dir = -1;
                 prevDir = -8;
                 direction = Direction.LEFT;
-            } else if (btnID-btnDefault+(shipSize-1)*8>67){
+            } else if (btnID-btnDefault+(shipSize-1)*8>63){
                 dir = -1;
                 direction=Direction.LEFT;
                 prevDir = 1;
@@ -161,15 +195,16 @@ public class setupActivity extends AppCompatActivity {
             }
         }
 
-        Button tmpBtn1 = findViewById(tmpId+1*dir);
+        Button tmpBtn1 = findViewById(tmpId+dir);
         Button tmpBtn2 = findViewById(tmpId+2*dir);
         Button tmpBtn3 = findViewById(tmpId+3*dir);
-        Button prvBtn1 = findViewById(tmpId+1*prevDir);
+        Button prvBtn1 = findViewById(tmpId+prevDir);
         Button prvBtn2 = findViewById(tmpId+2*prevDir);
         Button prvBtn3 = findViewById(tmpId+3*prevDir);
 
+
         if(shipSize == 1) {
-           // startBtn.setText(Integer.toString(btnID-btnDefault));
+            // startBtn.setText(Integer.toString(btnID-btnDefault));
             startBtn.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_one));
             shipOneID = startBtn.getId();
 
@@ -188,6 +223,10 @@ public class setupActivity extends AppCompatActivity {
 
         if(shipSize == 3) {
             //startBtn.setText(Integer.toString(btnID-btnDefault));
+            if (isOccupied(tmpBtn1) || isOccupied(tmpBtn2)) {
+                Toast.makeText(getApplicationContext(), "There is already a ship", Toast.LENGTH_SHORT).show();
+                return;
+            }
             shipThreeID = startBtn.getId();
             startBtn.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_three_front));
             tmpBtn1.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_three_middle));
@@ -218,9 +257,10 @@ public class setupActivity extends AppCompatActivity {
     }
 
 
+
     public void rotateShip() {
         Button btn = findViewById(btnID);
-        if ((btnID-btnDefault+4)%8<shipSize-1 && (btnID-btnDefault-(shipSize-1)*8)<4) {
+        if ((btnID-btnDefault)%8<shipSize-1 && (btnID-btnDefault-(shipSize-1)*8)<=0) {
             switch (btnClickAmount%2) {
                 case 0:
                     direction = Direction.DOWN;
@@ -233,7 +273,7 @@ public class setupActivity extends AppCompatActivity {
                     break;
             }
         }
-        else if((btnID-btnDefault+4)%8<shipSize-1 && (btnID-btnDefault+(shipSize-1)*8)>67) {
+        else if((btnID-btnDefault)%8<shipSize-1 && (btnID-btnDefault+(shipSize-1)*8)>63) {
             switch (btnClickAmount%2) {
                 case 0:
                     direction = Direction.UP;
@@ -245,7 +285,7 @@ public class setupActivity extends AppCompatActivity {
                     placeBigShip(btn, direction, rotationFlag);
                     break;
             }
-        }else if((btnID-btnDefault+4)%8>8-shipSize && (btnID-btnDefault+(shipSize-1)*8)>67) {
+        }else if((btnID-btnDefault)%8>8-shipSize && (btnID-btnDefault+(shipSize-1)*8)>63) {
             switch (btnClickAmount%2) {
                 case 0:
                     direction = Direction.LEFT;
@@ -257,7 +297,7 @@ public class setupActivity extends AppCompatActivity {
                     placeBigShip(btn, direction, rotationFlag);
                     break;
             }
-        } else if((btnID-btnDefault+4)%8>8-shipSize && (btnID-btnDefault-(shipSize-1)*8)<4) {
+        } else if((btnID-btnDefault)%8>8-shipSize && (btnID-btnDefault-(shipSize-1)*8)<=0) {
             switch (btnClickAmount%2) {
                 case 0:
                     direction = Direction.DOWN;
@@ -269,7 +309,7 @@ public class setupActivity extends AppCompatActivity {
                     placeBigShip(btn, direction, rotationFlag);
                     break;
             }
-        } else if((btnID-btnDefault+4)%8<shipSize-1) {
+        } else if((btnID-btnDefault)%8<shipSize-1 || occupiedFlag == "SHIP_LEFT") {
             switch (btnClickAmount%3) {
                 case 0:
                     direction = Direction.DOWN;
@@ -285,7 +325,7 @@ public class setupActivity extends AppCompatActivity {
                     placeBigShip(btn, direction, rotationFlag);
                     break;
             }
-        } else if ((btnID-btnDefault+4)%8>8-shipSize){
+        } else if ((btnID-btnDefault)%8>8-shipSize){
             switch (btnClickAmount%3) {
                 case 0:
                     direction = Direction.DOWN;
@@ -302,7 +342,7 @@ public class setupActivity extends AppCompatActivity {
                     break;
             }
 
-        } else if ((btnID-btnDefault-(shipSize-1)*8)<=4){
+        } else if ((btnID-btnDefault-(shipSize-1)*8)<=0){
             switch (btnClickAmount%3) {
                 case 0:
                     direction = Direction.DOWN;
@@ -319,7 +359,7 @@ public class setupActivity extends AppCompatActivity {
                     break;
             }
 
-        } else if ((btnID-btnDefault+(shipSize-1)*8)>67){
+        } else if ((btnID-btnDefault+(shipSize-1)*8)>63){
             switch (btnClickAmount%3) {
                 case 0:
                     direction = Direction.LEFT;
@@ -358,16 +398,6 @@ public class setupActivity extends AppCompatActivity {
         }
     }
 
-    public void savePositions(View view) throws ShipException {
-        if(!positionSet) {
-            throw new ShipException("Start position of the ship is not found");
-        } else {
-            // Index 0 gets player1, needs a method to figure out which player is who.
-            server.addShipToDatabase(this, gameModel.getPlayers().get(0)
-                    .addShip(gameModel.getStartPoint(), shipSize, direction, gameModel));
-            positionSet = false;
-        }
-    }
 
     private  void clearOldShip(int btnID) {
         Button prevBtn = findViewById(btnID);
@@ -395,7 +425,7 @@ public class setupActivity extends AppCompatActivity {
         else if(btnID == shipThreeID) {
             prevBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.defaultbutton));
             prevBtn.setRotation(0);
-            prevBtn1 = findViewById(prevBtn.getId()+1*dir);
+            prevBtn1 = findViewById(prevBtn.getId()+dir);
             prevBtn2 = findViewById(prevBtn.getId()+2*dir);
 
             prevBtn1.setBackground(ContextCompat.getDrawable(this, R.drawable.defaultbutton));
@@ -409,7 +439,7 @@ public class setupActivity extends AppCompatActivity {
             prevBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.defaultbutton));
             prevBtn.setRotation(0);
 
-            prevBtn1 = findViewById(prevBtn.getId()+1*dir);
+            prevBtn1 = findViewById(prevBtn.getId()+dir);
             prevBtn2 = findViewById(prevBtn.getId()+2*dir);
             prevBtn3 = findViewById(prevBtn.getId()+3*dir);
 
@@ -426,8 +456,6 @@ public class setupActivity extends AppCompatActivity {
 
 
     private void clearShipDirection(Direction direction) {
-        Button prevBtn = findViewById(btnID);
-
         int dir = 0;
         if(direction == Direction.UP) {
             dir = -8;
@@ -440,20 +468,24 @@ public class setupActivity extends AppCompatActivity {
         }
 
         if(shipSize == 2) {
-            Button prevBtn1 = findViewById(btnID+1*dir);
+            Button prevBtn1 = findViewById(btnID+dir);
             prevBtn1.setRotation(0);
             prevBtn1.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
         } else if (shipSize == 3) {
-            Button prevBtn1 = findViewById(btnID+1*dir);
+            Button prevBtn1 = findViewById(btnID+dir);
             Button prevBtn2 = findViewById(btnID+2*dir);
             prevBtn1.setRotation(0);
             prevBtn2.setRotation(0);
             prevBtn1.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
             prevBtn2.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
         } else if (shipSize == 4) {
-            Button prevBtn1 = findViewById(btnID+1*dir);
+            Button prevBtn1 = findViewById(btnID+dir);
             Button prevBtn2 = findViewById(btnID+2*dir);
             Button prevBtn3 = findViewById(btnID+3*dir);
+            if (isOccupied(prevBtn2) || isOccupied(prevBtn2) || isOccupied(prevBtn3)) {
+                Toast.makeText(getApplicationContext(), "There is already a ship", Toast.LENGTH_SHORT).show();
+                return;
+            }
             prevBtn1.setRotation(0);
             prevBtn2.setRotation(0);
             prevBtn3.setRotation(0);
@@ -466,6 +498,8 @@ public class setupActivity extends AppCompatActivity {
     public void setStartPosition() {
         // Index 0 gets player1, needs a method to figure out which player is who.
         Point point = gameModel.getPlayers().get(0).getGrid().get(btnID-btnDefault);
+        Toast.makeText(getApplicationContext(), "point: " + point.toString() + "btnID" + btnID +
+                "btndefault" + btnDefault, Toast.LENGTH_SHORT).show();
         gameModel.setStartPosition(point);
         positionSet = true;
     }
@@ -473,8 +507,32 @@ public class setupActivity extends AppCompatActivity {
     public boolean isOccupied(Button btn) {
         boolean Occu = true;
         if (btn.getBackground().getConstantState() == getResources().getDrawable(R.drawable.defaultbutton).getConstantState()) {
-          Occu = false;
+            Occu = false;
+        } else if (shipSize == 1 && btn.getBackground().getConstantState() == getResources().getDrawable(R.mipmap.ship_one).getConstantState()) {
+            Occu = false;
+        } else if (shipSize == 2 && btn.getBackground().getConstantState() == getResources().getDrawable(R.mipmap.ship_two_front).getConstantState()) {
+            Occu = false;
+        } else if (shipSize == 3 && btn.getBackground().getConstantState() == getResources().getDrawable(R.mipmap.ship_three_front).getConstantState()) {
+            Occu = false;
+        }   else if (shipSize == 4 && btn.getBackground().getConstantState() == getResources().getDrawable(R.mipmap.ship_four_front).getConstantState()) {
+            Occu = false;
         }
         return Occu;
+    }
+    public void savePositions(View view)  {
+        if(!positionSet) {
+            Toast.makeText(getApplicationContext(), "Ship is not found", Toast.LENGTH_SHORT).show();
+        } else {
+            // Index 0 gets player1, needs a method to figure out which player is who.
+            gameModel.getPlayers().get(0).addShip(gameModel.getStartPoint(), shipSize, direction, gameModel);
+            if(gameModel.getPlayers().get(0).hasShip) {
+                Toast.makeText(getApplicationContext(), "Contains other ships", Toast.LENGTH_SHORT).show();
+                gameModel.getPlayers().get(0).hasShip = false;
+            } else {
+                server.addShipToDatabase(this, gameModel.getPlayers().get(0), gameID, playerID);
+                Toast.makeText(getApplicationContext(), gameModel.getPlayers().get(0).getShips().toString(), Toast.LENGTH_SHORT).show();
+                positionSet = false;
+            }
+        }
     }
 }

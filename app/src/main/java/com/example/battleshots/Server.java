@@ -23,10 +23,9 @@ import java.util.Map;
 
 
 public class Server {
-    public FirebaseDatabase database;
+    FirebaseDatabase database;
     DatabaseReference reference;
-    String gameID;
-    Map<String, Object> info;
+    Map<String, Object> info, shipInfo;
     DatabaseReference gameRef;
 
     Server(){
@@ -35,7 +34,6 @@ public class Server {
     }
 
     public void createGame(String gameID, Player player1) {
-        this.gameID = gameID;
         info = convertPlayerInfoToMap(player1);
         reference.child("Game").child(gameID).setValue(gameID);
         gameRef = reference.child("Game").child(gameID);
@@ -47,19 +45,32 @@ public class Server {
         info = new HashMap<>();
         info.put("grid", player.getGrid());
         info.put("playerName", player.getPlayerName());
-        info.put("ships", player.getShips());
         return info;
     }
 
     public void joinGame(String joinGameID, Player player2){
-        this.gameID = joinGameID;
         info = convertPlayerInfoToMap(player2);
         gameRef = reference.child("Game").child(joinGameID);
-        gameRef.child("Player 2").updateChildren(info);;
+        gameRef.child("Player 2").updateChildren(info);
     }
 
-    public void addShipToDatabase(final Activity context, Ship ship){
-        reference.child("Game").child(ship.getShipName()).setValue(ship).addOnSuccessListener(new OnSuccessListener<Void>() {
+    public  Map<String, Object> convertShipInfoToMap(Player player) {
+        shipInfo = new HashMap<>();
+        shipInfo.put("points", player.getShips().get(player.getShips().size()-1).getShip());
+        shipInfo.put("isDestroyed", player.getShips().get(player.getShips().size()-1).isDestroyed());
+        shipInfo.put("size", player.getShips().get(player.getShips().size()-1).getShipSize());
+        return shipInfo;
+    }
+
+    public void addShipToDatabase(final Activity context, Player player, String gameID, String playerID){
+        info = new HashMap<>();
+        info.put("grid", player.getGrid());
+        gameRef = reference.child("Game").child(gameID);
+        gameRef.child("Player " + playerID).updateChildren(info);
+
+        shipInfo = convertShipInfoToMap(player);
+        String shipName = player.getShips().get(player.getShips().size()-1).getShipName();
+        gameRef.child("Player " + playerID).child("ships").child(shipName).updateChildren(shipInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(context.getApplicationContext(), "Ship deployed", Toast.LENGTH_SHORT).show();
@@ -72,30 +83,11 @@ public class Server {
         });
     }
 
-
-    public String getGameID() {
-        return gameID;
-    }
-
-    public void addGameModelToDatabase(GameModel gameModel) {
-        reference = database.getReference();
-        reference.child("game_model").setValue("GameID").addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-            }
-        });
-    }
-
     public void deleteGameDataBase() {
         gameRef.removeValue();
     }
 
     public DatabaseReference getGameRef() {
         return gameRef;
-    }
-
-
-    public void startGame() {
-        gameRef.child("isStarted").setValue(true);
     }
 }

@@ -3,7 +3,7 @@ package com.example.battleshots;
 import java.util.ArrayList;
 import java.util.List;
 
-public class   Ship {
+public class  Ship {
 
     private Direction direction;
     private Point point;
