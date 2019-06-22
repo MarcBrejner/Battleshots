@@ -22,6 +22,7 @@ public class setupActivity extends AppCompatActivity {
     Direction direction = Direction.DOWN;
     private int shipOneID, shipTwoID, shipThreeID, shipFourID;
     private boolean positionSet = false;
+    private String rotationFlag = "";
     private boolean hasBoat1, hasBoat2, hasBoat3, hasBoat4 = false;
 
     GameModel gameModel;
@@ -90,9 +91,9 @@ public class setupActivity extends AppCompatActivity {
             direction = Direction.DOWN;
             if (btn.getBackground().getConstantState() == getResources().getDrawable(R.drawable.defaultbutton).getConstantState()) {
                 if(shipSize == 1) {
-                    placeBigShip(btn, direction);
+                    placeBigShip(btn, direction, rotationFlag);
                 } else if (shipSize == 3) {
-                    placeBigShip(btn, direction);
+                    placeBigShip(btn, direction, rotationFlag);
                 }
             } else {
                 btn.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
@@ -104,28 +105,62 @@ public class setupActivity extends AppCompatActivity {
        // setStartPosition();
     }
 
-    public void placeBigShip(Button startBtn, Direction direction) {
+    public void placeBigShip(Button startBtn, Direction direction, String rotationFlag) {
         int tmpId = startBtn.getId();
+        /*if (isOccupied(startBtn)) {
+            Toast.makeText(getApplicationContext(), "There is already a ship", Toast.LENGTH_SHORT).show();
+            return;
+        }*/
         int dir = 0;
         int prevDir = 0;
 
         if(direction == Direction.UP) {
             dir = -8;
-            prevDir = -1;
-        } else if (direction == Direction.DOWN){
-            dir = 8;
-            prevDir = 1;
-        } else if (direction == Direction.LEFT) {
+            if(rotationFlag == "BOTTOM_LEFT") {
+                prevDir = 1;
+            } else if (rotationFlag == "LEFT"){
+                prevDir = 8;
+            } else {
+                prevDir = -1;
+            }
+        } else if (direction == Direction.LEFT){
             dir = -1;
-            prevDir = 8;
+            if(rotationFlag == "BOTTOM") {
+                prevDir = 1;
+            } else if (rotationFlag == "BOTTOM_RIGHT"){
+                prevDir = -8;
+            } else {
+                prevDir = 8;
+            }
+
+        } else if (direction == Direction.DOWN) {
+            if (btnID-btnDefault+(shipSize-1)*8>67 && (btnID-btnDefault+4)%8<shipSize-1) {
+                dir = -8;
+                direction=Direction.UP;
+                prevDir = 1;
+            } else if (btnID-btnDefault+(shipSize-1)*8>67 && (btnID-btnDefault+4)%8>8-shipSize){
+                dir = -1;
+                prevDir = -8;
+                direction = Direction.LEFT;
+            } else if (btnID-btnDefault+(shipSize-1)*8>67){
+                dir = -1;
+                direction=Direction.LEFT;
+                prevDir = 1;
+            } else {
+                dir = 8;
+                prevDir = 1;
+            }
         } else if (direction == Direction.RIGHT) {
             dir = 1;
-            if((btnID-btnDefault-(shipSize-1)*8)<=4) {
-                prevDir = 0;
+            if(rotationFlag == "TOP") {
+                prevDir = -1;
+            } else if(rotationFlag == "TOP_LEFT") {
+                prevDir = 8;
             } else {
                 prevDir = -8;
             }
         }
+
         Button tmpBtn1 = findViewById(tmpId+1*dir);
         Button tmpBtn2 = findViewById(tmpId+2*dir);
         Button tmpBtn3 = findViewById(tmpId+3*dir);
@@ -134,6 +169,7 @@ public class setupActivity extends AppCompatActivity {
         Button prvBtn3 = findViewById(tmpId+3*prevDir);
 
         if(shipSize == 1) {
+           // startBtn.setText(Integer.toString(btnID-btnDefault));
             startBtn.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_one));
             shipOneID = startBtn.getId();
 
@@ -178,52 +214,91 @@ public class setupActivity extends AppCompatActivity {
                 tmpBtn1.setRotation(0);
                 tmpBtn2.setRotation(0);
             }
-
         }
-
-
-
     }
 
 
     public void rotateShip() {
         Button btn = findViewById(btnID);
-        if((btnID-btnDefault+4)%8<shipSize-1) {
-            switch (btnClickAmount%3) {
+        if ((btnID-btnDefault+4)%8<shipSize-1 && (btnID-btnDefault-(shipSize-1)*8)<4) {
+            switch (btnClickAmount%2) {
                 case 0:
                     direction = Direction.DOWN;
-                    Toast.makeText(getApplicationContext(), "Clicked" + btnClickAmount + "– Direction: Left", Toast.LENGTH_SHORT).show();
-                    placeBigShip(btn, direction);
+                    placeBigShip(btn, direction, rotationFlag);
+                    break;
+                case 1:
+                    direction = Direction.RIGHT;
+                    placeBigShip(btn, direction, "TOP_LEFT");
+                    clearShipDirection(Direction.DOWN);
+                    break;
+            }
+        }
+        else if((btnID-btnDefault+4)%8<shipSize-1 && (btnID-btnDefault+(shipSize-1)*8)>67) {
+            switch (btnClickAmount%2) {
+                case 0:
+                    direction = Direction.UP;
+                    placeBigShip(btn, direction, "BOTTOM_LEFT");
+                    clearShipDirection(Direction.RIGHT);
+                    break;
+                case 1:
+                    direction = Direction.RIGHT;
+                    placeBigShip(btn, direction, rotationFlag);
+                    break;
+            }
+        }else if((btnID-btnDefault+4)%8>8-shipSize && (btnID-btnDefault+(shipSize-1)*8)>67) {
+            switch (btnClickAmount%2) {
+                case 0:
+                    direction = Direction.LEFT;
+                    placeBigShip(btn, direction, "BOTTOM_RIGHT");
+                    clearShipDirection(Direction.UP);
                     break;
                 case 1:
                     direction = Direction.UP;
-                    Toast.makeText(getApplicationContext(), "Clicked" + btnClickAmount + "– Direction: Right", Toast.LENGTH_SHORT).show();
-                    placeBigShip(btn, direction);
+                    placeBigShip(btn, direction, rotationFlag);
+                    break;
+            }
+        } else if((btnID-btnDefault+4)%8>8-shipSize && (btnID-btnDefault-(shipSize-1)*8)<4) {
+            switch (btnClickAmount%2) {
+                case 0:
+                    direction = Direction.DOWN;
+                    placeBigShip(btn, direction, "TOP_RIGHT");
+                    clearShipDirection(Direction.LEFT);
+                    break;
+                case 1:
+                    direction = Direction.LEFT;
+                    placeBigShip(btn, direction, rotationFlag);
+                    break;
+            }
+        } else if((btnID-btnDefault+4)%8<shipSize-1) {
+            switch (btnClickAmount%3) {
+                case 0:
+                    direction = Direction.DOWN;
+                    placeBigShip(btn, direction, rotationFlag);
+                    break;
+                case 1:
+                    direction = Direction.UP;
+                    placeBigShip(btn, direction, "LEFT");
                     clearShipDirection(Direction.DOWN);
                     break;
                 case 2:
                     direction = Direction.RIGHT;
-                    Toast.makeText(getApplicationContext(), "Clicked" + btnClickAmount + "– Direction: Down", Toast.LENGTH_SHORT).show();
-                    placeBigShip(btn, direction);
+                    placeBigShip(btn, direction, rotationFlag);
                     break;
             }
         } else if ((btnID-btnDefault+4)%8>8-shipSize){
             switch (btnClickAmount%3) {
                 case 0:
                     direction = Direction.DOWN;
-                    Toast.makeText(getApplicationContext(), "Clicked" + btnClickAmount + "– Direction: Left", Toast.LENGTH_SHORT).show();
-                    placeBigShip(btn, direction);
+                    placeBigShip(btn, direction, "RIGHT");
                     clearShipDirection(Direction.UP);
                     break;
                 case 1:
                     direction = Direction.LEFT;
-                    Toast.makeText(getApplicationContext(), "Clicked" + btnClickAmount + "– Direction: Up", Toast.LENGTH_SHORT).show();
-                    placeBigShip(btn, direction);
+                    placeBigShip(btn, direction, rotationFlag);
                     break;
                 case 2:
                     direction = Direction.UP;
-                    Toast.makeText(getApplicationContext(), "Clicked" + btnClickAmount + "– Direction: Right", Toast.LENGTH_SHORT).show();
-                    placeBigShip(btn, direction);
+                    placeBigShip(btn, direction, rotationFlag);
                     break;
             }
 
@@ -231,43 +306,53 @@ public class setupActivity extends AppCompatActivity {
             switch (btnClickAmount%3) {
                 case 0:
                     direction = Direction.DOWN;
-                    Toast.makeText(getApplicationContext(), "Clicked" + btnClickAmount + "– Direction: Left", Toast.LENGTH_SHORT).show();
-                    placeBigShip(btn, direction);
+                    placeBigShip(btn, direction, rotationFlag);
                     break;
                 case 1:
                     direction = Direction.LEFT;
-                    Toast.makeText(getApplicationContext(), "Clicked" + btnClickAmount + "– Direction: Up", Toast.LENGTH_SHORT).show();
-                    placeBigShip(btn, direction);
+                    placeBigShip(btn, direction, rotationFlag);
                     break;
                 case 2:
                     direction = Direction.RIGHT;
-                    Toast.makeText(getApplicationContext(), "Clicked" + btnClickAmount + "– Direction: Right", Toast.LENGTH_SHORT).show();
-                    placeBigShip(btn, direction);
+                    placeBigShip(btn, direction, "TOP");
                     clearShipDirection(Direction.LEFT);
                     break;
             }
 
-        } else {
+        } else if ((btnID-btnDefault+(shipSize-1)*8)>67){
+            switch (btnClickAmount%3) {
+                case 0:
+                    direction = Direction.LEFT;
+                    placeBigShip(btn, direction, "BOTTOM");
+                    break;
+                case 1:
+                    direction = Direction.UP;
+                    placeBigShip(btn, direction, rotationFlag);
+                    break;
+                case 2:
+                    direction = Direction.RIGHT;
+                    placeBigShip(btn, direction, "BOTTOM");
+                    clearShipDirection(Direction.LEFT);
+                    break;
+            }
+
+        }else {
             switch (btnClickAmount%4) {
                 case 0:
                     direction = Direction.DOWN;
-                    Toast.makeText(getApplicationContext(), "Clicked" + btnClickAmount + "– Direction: Left", Toast.LENGTH_SHORT).show();
-                    placeBigShip(btn, direction);
+                    placeBigShip(btn, direction, rotationFlag);
                     break;
                 case 1:
                     direction = Direction.LEFT;
-                    Toast.makeText(getApplicationContext(), "Clicked" + btnClickAmount + "– Direction: Up", Toast.LENGTH_SHORT).show();
-                    placeBigShip(btn, direction);
+                    placeBigShip(btn, direction, rotationFlag);
                     break;
                 case 2:
                     direction = Direction.UP;
-                    Toast.makeText(getApplicationContext(), "Clicked" + btnClickAmount + "– Direction: Right", Toast.LENGTH_SHORT).show();
-                    placeBigShip(btn, direction);
+                    placeBigShip(btn, direction, rotationFlag);
                     break;
                 case 3:
                     direction = Direction.RIGHT;
-                    Toast.makeText(getApplicationContext(), "Clicked" + btnClickAmount + "– Direction: Down", Toast.LENGTH_SHORT).show();
-                    placeBigShip(btn, direction);
+                    placeBigShip(btn, direction, rotationFlag);
                     break;
             }
         }
@@ -286,29 +371,32 @@ public class setupActivity extends AppCompatActivity {
 
     private  void clearOldShip(int btnID) {
         Button prevBtn = findViewById(btnID);
-        //need fix to delete ship if rotated by the edge and then a new ship of same length is placed after
-        //another type of ship is placed
+
         int dir = 0;
-        if(direction == Direction.UP) {
+        if(prevBtn.getRotation() == 180) {
             dir = -8;
-        } else if (direction == Direction.DOWN){
+        } else if (prevBtn.getRotation()==0){
             dir = 8;
-        } else if (direction == Direction.LEFT) {
+        } else if (prevBtn.getRotation()==90) {
             dir = -1;
-        } else if (direction == Direction.RIGHT) {
+        } else if (prevBtn.getRotation()==270) {
             dir = 1;
         }
+
+        Button prevBtn1;
+        Button prevBtn2;
+        Button prevBtn3;
 
         if(prevBtn.getBackground().getConstantState() == getResources().getDrawable(R.mipmap.ship_one).getConstantState()) {
             prevBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.defaultbutton));
             prevBtn.setRotation(0);
             shipOneID = 0;
         }
-        else if(prevBtn.getBackground().getConstantState() == getResources().getDrawable(R.mipmap.ship_three_front).getConstantState()) {
+        else if(btnID == shipThreeID) {
             prevBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.defaultbutton));
             prevBtn.setRotation(0);
-            Button prevBtn1 = findViewById(prevBtn.getId()+1*dir);
-            Button prevBtn2 = findViewById(prevBtn.getId()+2*dir);
+            prevBtn1 = findViewById(prevBtn.getId()+1*dir);
+            prevBtn2 = findViewById(prevBtn.getId()+2*dir);
 
             prevBtn1.setBackground(ContextCompat.getDrawable(this, R.drawable.defaultbutton));
             prevBtn2.setBackground(ContextCompat.getDrawable(this, R.drawable.defaultbutton));
@@ -321,9 +409,9 @@ public class setupActivity extends AppCompatActivity {
             prevBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.defaultbutton));
             prevBtn.setRotation(0);
 
-            Button prevBtn1 = findViewById(prevBtn.getId()+1*dir);
-            Button prevBtn2 = findViewById(prevBtn.getId()+2*dir);
-            Button prevBtn3 = findViewById(prevBtn.getId()+3*dir);
+            prevBtn1 = findViewById(prevBtn.getId()+1*dir);
+            prevBtn2 = findViewById(prevBtn.getId()+2*dir);
+            prevBtn3 = findViewById(prevBtn.getId()+3*dir);
 
             prevBtn1.setBackground(ContextCompat.getDrawable(this, R.drawable.defaultbutton));
             prevBtn2.setBackground(ContextCompat.getDrawable(this, R.drawable.defaultbutton));
@@ -338,41 +426,40 @@ public class setupActivity extends AppCompatActivity {
 
 
     private void clearShipDirection(Direction direction) {
-        if(direction == Direction.DOWN) {
-            Button tmbBtn1 = findViewById(btnID+8);
-            Button tmbBtn2 = findViewById(btnID+16);
-            Button tmbBtn3 = findViewById(btnID+24);
+        Button prevBtn = findViewById(btnID);
 
-            tmbBtn1.setRotation(0);
-            tmbBtn2.setRotation(0);
-            tmbBtn3.setRotation(0);
-            tmbBtn1.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
-            tmbBtn2.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
-            tmbBtn3.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
-
-        } else if(direction == Direction.UP) {
-            Button tmbBtn1 = findViewById(btnID-8);
-            Button tmbBtn2 = findViewById(btnID-16);
-            Button tmbBtn3 = findViewById(btnID-24);
-
-            tmbBtn1.setRotation(0);
-            tmbBtn2.setRotation(0);
-            tmbBtn3.setRotation(0);
-            tmbBtn1.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
-            tmbBtn2.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
-            tmbBtn3.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
-
+        int dir = 0;
+        if(direction == Direction.UP) {
+            dir = -8;
+        } else if (direction == Direction.DOWN){
+            dir = 8;
         } else if (direction == Direction.LEFT) {
-            Button tmbBtn1 = findViewById(btnID-1);
-            Button tmbBtn2 = findViewById(btnID-2);
-            Button tmbBtn3 = findViewById(btnID-3);
+            dir = -1;
+        } else if (direction == Direction.RIGHT) {
+            dir = 1;
+        }
 
-            tmbBtn1.setRotation(0);
-            tmbBtn2.setRotation(0);
-            tmbBtn3.setRotation(0);
-            tmbBtn1.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
-            tmbBtn2.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
-            tmbBtn3.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
+        if(shipSize == 2) {
+            Button prevBtn1 = findViewById(btnID+1*dir);
+            prevBtn1.setRotation(0);
+            prevBtn1.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
+        } else if (shipSize == 3) {
+            Button prevBtn1 = findViewById(btnID+1*dir);
+            Button prevBtn2 = findViewById(btnID+2*dir);
+            prevBtn1.setRotation(0);
+            prevBtn2.setRotation(0);
+            prevBtn1.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
+            prevBtn2.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
+        } else if (shipSize == 4) {
+            Button prevBtn1 = findViewById(btnID+1*dir);
+            Button prevBtn2 = findViewById(btnID+2*dir);
+            Button prevBtn3 = findViewById(btnID+3*dir);
+            prevBtn1.setRotation(0);
+            prevBtn2.setRotation(0);
+            prevBtn3.setRotation(0);
+            prevBtn1.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
+            prevBtn2.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
+            prevBtn3.setBackground(ContextCompat.getDrawable(this,R.drawable.defaultbutton));
         }
     }
 
@@ -381,5 +468,13 @@ public class setupActivity extends AppCompatActivity {
         Point point = gameModel.getPlayers().get(0).getGrid().get(btnID-btnDefault);
         gameModel.setStartPosition(point);
         positionSet = true;
+    }
+
+    public boolean isOccupied(Button btn) {
+        boolean Occu = true;
+        if (btn.getBackground().getConstantState() == getResources().getDrawable(R.drawable.defaultbutton).getConstantState()) {
+          Occu = false;
+        }
+        return Occu;
     }
 }
