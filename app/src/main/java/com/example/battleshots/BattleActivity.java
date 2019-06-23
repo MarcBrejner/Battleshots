@@ -27,8 +27,9 @@ public class BattleActivity extends AppCompatActivity {
     String playerID, gameID;
     DatabaseReference playerRef, otherPlayerRef;
     ValueEventListener valueEventListener;
-    ArrayList<Point> shipParts;
-    HashMap<String, Object> player2Info, player1Info;
+    ArrayList<Point> playerShipParts, otherPlayerShipParts;
+
+    HashMap<String, Object> otherPlayerInfo, playerInfo;
     public final int DEFAULT_GRID_ID = 2131230887;
     public final int DEFAULT_SHOOTBUTTON_ID = 2131230763;
     GridLayout gridLayout;
@@ -55,7 +56,7 @@ public class BattleActivity extends AppCompatActivity {
         playerRef.addValueEventListener(valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                player1Info = (HashMap<String, Object>) dataSnapshot.getValue();
+                playerInfo = (HashMap<String, Object>) dataSnapshot.getValue();
             }
 
             @Override
@@ -67,7 +68,7 @@ public class BattleActivity extends AppCompatActivity {
         otherPlayerRef.addValueEventListener(valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                player2Info = (HashMap<String, Object>) dataSnapshot.getValue();
+                otherPlayerInfo = (HashMap<String, Object>) dataSnapshot.getValue();
             }
 
             @Override
@@ -78,19 +79,27 @@ public class BattleActivity extends AppCompatActivity {
 
 
 
-
-
-
         // TODO: A lot of stuff....
     }
 
     public void onClick(View view) {
+        Button btn = findViewById(view.getId());
+
         Point point = convertIndexToPoint(view.getId()-DEFAULT_SHOOTBUTTON_ID);
-        Toast.makeText(getApplicationContext(),point.toString(), Toast.LENGTH_SHORT).show();
+
+
+        otherPlayerShipParts = getShips(otherPlayerInfo);
+
+        if(otherPlayerShipParts.contains(point)){
+            btn.setBackground(ContextCompat.getDrawable(this,R.drawable.chosenbutton));
+            otherPlayerRef.child("destroyed_parts").setValue(point);
+        } else {
+            Toast.makeText(getApplicationContext(), point.toString(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void test(View view) {
-        paintShips(getShips(player1Info));
+        paintShips(getShips(playerInfo));
         Toast.makeText(getApplicationContext(),"gnomed", Toast.LENGTH_SHORT).show();
 
     }
@@ -158,6 +167,8 @@ public class BattleActivity extends AppCompatActivity {
     public Point convertIndexToPoint(int index) {
         return new Point(index%gridSize,index/gridSize);
     }
+
+
 
 
 
