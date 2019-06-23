@@ -73,8 +73,8 @@ public class Server {
         });
     }
 
-    public void deleteGameDataBase() {
-        gameRef.removeValue();
+    public void deleteGameDataBase(String GameID) {
+        reference.child("Game").child(GameID).removeValue();
     }
 
     public DatabaseReference createGameRef(String gameID) {
