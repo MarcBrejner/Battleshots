@@ -74,7 +74,6 @@ public class JoinGameActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        server.deleteGameDataBase(gameID);
         server.gameRef.removeEventListener(valueEventListener);
         super.onDestroy();
     }

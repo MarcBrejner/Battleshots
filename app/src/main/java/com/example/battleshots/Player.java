@@ -5,10 +5,10 @@ import java.util.List;
 
 public class Player {
     private String playerName;
-    private int gridSize = 8, shipAmount;
+    private int gridSize = 8, shipAmount = 0;
     private List<Point> grid, shipList;
     private List<Ship> ships;
-    public boolean hasShip = false;
+    public boolean hasShip = false, noShipsLeft = false;
 
     public Player(String name) {
         this.playerName = name;
@@ -24,9 +24,10 @@ public class Player {
             if (direction == Direction.DOWN && 0 > point.getY() - (length - 1) ||
                     direction == Direction.UP && gridSize <= (length - 1) + point.getY() ||
                     direction == Direction.LEFT && gridSize <= (length - 1) + point.getX() ||
-                    direction == Direction.RIGHT && 0 > point.getX() - (length - 1) ||
-                    shipAmount >= 4) {
+                    direction == Direction.RIGHT && 0 > point.getX() - (length - 1)) {
                 hasShip = true;
+            } else if (shipAmount >= 4) {
+                noShipsLeft = true;
             } else {
                 Ship ship = new Ship(point, length, direction, "Ship_" + ++shipAmount);
                 ships.add(ship);
@@ -37,6 +38,7 @@ public class Player {
             }
         }
     }
+
 
     public boolean hasShipInside(Point point, Direction direction, int length) {
         for (int i = 0; i < length; i++) {

@@ -121,8 +121,12 @@ public class setupActivity extends AppCompatActivity {
         boat1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shipSize = 1;
-                Toast.makeText(getApplicationContext(), "You picked a patrol boat", Toast.LENGTH_SHORT).show();
+                if (!ship1placed) {
+                    shipSize = 1;
+                    Toast.makeText(getApplicationContext(), "You picked a patrol boat", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "You have already placed this ship", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -130,8 +134,12 @@ public class setupActivity extends AppCompatActivity {
         boat2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shipSize = 2;
-                Toast.makeText(getApplicationContext(), "Ship Size is 2", Toast.LENGTH_SHORT).show();
+                if (!ship2placed) {
+                    shipSize = 2;
+                    Toast.makeText(getApplicationContext(), "Ship Size is 2", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "You have already placed this ship", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -139,8 +147,12 @@ public class setupActivity extends AppCompatActivity {
         boat3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shipSize = 3;
-                Toast.makeText(getApplicationContext(), "You picked a cruiser", Toast.LENGTH_SHORT).show();
+                if (!ship3placed) {
+                    shipSize = 3;
+                    Toast.makeText(getApplicationContext(), "You picked a cruiser", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "You have already placed this ship", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -148,8 +160,12 @@ public class setupActivity extends AppCompatActivity {
         boat4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shipSize = 4;
-                Toast.makeText(getApplicationContext(), "Ship Size is 4", Toast.LENGTH_SHORT).show();
+                if (!ship4placed) {
+                    shipSize = 4;
+                    Toast.makeText(getApplicationContext(), "Ship Size is 4", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "You have already placed this ship", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -162,45 +178,45 @@ public class setupActivity extends AppCompatActivity {
 
     public void onClick(View view) {
         Button btn = (Button) findViewById(view.getId());
-        Button prevBtn = findViewById(prevbtnID);
         btnID = btn.getId();
         if (shipSize == 0) {
             Toast.makeText(getApplicationContext(), "Pick your naval ship", Toast.LENGTH_SHORT).show();
-        }
+        } else {
         /* else if(containShip(btnID-btnDefault)) {
             Toast.makeText(getApplicationContext(), ""+ Arrays.toString(shipList.toArray()), Toast.LENGTH_SHORT).show();
         } */
-        if (btnID == prevbtnID) {
-            rotateShip();
-        } else if (shipSize == 2 && shipTwoID == btnID) {
-            rotateShip();
-        } else if (shipSize == 3 && shipThreeID == btnID) {
-            rotateShip();
-        } else if (shipSize == 4 && shipFourID == btnID) {
-            rotateShip();
-        }
-        else if(btnID != prevbtnID) {
-            if(prevbtnID != 0 && shipOneID != 0 && shipSize == 1) {
-                clearOldShip(shipOneID);
-            } else if (prevbtnID != 0 && shipTwoID != 0 && shipSize == 2) {
-                clearOldShip(shipTwoID);
-            } else if (prevbtnID != 0 && shipThreeID != 0 && shipSize == 3) {
-                 clearOldShip(shipThreeID);
-            } else if (prevbtnID != 0 && shipFourID != 0 && shipSize == 4) {
-                clearOldShip(shipFourID);
-            }
-            prevbtnID = btnID;
-            btnClickAmount = 0;
-            direction = Direction.DOWN;
-            if (btn.getBackground().getConstantState() == getResources().getDrawable(R.drawable.defaultbutton).getConstantState()) {
-                if(shipSize == 1) {
-                    placeBigShip(btn, direction, rotationFlag);
-                } else if (shipSize == 2) {
-                    placeBigShip(btn, direction, rotationFlag);
-                } else if (shipSize == 3) {
-                    placeBigShip(btn, direction, rotationFlag);
-                } else if (shipSize == 4) {
-                    placeBigShip(btn, direction, rotationFlag);
+            setStartPosition();
+            if (btnID == prevbtnID && shipOneID == btnID && !ship1placed) {
+                rotateShip();
+            } else if (shipSize == 2 && shipTwoID == btnID && prevbtnID == btnID && !ship2placed) {
+                rotateShip();
+            } else if (shipSize == 3 && shipThreeID == btnID && prevbtnID == btnID && !ship3placed) {
+                rotateShip();
+            } else if (shipSize == 4 && shipFourID == btnID && prevbtnID == btnID && !ship4placed) {
+                rotateShip();
+            } else if (btnID != prevbtnID ) { // Skrives for at skibet ikke forsvinder
+                if (prevbtnID != 0 && shipOneID != 0 && shipSize == 1) {
+                    clearOldShip(shipOneID);
+                } else if (prevbtnID != 0 && shipTwoID != 0 && shipSize == 2) {
+                    clearOldShip(shipTwoID);
+                } else if (prevbtnID != 0 && shipThreeID != 0 && shipSize == 3) {
+                    clearOldShip(shipThreeID);
+                } else if (prevbtnID != 0 && shipFourID != 0 && shipSize == 4) {
+                    clearOldShip(shipFourID);
+                }
+                prevbtnID = btnID;
+                btnClickAmount = 0;
+                direction = Direction.DOWN;
+                if (btn.getBackground().getConstantState() == getResources().getDrawable(R.drawable.defaultbutton).getConstantState()) {
+                    if (shipSize == 1 && !ship1placed) {
+                        placeBigShip(btn, direction, rotationFlag);
+                    } else if (shipSize == 2 && !ship2placed) {
+                        placeBigShip(btn, direction, rotationFlag);
+                    } else if (shipSize == 3 && !ship3placed) {
+                        placeBigShip(btn, direction, rotationFlag);
+                    } else if (shipSize == 4 && !ship4placed) {
+                        placeBigShip(btn, direction, rotationFlag);
+                    }
                 }
             }
         }
@@ -674,25 +690,31 @@ public class setupActivity extends AppCompatActivity {
                 if (gameModel.getPlayers().get(0).hasShip) {
                     Toast.makeText(getApplicationContext(), "Denied ship placement", Toast.LENGTH_SHORT).show();
                     gameModel.getPlayers().get(0).hasShip = false;
+                } else if (gameModel.getPlayers().get(0).noShipsLeft) {
+                    Toast.makeText(getApplicationContext(), "All ships have been placed", Toast.LENGTH_SHORT).show();
                 } else {
                     server.addShipToDatabase(this, gameModel.getPlayers().get(0), gameID, playerID);
                     positionSet = false;
 
                     if (shipSize == 1) {
                         ship1placed = true;
+                        Toast.makeText(getApplicationContext(),"Ship 1 has been placed", Toast.LENGTH_SHORT).show();
                     } else if (shipSize == 2) {
                         ship2placed = true;
+                        Toast.makeText(getApplicationContext(),"Ship 2 has been placed", Toast.LENGTH_SHORT).show();
                     } else if (shipSize == 3) {
                         ship3placed = true;
+                        Toast.makeText(getApplicationContext(),"Ship 3 has been placed", Toast.LENGTH_SHORT).show();
                     } else if (shipSize == 4) {
                         ship4placed = true;
+                        Toast.makeText(getApplicationContext(),"Ship 4 has been placed", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
         }
 
         public void readyToBattle (View view){
-            if (shipOneID == 0 || shipThreeID == 0) {
+            if (!ship1placed || !ship2placed || !ship3placed || !ship4placed) {
                 // Also need shipTwoID and shipThreeID
                 Toast.makeText(getApplicationContext(), "Not all ships have been placed", Toast.LENGTH_SHORT).show();
             } else {
