@@ -2,6 +2,7 @@ package com.example.battleshots;
 
 import android.graphics.*;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;

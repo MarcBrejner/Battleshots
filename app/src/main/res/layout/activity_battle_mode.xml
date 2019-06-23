@@ -1,1301 +1,1087 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/battle_map"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:weightSum="10"
-    tools:context="BattleActivity">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/battle_map"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:weightSum="13"
+              tools:context="BattleActivity">
 
-    <GridLayout
-            android:id="@+id/gridLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:columnCount="8"
-        android:orientation="horizontal"
-        android:rowCount="8"
-        tools:context=".BattleActivity">
-
-        <Button
-            android:id="@+id/imageView_0"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:onClick="findID"/>
-
-        <Button
-            android:id="@+id/imageView_1"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:onClick="findID"/>
-
-        <Button
-            android:id="@+id/imageView_2"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_row="0"
-            android:layout_column="2"
-            android:onClick="findID" />
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.4">
 
         <ImageView
-            android:id="@+id/imageView_3"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_row="0"
-            android:layout_column="3"
-            app:srcCompat="@drawable/defaultbutton"
-            android:onClick="findID"/>
+                android:id="@+id/imageView_0"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
-            android:id="@+id/imageView_4"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_row="0"
-            android:layout_column="4"
-            app:srcCompat="@drawable/defaultbutton"
-            android:onClick="findID"/>
+                android:id="@+id/imageView_1"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
-            android:id="@+id/imageView_5"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_row="0"
-            android:layout_column="5"
-            app:srcCompat="@drawable/defaultbutton"
-            android:onClick="findID"/>
+                android:id="@+id/imageView_2"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
-            android:id="@+id/imageView_6"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_row="0"
-            android:layout_column="6"
-            app:srcCompat="@drawable/defaultbutton"
-            android:onClick="findID"/>
+                android:id="@+id/imageView_3"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
-            android:id="@+id/imageView_7"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_row="0"
-            android:layout_column="7"
-            app:srcCompat="@drawable/defaultbutton"
-            android:onClick="findID"/>
+                android:id="@+id/imageView_4"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
-            android:id="@+id/imageView_8"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_row="1"
-            android:layout_column="0"
-            app:srcCompat="@drawable/defaultbutton"
-            android:onClick="findID"/>
+                android:id="@+id/imageView_5"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
-            android:id="@+id/imageView_9"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_row="1"
-            android:layout_column="1"
-            app:srcCompat="@drawable/defaultbutton"
-            android:onClick="findID"/>
+                android:id="@+id/imageView_6"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
-            android:id="@+id/imageView_10"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_row="1"
-            android:layout_column="2"
-            app:srcCompat="@drawable/defaultbutton"
-            android:onClick="findID"/>
+                android:id="@+id/imageView_7"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/defaultbutton"/>
+
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="0dp"
+                  android:layout_weight="0.4">
+
+        <ImageView
+                android:id="@+id/imageView_8"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/defaultbutton"/>
+
+        <ImageView
+                android:id="@+id/imageView_9"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/defaultbutton"/>
+
+        <ImageView
+                android:id="@+id/imageView_10"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/defaultbutton"/>
 
 
         <ImageView
-            android:id="@+id/imageView_11"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_row="1"
-            android:layout_column="3"
-            app:srcCompat="@drawable/defaultbutton"
-            android:onClick="findID"/>
+                android:id="@+id/imageView_11"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
-            android:id="@+id/imageView_12"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_row="1"
-            android:layout_column="4"
-            app:srcCompat="@drawable/defaultbutton"
-            android:onClick="findID"/>
+                android:id="@+id/imageView_12"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
-            android:id="@+id/imageView_13"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_row="1"
-            android:layout_column="5"
-            app:srcCompat="@drawable/defaultbutton"
-            android:onClick="findID"/>
+                android:id="@+id/imageView_13"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
-            android:id="@+id/imageView_14"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_row="1"
-            android:layout_column="6"
-            app:srcCompat="@drawable/defaultbutton"
-            android:onClick="findID"/>
+                android:id="@+id/imageView_14"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
-            android:id="@+id/imageView_15"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_row="1"
-            android:layout_column="7"
-            app:srcCompat="@drawable/defaultbutton"
-            android:onClick="findID"/>
+                android:id="@+id/imageView_15"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/defaultbutton"/>
+
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="0dp"
+                  android:layout_weight="0.4">
 
         <ImageView
-            android:id="@+id/imageView_16"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_row="2"
-            android:layout_column="0"
-            app:srcCompat="@drawable/defaultbutton"
-            android:onClick="findID"/>
+                android:id="@+id/imageView_16"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_17"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="2"
-                android:layout_column="1"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_18"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="2"
-                android:layout_column="2"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_19"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="2"
-                android:layout_column="3"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_20"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="2"
-                android:layout_column="4"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_21"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="2"
-                android:layout_column="5"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_22"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="2"
-                android:layout_column="6"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_23"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="2"
-                android:layout_column="7"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
+
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="0dp"
+                  android:layout_weight="0.4">
 
         <ImageView
                 android:id="@+id/imageView_24"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="3"
-                android:layout_column="0"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_25"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="3"
-                android:layout_column="1"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_26"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="3"
-                android:layout_column="2"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
 
         <ImageView
                 android:id="@+id/imageView_27"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="3"
-                android:layout_column="3"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_28"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="3"
-                android:layout_column="4"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_29"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="3"
-                android:layout_column="5"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_30"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="3"
-                android:layout_column="6"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_31"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="3"
-                android:layout_column="7"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
+
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="0dp"
+                  android:layout_weight="0.4">
 
         <ImageView
                 android:id="@+id/imageView_32"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="4"
-                android:layout_column="0"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_33"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="4"
-                android:layout_column="1"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_34"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="4"
-                android:layout_column="2"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
 
         <ImageView
                 android:id="@+id/imageView_35"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="4"
-                android:layout_column="3"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_36"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="4"
-                android:layout_column="4"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_37"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="4"
-                android:layout_column="5"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_38"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="4"
-                android:layout_column="6"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_39"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="4"
-                android:layout_column="7"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="0dp"
+                  android:layout_weight="0.4">
 
         <ImageView
                 android:id="@+id/imageView_40"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="5"
-                android:layout_column="0"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_41"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="5"
-                android:layout_column="1"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_42"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="5"
-                android:layout_column="2"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
 
         <ImageView
                 android:id="@+id/imageView_43"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="5"
-                android:layout_column="3"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_44"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="5"
-                android:layout_column="4"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_45"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="5"
-                android:layout_column="5"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_46"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="5"
-                android:layout_column="6"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_47"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="5"
-                android:layout_column="7"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="0dp"
+                  android:layout_weight="0.4">
         <ImageView
                 android:id="@+id/imageView_48"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="6"
-                android:layout_column="0"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_49"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="6"
-                android:layout_column="1"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_50"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="6"
-                android:layout_column="2"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
 
         <ImageView
                 android:id="@+id/imageView_51"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="6"
-                android:layout_column="3"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_52"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="6"
-                android:layout_column="4"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_53"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="6"
-                android:layout_column="5"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_54"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="6"
-                android:layout_column="6"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_55"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="6"
-                android:layout_column="7"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
+
+
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="0dp"
+                  android:layout_weight="0.4">
 
         <ImageView
                 android:id="@+id/imageView_56"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="7"
-                android:layout_column="0"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_57"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="7"
-                android:layout_column="1"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_58"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="7"
-                android:layout_column="2"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
 
         <ImageView
                 android:id="@+id/imageView_59"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="7"
-                android:layout_column="3"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_60"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="7"
-                android:layout_column="4"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_61"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="7"
-                android:layout_column="5"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_62"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="7"
-                android:layout_column="6"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
         <ImageView
                 android:id="@+id/imageView_63"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_row="7"
-                android:layout_column="7"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
+                app:srcCompat="@drawable/defaultbutton"/>
 
-    </GridLayout>
-
-    <LinearLayout android:layout_width="match_parent" android:layout_height="30dp">
-        <ImageView
-                android:id="@+id/imageView_70"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_row="0"
-                android:layout_column="3"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
-
-        <ImageView
-                android:id="@+id/imageView_71"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_row="0"
-                android:layout_column="4"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
-
-        <ImageView
-                android:id="@+id/imageView_72"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_row="0"
-                android:layout_column="5"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
-
-        <ImageView
-                android:id="@+id/imageView_73"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_row="0"
-                android:layout_column="6"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
-
-        <ImageView
-                android:id="@+id/imageView_74"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_row="0"
-                android:layout_column="7"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
-
-        <ImageView
-                android:id="@+id/imageView_75"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_row="1"
-                android:layout_column="0"
-                app:srcCompat="@drawable/defaultbutton"
-                android:onClick="findID"/>
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/row_1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="0dp">
+            android:id="@+id/row_1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="0dp">
 
         <Button
-            android:id="@+id/button_a0"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick" />
+                android:id="@+id/button_a0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"/>
 
         <Button
-            android:id="@+id/button_a1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick" />
+                android:id="@+id/button_a1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"/>
 
         <Button
-            android:id="@+id/button_a2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="2" />
+                android:id="@+id/button_a2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="2"/>
 
         <Button
-            android:id="@+id/button_a3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="3" />
+                android:id="@+id/button_a3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="3"/>
 
         <Button
-            android:id="@+id/button_a4"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="4" />
+                android:id="@+id/button_a4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="4"/>
 
         <Button
-            android:id="@+id/button_a5"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="5" />
+                android:id="@+id/button_a5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="5"/>
 
         <Button
-            android:id="@+id/button_a6"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="6" />
+                android:id="@+id/button_a6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="6"/>
 
         <Button
-            android:id="@+id/button_a7"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="7" />
+                android:id="@+id/button_a7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="7"/>
 
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
         <Button
-            android:id="@+id/button_b0"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="8" />
+                android:id="@+id/button_b0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="8"/>
 
         <Button
-            android:id="@+id/button_b1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="9" />
+                android:id="@+id/button_b1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="9"/>
 
         <Button
-            android:id="@+id/button_b2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="10" />
+                android:id="@+id/button_b2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="10"/>
 
         <Button
-            android:id="@+id/button_b3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="11" />
+                android:id="@+id/button_b3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="11"/>
 
         <Button
-            android:id="@+id/button_b4"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="12" />
+                android:id="@+id/button_b4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="12"/>
 
         <Button
-            android:id="@+id/button_b5"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="13" />
+                android:id="@+id/button_b5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="13"/>
 
         <Button
-            android:id="@+id/button_b6"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="14" />
+                android:id="@+id/button_b6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="14"/>
 
         <Button
-            android:id="@+id/button_b7"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="15" />
+                android:id="@+id/button_b7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="15"/>
 
 
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
 
     </RelativeLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
         <Button
-            android:id="@+id/button_c0"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="16" />
+                android:id="@+id/button_c0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="16"/>
 
         <Button
-            android:id="@+id/button_c1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="17" />
+                android:id="@+id/button_c1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="17"/>
 
         <Button
-            android:id="@+id/button_c2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="18" />
+                android:id="@+id/button_c2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="18"/>
 
         <Button
-            android:id="@+id/button_c3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="19" />
+                android:id="@+id/button_c3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="19"/>
 
         <Button
-            android:id="@+id/button_c4"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="20" />
+                android:id="@+id/button_c4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="20"/>
 
         <Button
-            android:id="@+id/button_c5"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="21" />
+                android:id="@+id/button_c5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="21"/>
 
         <Button
-            android:id="@+id/button_c6"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="22" />
+                android:id="@+id/button_c6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="22"/>
 
         <Button
-            android:id="@+id/button_c7"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="23" />
+                android:id="@+id/button_c7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="23"/>
 
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
         <Button
-            android:id="@+id/button_d0"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="24" />
+                android:id="@+id/button_d0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="24"/>
 
         <Button
-            android:id="@+id/button_d1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="25" />
+                android:id="@+id/button_d1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="25"/>
 
         <Button
-            android:id="@+id/button_d2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="26" />
+                android:id="@+id/button_d2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="26"/>
 
         <Button
-            android:id="@+id/button_d3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="27" />
+                android:id="@+id/button_d3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="27"/>
 
         <Button
-            android:id="@+id/button_d4"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="28" />
+                android:id="@+id/button_d4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="28"/>
 
         <Button
-            android:id="@+id/button_d5"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="29" />
+                android:id="@+id/button_d5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="29"/>
 
         <Button
-            android:id="@+id/button_d6"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="30" />
+                android:id="@+id/button_d6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="30"/>
 
         <Button
-            android:id="@+id/button_d7"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="31" />
+                android:id="@+id/button_d7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="31"/>
 
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
         <Button
-            android:id="@+id/button_e0"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="32" />
+                android:id="@+id/button_e0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="32"/>
 
         <Button
-            android:id="@+id/button_e1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="33" />
+                android:id="@+id/button_e1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="33"/>
 
         <Button
-            android:id="@+id/button_e2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="34" />
+                android:id="@+id/button_e2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="34"/>
 
         <Button
-            android:id="@+id/button_e3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="35" />
+                android:id="@+id/button_e3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="35"/>
 
         <Button
-            android:id="@+id/button_e4"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="36" />
+                android:id="@+id/button_e4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="36"/>
 
         <Button
-            android:id="@+id/button_e5"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="37" />
+                android:id="@+id/button_e5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="37"/>
 
         <Button
-            android:id="@+id/button_e6"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="38" />
+                android:id="@+id/button_e6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="38"/>
 
         <Button
-            android:id="@+id/button_e7"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="39" />
+                android:id="@+id/button_e7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="39"/>
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
         <Button
-            android:id="@+id/button_f0"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="40" />
+                android:id="@+id/button_f0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="40"/>
 
         <Button
-            android:id="@+id/button_f1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="41" />
+                android:id="@+id/button_f1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="41"/>
 
         <Button
-            android:id="@+id/button_f2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="42" />
+                android:id="@+id/button_f2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="42"/>
 
         <Button
-            android:id="@+id/button_f3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="43" />
+                android:id="@+id/button_f3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="43"/>
 
         <Button
-            android:id="@+id/button_f4"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="44" />
+                android:id="@+id/button_f4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="44"/>
 
         <Button
-            android:id="@+id/button_f5"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="45" />
+                android:id="@+id/button_f5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="45"/>
 
         <Button
-            android:id="@+id/button_f6"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="46" />
+                android:id="@+id/button_f6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="46"/>
 
         <Button
-            android:id="@+id/button_f7"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="47" />
+                android:id="@+id/button_f7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="47"/>
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
         <Button
-            android:id="@+id/button_g0"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="48" />
+                android:id="@+id/button_g0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="48"/>
 
         <Button
-            android:id="@+id/button_g1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="49" />
+                android:id="@+id/button_g1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="49"/>
 
         <Button
-            android:id="@+id/button_g2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="50" />
+                android:id="@+id/button_g2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="50"/>
 
         <Button
-            android:id="@+id/button_g3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="51" />
+                android:id="@+id/button_g3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="51"/>
 
         <Button
-            android:id="@+id/button_g4"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="52" />
+                android:id="@+id/button_g4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="52"/>
 
         <Button
-            android:id="@+id/button_g5"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="53" />
+                android:id="@+id/button_g5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="53"/>
 
         <Button
-            android:id="@+id/button_g6"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="54" />
+                android:id="@+id/button_g6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="54"/>
 
         <Button
-            android:id="@+id/button_g7"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="55" />
+                android:id="@+id/button_g7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="55"/>
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
         <Button
-            android:id="@+id/button_h0"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="56" />
+                android:id="@+id/button_h0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="56"/>
 
         <Button
-            android:id="@+id/button_h1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="57" />
+                android:id="@+id/button_h1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="57"/>
 
         <Button
-            android:id="@+id/button_h2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="58" />
+                android:id="@+id/button_h2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="58"/>
 
         <Button
-            android:id="@+id/button_h3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="59" />
+                android:id="@+id/button_h3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="59"/>
 
         <Button
-            android:id="@+id/button_h4"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="60" />
+                android:id="@+id/button_h4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="60"/>
 
         <Button
-            android:id="@+id/button_h5"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="61" />
+                android:id="@+id/button_h5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="61"/>
 
         <Button
-            android:id="@+id/button_h6"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="62" />
+                android:id="@+id/button_h6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="62"/>
 
         <Button
-            android:id="@+id/button_h7"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/defaultbutton"
-            android:onClick="onClick"
-            android:tag="63" />
+                android:id="@+id/button_h7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="63"/>
 
         <Button
                 android:id="@+id/button_test"
@@ -1304,7 +1090,7 @@
                 android:layout_weight="5"
                 android:background="@drawable/defaultbutton"
                 android:onClick="test"
-                android:tag="63" />
+                android:tag="63"/>
 
     </LinearLayout>
 

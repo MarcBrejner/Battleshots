@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.Inflater;
 
 public class BattleActivity extends AppCompatActivity {
 
@@ -29,15 +30,11 @@ public class BattleActivity extends AppCompatActivity {
     ArrayList<Point> shipParts;
     HashMap<String, Object> Player1ShipInfo, player1Info,Ship1Info;
     public final int DEFAULT_GRID_ID = 2131230887;
-    GridLayout gridLayout;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle_mode);
-        gridLayout = (GridLayout) findViewById(R.id.gridLayout);
-        gridLayout.setRowOrderPreserved(true);
-
 
         //init
         gameID = getIntent().getStringExtra("gameID");
