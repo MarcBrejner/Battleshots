@@ -580,7 +580,6 @@ public class setupActivity extends AppCompatActivity {
                 gameModel.getPlayers().get(0).hasShip = false;
             } else {
                 server.addShipToDatabase(this, gameModel.getPlayers().get(0), gameID, playerID);
-                Toast.makeText(getApplicationContext(), gameModel.getPlayers().get(0).getShips().toString(), Toast.LENGTH_SHORT).show();
                 positionSet = false;
             }
         }
@@ -595,5 +594,11 @@ public class setupActivity extends AppCompatActivity {
             isReady = true;
             Toast.makeText(getApplicationContext(), "You are now ready for battle!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        server.deleteGameDataBase(gameID);
+        super.onDestroy();
     }
 }

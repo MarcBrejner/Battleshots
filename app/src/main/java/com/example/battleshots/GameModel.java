@@ -22,15 +22,6 @@ public class GameModel {
         }
     }
 
-    public GameModel() {
-
-    }
-
-    public void addPlayerToGameModel(String playerName) {
-        // Where we want to add the second player to the list.
-        players.add(new Player(playerName));
-    }
-
     public List<Player> getPlayers() {
         return players;
     }

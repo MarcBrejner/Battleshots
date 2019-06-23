@@ -2,14 +2,10 @@ package com.example.battleshots;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -51,10 +47,10 @@ public class JoinGameActivity extends AppCompatActivity {
                  info = (HashMap<String, Object>) dataSnapshot.getValue();
                  Boolean isStarting = (Boolean) info.get("isStarted");
                  //Toasttest
-                 Toast.makeText(getApplicationContext(),"Game is Starting", Toast.LENGTH_SHORT).show();
 
                  if(isStarting) {
                      //Launch setupActivity
+                     Toast.makeText(getApplicationContext(),"Game is Starting", Toast.LENGTH_SHORT).show();
                      Intent intent = new Intent(getApplicationContext(), setupActivity.class);
                      intent.putExtra("gameID", gameID);
                      intent.putExtra("playerID", "2");
@@ -73,12 +69,15 @@ public class JoinGameActivity extends AppCompatActivity {
     }
     @Override
     protected void onPause(){
-        server.gameRef.removeEventListener(valueEventListener);
         super.onPause();
     }
 
-
-
+    @Override
+    protected void onDestroy() {
+        server.deleteGameDataBase(gameID);
+        server.gameRef.removeEventListener(valueEventListener);
+        super.onDestroy();
+    }
 }
 
 
