@@ -1,5 +1,7 @@
 package com.example.battleshots;
 
+import android.graphics.*;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -13,10 +15,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
+import java.util.*;
+
 import android.content.Intent;
 import com.google.firebase.database.ValueEventListener;
 
@@ -24,12 +24,12 @@ public class setupActivity extends AppCompatActivity {
 
     private String gameID, playerID;
     private int btnID, btnClickAmount = 0, prevbtnID, shipSize, gridSize = 8, btnDefault = 2131230763;
-    List<Integer> btnList;
+    HashSet<Point> shipList;
     Map<String, Object> info;
     Direction direction = Direction.DOWN;
     private String rotationFlag, occupiedFlag = "";
     private int shipOneID, shipTwoID, shipThreeID, shipFourID;
-    private boolean isReady = false, positionSet = false;
+    private boolean isReady = false, positionSet = false, ship1placed, ship2placed, ship3placed, ship4placed;
 
     GameModel gameModel;
     Server server;
@@ -43,6 +43,7 @@ public class setupActivity extends AppCompatActivity {
         setContentView(R.layout.content_setup_map);
 
         server = new Server();
+        shipList = new HashSet<>();
 
         if (getIntent().getStringExtra("gameID") != null) {
             gameID = getIntent().getStringExtra("gameID");
@@ -166,29 +167,34 @@ public class setupActivity extends AppCompatActivity {
         if (shipSize == 0) {
             Toast.makeText(getApplicationContext(), "Pick your naval ship", Toast.LENGTH_SHORT).show();
         }
-        if (btnID == prevbtnID) {
-            btnClickAmount++;
-            rotateShip();
-        } else if (shipSize == 3 && shipThreeID == btnID) {
-            btnClickAmount++;
-            rotateShip();
-        } else if (btnID != prevbtnID && shipSize > 0) {
-            setStartPosition();
-            if (prevbtnID != 0 && shipOneID != 0 && shipSize == 1) {
-                clearOldShip(shipOneID);
-            } else if (prevbtnID != 0 && shipTwoID != 0 && shipSize == 2) {
-                //     clearOldShip(shipTwoID);
-            } else if (prevbtnID != 0 && shipThreeID != 0 && shipSize == 3) {
-                clearOldShip(shipThreeID);
-            }
-            prevbtnID = btnID;
-            btnClickAmount = 0;
-            direction = Direction.DOWN;
-            if (btn.getBackground().getConstantState() == getResources().getDrawable(R.drawable.defaultbutton).getConstantState()) {
-                if (shipSize == 1) {
-                    placeBigShip(btn, direction, rotationFlag);
-                } else if (shipSize == 3) {
-                    placeBigShip(btn, direction, rotationFlag);
+        /* else if(containShip(btnID-btnDefault)) {
+            Toast.makeText(getApplicationContext(), ""+ Arrays.toString(shipList.toArray()), Toast.LENGTH_SHORT).show();
+        } */
+        else {
+            if (btnID == prevbtnID) {
+                rotateShip();
+                btnClickAmount++;
+            } else if (shipSize == 3 && shipThreeID == btnID) {
+                rotateShip();
+                btnClickAmount++;
+            } else if (btnID != prevbtnID && shipSize > 0) {
+                setStartPosition();
+                if (prevbtnID != 0 && shipOneID != 0 && shipSize == 1) {
+                    clearOldShip(shipOneID);
+                } else if (prevbtnID != 0 && shipTwoID != 0 && shipSize == 2) {
+                    //     clearOldShip(shipTwoID);
+                } else if (prevbtnID != 0 && shipThreeID != 0 && shipSize == 3) {
+                    clearOldShip(shipThreeID);
+                }
+                prevbtnID = btnID;
+                btnClickAmount = 0;
+                direction = Direction.DOWN;
+                if (btn.getBackground().getConstantState() == getResources().getDrawable(R.drawable.defaultbutton).getConstantState()) {
+                    if (shipSize == 1) {
+                        placeBigShip(btn, direction, rotationFlag);
+                    } else if (shipSize == 3) {
+                        placeBigShip(btn, direction, rotationFlag);
+                    }
                 }
             }
         }
@@ -575,12 +581,28 @@ public class setupActivity extends AppCompatActivity {
         } else {
             // Index 0 gets player1, needs a method to figure out which player is who.
             gameModel.getPlayers().get(0).addShip(gameModel.getStartPoint(), shipSize, direction, gameModel);
+          /*  for (Ship ship:  gameModel.getPlayers().get(0).getShips()) {
+                for(Point shippoints : ship.getShip()) {
+                    shipList.add(shippoints);
+                }
+            }*/
+
             if (gameModel.getPlayers().get(0).hasShip) {
                 Toast.makeText(getApplicationContext(), "Denied ship placement", Toast.LENGTH_SHORT).show();
                 gameModel.getPlayers().get(0).hasShip = false;
             } else {
                 server.addShipToDatabase(this, gameModel.getPlayers().get(0), gameID, playerID);
                 positionSet = false;
+
+                if(shipSize == 1) {
+                    ship1placed = true;
+                } else if (shipSize == 2) {
+                    ship2placed = true;
+                } else if(shipSize == 3) {
+                    ship3placed = true;
+                } else if (shipSize == 4) {
+                    ship4placed = true;
+                }
             }
         }
     }
@@ -601,4 +623,56 @@ public class setupActivity extends AppCompatActivity {
         server.deleteGameDataBase(gameID);
         super.onDestroy();
     }
+
+    /* public boolean containShip(int index) {
+        if (direction == Direction.DOWN) {
+            for(int i = 0; i < shipSize; i++) {
+                if(shipList.contains(gameModel.convertIndexToPoint(index-i*8))) {
+                    return true;
+                }
+            }
+        } else if (direction == Direction.UP) {
+            for (int i = 0; i < shipSize; i++) {
+                if(shipList.contains(gameModel.convertIndexToPoint(index+i*8))) {
+                    return true;
+                }
+            }
+        } else if (direction == Direction.LEFT) {
+            for (int i = 0; i < shipSize; i++) {
+                if(shipList.contains(gameModel.convertIndexToPoint(index+i))) {
+                    return true;
+                }
+            }
+        } else if (direction == Direction.RIGHT) {
+            for (int i = 0; i < shipSize; i++) {
+                if(shipList.contains(gameModel.convertIndexToPoint(index-i))) {
+                    return true;
+                }
+            }
+        }
+        return  false;
+    } */
+
+    /* public BitmapDrawable combineImage(int imgID, int imgID2) {
+        Bitmap img1 = BitmapFactory.decodeResource(getResources(), imgID);
+        Bitmap img2 = BitmapFactory.decodeResource(getResources(), imgID2);
+        Bitmap overlay = Bitmap.createBitmap(img1.getWidth(), img1.getHeight(), img1.getConfig());
+        Canvas canvas = new Canvas(overlay);
+        img2 = addWhiteBorder(img2, 15);
+        canvas.drawBitmap(img2, new Matrix(), null);
+        canvas.drawBitmap( img1,  new Matrix(), null);
+        return bitmapToBitmapDrawable(overlay);
+    }
+
+    public BitmapDrawable bitmapToBitmapDrawable(Bitmap bitmap) {
+        return new BitmapDrawable(getResources(), bitmap);
+    }
+
+    private Bitmap addWhiteBorder(Bitmap bmp, int borderSize) {
+        Bitmap bmpWithBorder = Bitmap.createBitmap(bmp.getWidth() + borderSize * 2, bmp.getHeight() +  borderSize * 2, bmp.getConfig());
+        Canvas canvas = new Canvas(bmpWithBorder);
+        canvas.drawColor(Color.WHITE);
+        canvas.drawBitmap(bmp, borderSize, borderSize, null);
+        return bmpWithBorder;
+    } */
 }
