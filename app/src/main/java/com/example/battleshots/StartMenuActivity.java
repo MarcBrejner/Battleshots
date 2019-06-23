@@ -121,6 +121,7 @@ public class StartMenuActivity extends AppCompatActivity implements Serializable
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         alertDialog.setView(input);
+        alertDialog.setCancelable(false);
 
 
         // Set OK Button

@@ -93,9 +93,9 @@ public class BattleActivity extends AppCompatActivity {
 
         if(otherPlayerShipParts.contains(point)){
             btn.setBackground(ContextCompat.getDrawable(this,R.drawable.chosenbutton));
-            otherPlayerRef.child("destroyed_parts").setValue(point);
+            //otherPlayerRef.child("destroyed_parts").setValue(point);
         } else {
-            Toast.makeText(getApplicationContext(), point.toString(), Toast.LENGTH_SHORT).show();
+            btn.setBackground(ContextCompat.getDrawable(this, R.drawable.missedbutton));
         }
     }
 
