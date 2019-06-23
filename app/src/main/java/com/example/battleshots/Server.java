@@ -77,7 +77,8 @@ public class Server {
         gameRef.removeValue();
     }
 
-    public DatabaseReference getGameRef() {
+    public DatabaseReference createGameRef(String gameID) {
+        gameRef = reference.child("Game").child(gameID);
         return gameRef;
     }
 }

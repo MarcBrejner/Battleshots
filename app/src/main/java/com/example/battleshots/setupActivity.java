@@ -81,7 +81,7 @@ public class setupActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 info = (HashMap<String, Object>) dataSnapshot.getValue();
-                Log.d("information", info.toString());
+                //Log.d("information", info.toString());
                 if (info != null) {
                     Boolean otherPlayerIsReady = (Boolean) info.get("isReady");
                     Boolean beginGame = (Boolean) info.get("gameStarted");

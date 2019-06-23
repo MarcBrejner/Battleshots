@@ -1179,6 +1179,15 @@
             android:onClick="onClick"
             android:tag="63" />
 
+        <Button
+                android:id="@+id/button_test"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:background="@drawable/defaultbutton"
+                android:onClick="test"
+                android:tag="63" />
+
     </LinearLayout>
 
 </LinearLayout>
