@@ -12,7 +12,7 @@
         <activity android:name=".JoinGameActivity"
             android:label="@string/title_activity_join_game"
                   android:noHistory="true"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".StartMenuActivity" />
         <activity android:name=".CreateGameActivity"
                     android:noHistory="true"/>
@@ -24,8 +24,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".setupActivity"
-        android:noHistory="true"/>
-        <activity android:name=".BattleActivity" />
+        android:noHistory="true"
+        android:screenOrientation="portrait"/>
+        <activity android:name=".BattleActivity"
+        android:screenOrientation="portrait"/>
     </application>
 
 
