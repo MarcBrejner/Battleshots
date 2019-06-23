@@ -30,8 +30,8 @@ public class BattleActivity extends AppCompatActivity {
     ArrayList<Point> playerShipParts, otherPlayerShipParts;
 
     HashMap<String, Object> otherPlayerInfo, playerInfo;
-    public final int DEFAULT_GRID_ID = 2131230887;
-    public final int DEFAULT_SHOOTBUTTON_ID = 2131230763;
+    public final int DEFAULT_GRID_ID = 2131230763;
+    public final int DEFAULT_SHOOTBUTTON_ID = 2131230827;
     GridLayout gridLayout;
     int gridSize = 8;
 
@@ -79,14 +79,15 @@ public class BattleActivity extends AppCompatActivity {
 
 
 
+
+
+
         // TODO: A lot of stuff....
     }
 
     public void onClick(View view) {
         Button btn = findViewById(view.getId());
-
         Point point = convertIndexToPoint(view.getId()-DEFAULT_SHOOTBUTTON_ID);
-
 
         otherPlayerShipParts = getShips(otherPlayerInfo);
 
@@ -101,7 +102,6 @@ public class BattleActivity extends AppCompatActivity {
     public void test(View view) {
         paintShips(getShips(playerInfo));
         Toast.makeText(getApplicationContext(),"gnomed", Toast.LENGTH_SHORT).show();
-
     }
 
     public void colorButton(){
@@ -150,11 +150,9 @@ public class BattleActivity extends AppCompatActivity {
             y = shipParts.get(i).getY();
             viewID = x + y*8;
 
-            ImageView viewx = findViewById(DEFAULT_GRID_ID + viewID);
-            viewx.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.green));
-
+          Button btn = findViewById(DEFAULT_GRID_ID + viewID);
+          btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chosenbutton));
         }
-
     }
 
     public void findID(View view){
