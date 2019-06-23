@@ -663,7 +663,17 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:onClick="savePositions"
-                android:text="Confirm positions"/>
+                android:text="Save ship placement"/>
+        />
+
+        <Button
+                android:id="@+id/button_confirm_position"
+                android:layout_width="124dp"
+                android:layout_height="84dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:onClick="readyToBattle"
+                android:text="Ready to battle!" android:layout_marginTop="0dp" android:layout_marginStart="131dp"/>
         />
 
 

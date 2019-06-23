@@ -25,7 +25,6 @@ public class CreateGameActivity extends AppCompatActivity {
     GameModel gameModel;
     Intent startMenuIntent;
     Map<String, Object> playerInfo;
-    private boolean hasEnoughPlayers;
     ValueEventListener valueEventListener;
 
     @Override
@@ -44,7 +43,6 @@ public class CreateGameActivity extends AppCompatActivity {
 
         //Create game and add player 1
         server.createGame(gameID, player1);
-        Toast.makeText(getApplicationContext(), player1.toString(), Toast.LENGTH_SHORT).show();
 
         //Add Dummy player to the game
         Player dummyPlayer = new Player("Waiting for player 2");
@@ -100,7 +98,6 @@ public class CreateGameActivity extends AppCompatActivity {
     public void startGame(View view){
         if (!player2Name.equals("Waiting for player 2")) {
             //test
-            Toast.makeText(getApplicationContext(), "Game can be started", Toast.LENGTH_SHORT).show();
 
             //Game is started
             server.gameRef.child("isStarted").setValue(true);
@@ -108,9 +105,10 @@ public class CreateGameActivity extends AppCompatActivity {
             //Launch setupactivity
             Intent intent = new Intent(getApplicationContext(), setupActivity.class);
             intent.putExtra("gameID", gameID);
-            intent.putExtra("playerID", 1);
+            intent.putExtra("playerID", "1");
             intent.putExtra("pName", player1.getPlayerName());
             startActivity(intent);
+            finish();
         } else {
             Toast.makeText(getApplicationContext(), "Need two players to start game", Toast.LENGTH_SHORT).show();
         }

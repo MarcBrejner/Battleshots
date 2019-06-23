@@ -11,9 +11,11 @@
             android:theme="@style/AppTheme">
         <activity android:name=".JoinGameActivity"
             android:label="@string/title_activity_join_game"
+                  android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".StartMenuActivity" />
-        <activity android:name=".CreateGameActivity" />
+        <activity android:name=".CreateGameActivity"
+                    android:noHistory="true"/>
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -21,7 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".setupActivity" />
+        <activity android:name=".setupActivity"
+        android:noHistory="true"/>
         <activity android:name=".BattleActivity" />
     </application>
 

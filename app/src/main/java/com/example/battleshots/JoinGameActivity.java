@@ -57,10 +57,10 @@ public class JoinGameActivity extends AppCompatActivity {
                      //Launch setupActivity
                      Intent intent = new Intent(getApplicationContext(), setupActivity.class);
                      intent.putExtra("gameID", gameID);
-                     intent.putExtra("playerID", 2);
+                     intent.putExtra("playerID", "2");
                      intent.putExtra("pName", player2.getPlayerName());
                      startActivity(intent);
-                     // startGame();
+                     finish();
                  }
              }
 
@@ -70,37 +70,12 @@ public class JoinGameActivity extends AppCompatActivity {
 
          });
 
-     /*   server.gameRef.child(gameID).addValueEventListener(valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                playerInfo = (HashMap<String, Object>) dataSnapshot.child("Player 2").getValue();
-                String playerName = (String) playerInfo.get("playerName");
-                if (playerName != null) {
-                    player1TextView.setText("Player 2 : " + playerName);
-                }
-            }
-  });
-
-
-  /*  @Override
-    protected void onResume() {
-        if(playerList.size() == 2) {
-            hasEnoughPlayers = true;
-        }
-        super.onResume();
-    }*/
-
     }
     @Override
     protected void onPause(){
         server.gameRef.removeEventListener(valueEventListener);
         super.onPause();
     }
-
-    public void startGame(){
-        Toast.makeText(getApplicationContext(), "Game is Starting", Toast.LENGTH_SHORT).show();
-    }
-
 
 
 
