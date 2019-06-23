@@ -24,13 +24,14 @@ import com.google.firebase.database.ValueEventListener;
 public class setupActivity extends AppCompatActivity {
 
     private String gameID, playerID;
-    private int btnID, btnClickAmount = 0, prevbtnID, shipSize, gridSize = 8, btnDefault = 2131230763;
+    private int btnID, btnClickAmount = 0, prevbtnID, shipSize, btnDefault = 2131230763;
     HashSet<Point> shipList;
     Map<String, Object> info;
     Direction direction = Direction.DOWN;
-    private String rotationFlag, occupiedFlag, newShipFlag = "";
+    Map<String, Integer> startPositions;
+    private String rotationFlag = "", newShipFlag = "", occupiedFlag = "";
     private int shipOneID, shipTwoID, shipThreeID, shipFourID;
-    private boolean isReady = false, positionSet = false, ship1placed, ship2placed, ship3placed, ship4placed;
+    private boolean isReady = false, ship1placed, ship2placed, ship3placed, ship4placed, allShipIsPlaced;
 
     GameModel gameModel;
     Server server;
@@ -44,7 +45,8 @@ public class setupActivity extends AppCompatActivity {
         setContentView(R.layout.content_setup_map);
 
         server = new Server();
-        shipList = new HashSet<>();
+       startPositions = new HashMap<>();
+
 
         if (getIntent().getStringExtra("gameID") != null) {
             gameID = getIntent().getStringExtra("gameID");
@@ -137,7 +139,7 @@ public class setupActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!ship2placed) {
                     shipSize = 2;
-                    Toast.makeText(getApplicationContext(), "Ship Size is 2", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "You picked a destroyer", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getApplicationContext(), "You have already placed this ship", Toast.LENGTH_SHORT).show();
                 }
@@ -163,7 +165,7 @@ public class setupActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!ship4placed) {
                     shipSize = 4;
-                    Toast.makeText(getApplicationContext(), "Ship Size is 4", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "You picked a battleship", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getApplicationContext(), "You have already placed this ship", Toast.LENGTH_SHORT).show();
                 }
@@ -180,20 +182,27 @@ public class setupActivity extends AppCompatActivity {
     public void onClick(View view) {
         Button btn = (Button) findViewById(view.getId());
         btnID = btn.getId();
+        setStartPosition(shipSize);
+
+        Toast.makeText(getApplicationContext(),""+startPositions.toString(),Toast.LENGTH_SHORT ).show();
+
         if (shipSize == 0) {
             Toast.makeText(getApplicationContext(), "Pick your naval ship", Toast.LENGTH_SHORT).show();
         } else {
         /* else if(containShip(btnID-btnDefault)) {
             Toast.makeText(getApplicationContext(), ""+ Arrays.toString(shipList.toArray()), Toast.LENGTH_SHORT).show();
         } */
-            setStartPosition();
             if (btnID == prevbtnID && shipOneID == btnID && !ship1placed) {
+
                 rotateShip();
             } else if (shipSize == 2 && shipTwoID == btnID && prevbtnID == btnID && !ship2placed) {
+
                 rotateShip();
             } else if (shipSize == 3 && shipThreeID == btnID && prevbtnID == btnID && !ship3placed) {
+
                 rotateShip();
             } else if (shipSize == 4 && shipFourID == btnID && prevbtnID == btnID && !ship4placed) {
+
                 rotateShip();
             } else if (btnID != prevbtnID ) { // Skrives for at skibet ikke forsvinder
                 if (prevbtnID != 0 && shipOneID != 0 && shipSize == 1) {
@@ -282,6 +291,7 @@ public class setupActivity extends AppCompatActivity {
 
         if (shipSize == 1) {
             // startBtn.setText(Integer.toString(btnID-btnDefault));
+            ship1placed = true;
             startBtn.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_one));
             shipOneID = startBtn.getId();
 
@@ -304,6 +314,7 @@ public class setupActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "There is already a ship", Toast.LENGTH_SHORT).show();
                 return;
             }*/
+            ship2placed = true;
             shipTwoID = startBtn.getId();
             startBtn.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_two_front));
             tmpBtn1.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_two_end));
@@ -334,6 +345,7 @@ public class setupActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "There is already a ship", Toast.LENGTH_SHORT).show();
                 return;
             }*/
+            ship3placed = true;
             shipThreeID = startBtn.getId();
             startBtn.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_three_front));
             tmpBtn1.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_three_middle));
@@ -371,6 +383,7 @@ public class setupActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "There is already a ship", Toast.LENGTH_SHORT).show();
                 return;
             }*/
+            ship4placed = true;
             shipFourID = startBtn.getId();
             startBtn.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_four_front));
             tmpBtn1.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_four_front_middle));
@@ -654,11 +667,20 @@ public class setupActivity extends AppCompatActivity {
     }
 
 
-        public void setStartPosition () {
+        public void setStartPosition (int shipSize) {
             // Index 0 gets player1, needs a method to figure out which player is who.
-            Point point = gameModel.getPlayers().get(0).getGrid().get(btnID - btnDefault);
-            gameModel.setStartPosition(point);
-            positionSet = true;
+            if (shipSize == 1) {
+                startPositions.put("point1", btnID-btnDefault);
+            }
+            if (shipSize == 2) {
+                startPositions.put("point2", btnID-btnDefault);
+            }
+            if (shipSize == 3) {
+                startPositions.put("point3", btnID-btnDefault);
+            }
+            if (shipSize == 4) {
+                startPositions.put("point4", btnID-btnDefault);
+            }
         }
 
         public boolean isOccupied (Button btn){
@@ -678,46 +700,38 @@ public class setupActivity extends AppCompatActivity {
         }
 
 
-        public void savePositions (View view){
-            if (!positionSet) {
-                Toast.makeText(getApplicationContext(), "Ship is not found", Toast.LENGTH_SHORT).show();
+        public void savePositions (View view) {
+            if (!ship1placed || !ship2placed || !ship3placed || !ship4placed) {
+                Toast.makeText(getApplicationContext(), "All ships must be placed", Toast.LENGTH_SHORT).show();
             } else {
                 // Index 0 gets player1, needs a method to figure out which player is who.
-                gameModel.getPlayers().get(0).addShip(gameModel.getStartPoint(), shipSize, direction, gameModel);
           /*  for (Ship ship:  gameModel.getPlayers().get(0).getShips()) {
                 for(Point shippoints : ship.getShip()) {
                     shipList.add(shippoints);
                 }
+
             }*/
 
+                    gameModel.getPlayers().get(0).addShip(gameModel.convertIndexToPoint(startPositions.get("point1")), 1, direction, gameModel);
+                    gameModel.getPlayers().get(0).addShip(gameModel.convertIndexToPoint(startPositions.get("point2")), 2, direction, gameModel);
+                    gameModel.getPlayers().get(0).addShip(gameModel.convertIndexToPoint(startPositions.get("point3")), 3, direction, gameModel);
+                    gameModel.getPlayers().get(0).addShip(gameModel.convertIndexToPoint(startPositions.get("point4")), 4, direction, gameModel);
+
                 if (gameModel.getPlayers().get(0).hasShip) {
-                    Toast.makeText(getApplicationContext(), "Denied ship placement", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), ""+ gameModel.getPlayers().get(0).shipList.toArray().toString(), Toast.LENGTH_SHORT).show();
                     gameModel.getPlayers().get(0).hasShip = false;
                 } else if (gameModel.getPlayers().get(0).noShipsLeft) {
                     Toast.makeText(getApplicationContext(), "All ships have been placed", Toast.LENGTH_SHORT).show();
                 } else {
-                    server.addShipToDatabase(this, gameModel.getPlayers().get(0), gameID, playerID);
-                    positionSet = false;
-
-                    if (shipSize == 1) {
-                        ship1placed = true;
-                        Toast.makeText(getApplicationContext(),"Ship 1 has been placed", Toast.LENGTH_SHORT).show();
-                    } else if (shipSize == 2) {
-                        ship2placed = true;
-                        Toast.makeText(getApplicationContext(),"Ship 2 has been placed", Toast.LENGTH_SHORT).show();
-                    } else if (shipSize == 3) {
-                        ship3placed = true;
-                        Toast.makeText(getApplicationContext(),"Ship 3 has been placed", Toast.LENGTH_SHORT).show();
-                    } else if (shipSize == 4) {
-                        ship4placed = true;
-                        Toast.makeText(getApplicationContext(),"Ship 4 has been placed", Toast.LENGTH_SHORT).show();
+                        server.addShipToDatabase(this, gameModel.getPlayers().get(0), gameID, playerID);
+                        allShipIsPlaced = true;
                     }
                 }
             }
-        }
+
 
         public void readyToBattle (View view){
-            if (!ship1placed || !ship2placed || !ship3placed || !ship4placed) {
+            if (!allShipIsPlaced) {
                 // Also need shipTwoID and shipThreeID
                 Toast.makeText(getApplicationContext(), "Not all ships have been placed", Toast.LENGTH_SHORT).show();
             } else {
