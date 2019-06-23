@@ -27,7 +27,7 @@ public class setupActivity extends AppCompatActivity {
     HashSet<Point> shipList;
     Map<String, Object> info;
     Direction direction = Direction.DOWN;
-    private String rotationFlag, occupiedFlag = "";
+    private String rotationFlag, occupiedFlag, newShipFlag = "";
     private int shipOneID, shipTwoID, shipThreeID, shipFourID;
     private boolean isReady = false, positionSet = false, ship1placed, ship2placed, ship3placed, ship4placed;
 
@@ -208,27 +208,19 @@ public class setupActivity extends AppCompatActivity {
                 btnClickAmount = 0;
                 direction = Direction.DOWN;
                 if (btn.getBackground().getConstantState() == getResources().getDrawable(R.drawable.defaultbutton).getConstantState()) {
-                    if (shipSize == 1 && !ship1placed) {
-                        placeBigShip(btn, direction, rotationFlag);
-                    } else if (shipSize == 2 && !ship2placed) {
-                        placeBigShip(btn, direction, rotationFlag);
-                    } else if (shipSize == 3 && !ship3placed) {
-                        placeBigShip(btn, direction, rotationFlag);
-                    } else if (shipSize == 4 && !ship4placed) {
-                        placeBigShip(btn, direction, rotationFlag);
-                    }
+                    placeBigShip(btn, direction, rotationFlag, "NEW_SHIP");
                 }
             }
         }
     }
 
-    public void placeBigShip(Button startBtn, Direction direction, String rotationFlag) {
+    public void placeBigShip(Button startBtn, Direction direction, String rotationFlag, String newShipFlag) {
         int tmpId = startBtn.getId();
         /*if (isOccupied(startBtn)) {
             Toast.makeText(getApplicationContext(), "There is already a ship", Toast.LENGTH_SHORT).show();
             return;
         }*/
-        btnClickAmount++;
+
         int dir = 0;
         int prevDir = 0;
 
@@ -302,6 +294,7 @@ public class setupActivity extends AppCompatActivity {
             } else if (direction == Direction.DOWN) {
                 startBtn.setRotation(0);
             }
+            btnClickAmount++;
         }
 
         if(shipSize == 2) {
@@ -313,8 +306,10 @@ public class setupActivity extends AppCompatActivity {
             shipTwoID = startBtn.getId();
             startBtn.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_two_front));
             tmpBtn1.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_two_end));
-            prvBtn1.setBackground(ContextCompat.getDrawable(this, R.drawable.defaultbutton));
-            prvBtn1.setRotation(0);
+            if(newShipFlag != "NEW_SHIP") {
+                prvBtn1.setBackground(ContextCompat.getDrawable(this, R.drawable.defaultbutton));
+                prvBtn1.setRotation(0);
+            }
 
             if (direction == Direction.RIGHT) {
                 startBtn.setRotation(90);
@@ -329,6 +324,7 @@ public class setupActivity extends AppCompatActivity {
                 startBtn.setRotation(0);
                 tmpBtn1.setRotation(0);
             }
+            btnClickAmount++;
         }
 
         if(shipSize == 3) {
@@ -341,10 +337,12 @@ public class setupActivity extends AppCompatActivity {
             startBtn.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_three_front));
             tmpBtn1.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_three_middle));
             tmpBtn2.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_three_end));
-            prvBtn1.setBackground(ContextCompat.getDrawable(this, R.drawable.defaultbutton));
-            prvBtn1.setRotation(0);
-            prvBtn2.setBackground(ContextCompat.getDrawable(this, R.drawable.defaultbutton));
-            prvBtn2.setRotation(0);
+            if (newShipFlag != "NEW_SHIP") {
+                prvBtn1.setBackground(ContextCompat.getDrawable(this, R.drawable.defaultbutton));
+                prvBtn1.setRotation(0);
+                prvBtn2.setBackground(ContextCompat.getDrawable(this, R.drawable.defaultbutton));
+                prvBtn2.setRotation(0);
+            }
 
             if (direction == Direction.RIGHT) {
                 startBtn.setRotation(90);
@@ -363,6 +361,7 @@ public class setupActivity extends AppCompatActivity {
                 tmpBtn1.setRotation(0);
                 tmpBtn2.setRotation(0);
             }
+            btnClickAmount++;
         }
 
         if(shipSize == 4) {
@@ -376,12 +375,14 @@ public class setupActivity extends AppCompatActivity {
             tmpBtn1.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_four_front_middle));
             tmpBtn2.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_four_end_middle));
             tmpBtn3.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_four_end));
-            prvBtn1.setBackground(ContextCompat.getDrawable(this, R.drawable.defaultbutton));
-            prvBtn1.setRotation(0);
-            prvBtn2.setBackground(ContextCompat.getDrawable(this, R.drawable.defaultbutton));
-            prvBtn2.setRotation(0);
-            prvBtn3.setBackground(ContextCompat.getDrawable(this, R.drawable.defaultbutton));
-            prvBtn3.setRotation(0);
+            if(newShipFlag != "NEW_SHIP") {
+                prvBtn1.setBackground(ContextCompat.getDrawable(this, R.drawable.defaultbutton));
+                prvBtn1.setRotation(0);
+                prvBtn2.setBackground(ContextCompat.getDrawable(this, R.drawable.defaultbutton));
+                prvBtn2.setRotation(0);
+                prvBtn3.setBackground(ContextCompat.getDrawable(this, R.drawable.defaultbutton));
+                prvBtn3.setRotation(0);
+            }
 
             if(direction == Direction.RIGHT) {
                 startBtn.setRotation(90);
@@ -404,6 +405,7 @@ public class setupActivity extends AppCompatActivity {
                 tmpBtn2.setRotation(0);
                 tmpBtn3.setRotation(0);
             }
+            btnClickAmount++;
         }
     }
 
@@ -414,11 +416,11 @@ public class setupActivity extends AppCompatActivity {
             switch (btnClickAmount % 2) {
                 case 0:
                     direction = Direction.DOWN;
-                    placeBigShip(btn, direction, rotationFlag);
+                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
                     break;
                 case 1:
                     direction = Direction.LEFT;
-                    placeBigShip(btn, direction, "TOP_LEFT");
+                    placeBigShip(btn, direction, "TOP_LEFT", newShipFlag);
                     clearShipDirection(Direction.DOWN);
                     break;
             }
@@ -426,68 +428,68 @@ public class setupActivity extends AppCompatActivity {
             switch (btnClickAmount % 2) {
                 case 0:
                     direction = Direction.UP;
-                    placeBigShip(btn, direction, "BOTTOM_LEFT");
+                    placeBigShip(btn, direction, "BOTTOM_LEFT", newShipFlag);
                     clearShipDirection(Direction.LEFT);
                     break;
                 case 1:
                     direction = Direction.LEFT;
-                    placeBigShip(btn, direction, rotationFlag);
+                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
                     break;
             }
         } else if ((btnID - btnDefault) % 8 > 8 - shipSize && (btnID - btnDefault + (shipSize - 1) * 8) > 63) {
             switch (btnClickAmount % 2) {
                 case 0:
                     direction = Direction.RIGHT;
-                    placeBigShip(btn, direction, "BOTTOM_RIGHT");
+                    placeBigShip(btn, direction, "BOTTOM_RIGHT", newShipFlag);
                     clearShipDirection(Direction.UP);
                     break;
                 case 1:
                     direction = Direction.UP;
-                    placeBigShip(btn, direction, rotationFlag);
+                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
                     break;
             }
         } else if ((btnID - btnDefault) % 8 > 8 - shipSize && (btnID - btnDefault - (shipSize - 1) * 8) <= 0) {
             switch (btnClickAmount % 2) {
                 case 0:
                     direction = Direction.DOWN;
-                    placeBigShip(btn, direction, "TOP_RIGHT");
+                    placeBigShip(btn, direction, "TOP_RIGHT", newShipFlag);
                     clearShipDirection(Direction.RIGHT);
                     break;
                 case 1:
                     direction = Direction.RIGHT;
-                    placeBigShip(btn, direction, rotationFlag);
+                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
                     break;
             }
         } else if ((btnID - btnDefault) % 8 < shipSize - 1 || occupiedFlag == "SHIP_LEFT") {
             switch (btnClickAmount % 3) {
                 case 0:
                     direction = Direction.DOWN;
-                    placeBigShip(btn, direction, rotationFlag);
+                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
                     break;
                 case 1:
                     direction = Direction.UP;
-                    placeBigShip(btn, direction, "LEFT");
+                    placeBigShip(btn, direction, "LEFT", newShipFlag);
                     clearShipDirection(Direction.DOWN);
                     break;
                 case 2:
                     direction = Direction.LEFT;
-                    placeBigShip(btn, direction, rotationFlag);
+                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
                     break;
             }
         } else if ((btnID - btnDefault) % 8 > 8 - shipSize) {
             switch (btnClickAmount % 3) {
                 case 0:
                     direction = Direction.DOWN;
-                    placeBigShip(btn, direction, "RIGHT");
+                    placeBigShip(btn, direction, "RIGHT", newShipFlag);
                     clearShipDirection(Direction.UP);
                     break;
                 case 1:
                     direction = Direction.RIGHT;
-                    placeBigShip(btn, direction, rotationFlag);
+                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
                     break;
                 case 2:
                     direction = Direction.UP;
-                    placeBigShip(btn, direction, rotationFlag);
+                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
                     break;
             }
 
@@ -495,15 +497,15 @@ public class setupActivity extends AppCompatActivity {
             switch (btnClickAmount % 3) {
                 case 0:
                     direction = Direction.DOWN;
-                    placeBigShip(btn, direction, rotationFlag);
+                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
                     break;
                 case 1:
                     direction = Direction.RIGHT;
-                    placeBigShip(btn, direction, rotationFlag);
+                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
                     break;
                 case 2:
                     direction = Direction.LEFT;
-                    placeBigShip(btn, direction, "TOP");
+                    placeBigShip(btn, direction, "TOP", newShipFlag);
                     clearShipDirection(Direction.RIGHT);
                     break;
             }
@@ -512,15 +514,15 @@ public class setupActivity extends AppCompatActivity {
             switch (btnClickAmount % 3) {
                 case 0:
                     direction = Direction.RIGHT;
-                    placeBigShip(btn, direction, "BOTTOM");
+                    placeBigShip(btn, direction, "BOTTOM", newShipFlag);
                     break;
                 case 1:
                     direction = Direction.UP;
-                    placeBigShip(btn, direction, rotationFlag);
+                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
                     break;
                 case 2:
                     direction = Direction.LEFT;
-                    placeBigShip(btn, direction, "BOTTOM");
+                    placeBigShip(btn, direction, "BOTTOM", newShipFlag);
                     clearShipDirection(Direction.RIGHT);
                     break;
             }
@@ -529,19 +531,19 @@ public class setupActivity extends AppCompatActivity {
             switch (btnClickAmount % 4) {
                 case 0:
                     direction = Direction.DOWN;
-                    placeBigShip(btn, direction, rotationFlag);
+                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
                     break;
                 case 1:
                     direction = Direction.RIGHT;
-                    placeBigShip(btn, direction, rotationFlag);
+                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
                     break;
                 case 2:
                     direction = Direction.UP;
-                    placeBigShip(btn, direction, rotationFlag);
+                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
                     break;
                 case 3:
                     direction = Direction.LEFT;
-                    placeBigShip(btn, direction, rotationFlag);
+                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
                     break;
             }
         }
