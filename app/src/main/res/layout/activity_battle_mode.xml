@@ -9,6 +9,7 @@
     tools:context="BattleActivity">
 
     <GridLayout
+            android:id="@+id/gridLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -17,29 +18,29 @@
         android:rowCount="8"
         tools:context=".BattleActivity">
 
-        <ImageView
+        <Button
             android:id="@+id/imageView_0"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_row="0"
             android:layout_column="0"
-            app:srcCompat="@drawable/defaultbutton" />
+            android:onClick="findID"/>
 
-        <ImageView
+        <Button
             android:id="@+id/imageView_1"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_row="0"
             android:layout_column="1"
-            app:srcCompat="@drawable/defaultbutton" />
+            android:onClick="findID"/>
 
-        <ImageView
+        <Button
             android:id="@+id/imageView_2"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_row="0"
             android:layout_column="2"
-            app:srcCompat="@drawable/defaultbutton" />
+            android:onClick="findID" />
 
         <ImageView
             android:id="@+id/imageView_3"
@@ -47,7 +48,8 @@
             android:layout_height="24dp"
             android:layout_row="0"
             android:layout_column="3"
-            app:srcCompat="@drawable/defaultbutton" />
+            app:srcCompat="@drawable/defaultbutton"
+            android:onClick="findID"/>
 
         <ImageView
             android:id="@+id/imageView_4"
@@ -55,7 +57,8 @@
             android:layout_height="24dp"
             android:layout_row="0"
             android:layout_column="4"
-            app:srcCompat="@drawable/defaultbutton" />
+            app:srcCompat="@drawable/defaultbutton"
+            android:onClick="findID"/>
 
         <ImageView
             android:id="@+id/imageView_5"
@@ -63,7 +66,8 @@
             android:layout_height="24dp"
             android:layout_row="0"
             android:layout_column="5"
-            app:srcCompat="@drawable/defaultbutton" />
+            app:srcCompat="@drawable/defaultbutton"
+            android:onClick="findID"/>
 
         <ImageView
             android:id="@+id/imageView_6"
@@ -71,7 +75,8 @@
             android:layout_height="24dp"
             android:layout_row="0"
             android:layout_column="6"
-            app:srcCompat="@drawable/defaultbutton" />
+            app:srcCompat="@drawable/defaultbutton"
+            android:onClick="findID"/>
 
         <ImageView
             android:id="@+id/imageView_7"
@@ -79,7 +84,8 @@
             android:layout_height="24dp"
             android:layout_row="0"
             android:layout_column="7"
-            app:srcCompat="@drawable/defaultbutton" />
+            app:srcCompat="@drawable/defaultbutton"
+            android:onClick="findID"/>
 
         <ImageView
             android:id="@+id/imageView_8"
@@ -87,7 +93,8 @@
             android:layout_height="24dp"
             android:layout_row="1"
             android:layout_column="0"
-            app:srcCompat="@drawable/defaultbutton" />
+            app:srcCompat="@drawable/defaultbutton"
+            android:onClick="findID"/>
 
         <ImageView
             android:id="@+id/imageView_9"
@@ -95,7 +102,8 @@
             android:layout_height="24dp"
             android:layout_row="1"
             android:layout_column="1"
-            app:srcCompat="@drawable/defaultbutton" />
+            app:srcCompat="@drawable/defaultbutton"
+            android:onClick="findID"/>
 
         <ImageView
             android:id="@+id/imageView_10"
@@ -103,7 +111,8 @@
             android:layout_height="24dp"
             android:layout_row="1"
             android:layout_column="2"
-            app:srcCompat="@drawable/defaultbutton" />
+            app:srcCompat="@drawable/defaultbutton"
+            android:onClick="findID"/>
 
 
         <ImageView
@@ -112,7 +121,8 @@
             android:layout_height="24dp"
             android:layout_row="1"
             android:layout_column="3"
-            app:srcCompat="@drawable/defaultbutton" />
+            app:srcCompat="@drawable/defaultbutton"
+            android:onClick="findID"/>
 
         <ImageView
             android:id="@+id/imageView_12"
@@ -120,7 +130,8 @@
             android:layout_height="24dp"
             android:layout_row="1"
             android:layout_column="4"
-            app:srcCompat="@drawable/defaultbutton" />
+            app:srcCompat="@drawable/defaultbutton"
+            android:onClick="findID"/>
 
         <ImageView
             android:id="@+id/imageView_13"
@@ -128,7 +139,8 @@
             android:layout_height="24dp"
             android:layout_row="1"
             android:layout_column="5"
-            app:srcCompat="@drawable/defaultbutton" />
+            app:srcCompat="@drawable/defaultbutton"
+            android:onClick="findID"/>
 
         <ImageView
             android:id="@+id/imageView_14"
@@ -136,7 +148,8 @@
             android:layout_height="24dp"
             android:layout_row="1"
             android:layout_column="6"
-            app:srcCompat="@drawable/defaultbutton" />
+            app:srcCompat="@drawable/defaultbutton"
+            android:onClick="findID"/>
 
         <ImageView
             android:id="@+id/imageView_15"
@@ -144,7 +157,8 @@
             android:layout_height="24dp"
             android:layout_row="1"
             android:layout_column="7"
-            app:srcCompat="@drawable/defaultbutton" />
+            app:srcCompat="@drawable/defaultbutton"
+            android:onClick="findID"/>
 
         <ImageView
             android:id="@+id/imageView_16"
@@ -152,7 +166,8 @@
             android:layout_height="24dp"
             android:layout_row="2"
             android:layout_column="0"
-            app:srcCompat="@drawable/defaultbutton" />
+            app:srcCompat="@drawable/defaultbutton"
+            android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_17"
@@ -160,7 +175,8 @@
                 android:layout_height="24dp"
                 android:layout_row="2"
                 android:layout_column="1"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_18"
@@ -168,7 +184,8 @@
                 android:layout_height="24dp"
                 android:layout_row="2"
                 android:layout_column="2"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_19"
@@ -176,7 +193,8 @@
                 android:layout_height="24dp"
                 android:layout_row="2"
                 android:layout_column="3"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_20"
@@ -184,7 +202,8 @@
                 android:layout_height="24dp"
                 android:layout_row="2"
                 android:layout_column="4"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_21"
@@ -192,7 +211,8 @@
                 android:layout_height="24dp"
                 android:layout_row="2"
                 android:layout_column="5"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_22"
@@ -200,7 +220,8 @@
                 android:layout_height="24dp"
                 android:layout_row="2"
                 android:layout_column="6"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_23"
@@ -208,7 +229,8 @@
                 android:layout_height="24dp"
                 android:layout_row="2"
                 android:layout_column="7"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_24"
@@ -216,7 +238,8 @@
                 android:layout_height="24dp"
                 android:layout_row="3"
                 android:layout_column="0"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_25"
@@ -224,7 +247,8 @@
                 android:layout_height="24dp"
                 android:layout_row="3"
                 android:layout_column="1"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_26"
@@ -232,7 +256,8 @@
                 android:layout_height="24dp"
                 android:layout_row="3"
                 android:layout_column="2"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
 
         <ImageView
@@ -241,7 +266,8 @@
                 android:layout_height="24dp"
                 android:layout_row="3"
                 android:layout_column="3"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_28"
@@ -249,7 +275,8 @@
                 android:layout_height="24dp"
                 android:layout_row="3"
                 android:layout_column="4"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_29"
@@ -257,7 +284,8 @@
                 android:layout_height="24dp"
                 android:layout_row="3"
                 android:layout_column="5"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_30"
@@ -265,7 +293,8 @@
                 android:layout_height="24dp"
                 android:layout_row="3"
                 android:layout_column="6"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_31"
@@ -273,7 +302,8 @@
                 android:layout_height="24dp"
                 android:layout_row="3"
                 android:layout_column="7"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_32"
@@ -281,7 +311,8 @@
                 android:layout_height="24dp"
                 android:layout_row="4"
                 android:layout_column="0"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_33"
@@ -289,7 +320,8 @@
                 android:layout_height="24dp"
                 android:layout_row="4"
                 android:layout_column="1"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_34"
@@ -297,7 +329,8 @@
                 android:layout_height="24dp"
                 android:layout_row="4"
                 android:layout_column="2"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
 
         <ImageView
@@ -306,7 +339,8 @@
                 android:layout_height="24dp"
                 android:layout_row="4"
                 android:layout_column="3"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_36"
@@ -314,7 +348,8 @@
                 android:layout_height="24dp"
                 android:layout_row="4"
                 android:layout_column="4"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_37"
@@ -322,7 +357,8 @@
                 android:layout_height="24dp"
                 android:layout_row="4"
                 android:layout_column="5"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_38"
@@ -330,7 +366,8 @@
                 android:layout_height="24dp"
                 android:layout_row="4"
                 android:layout_column="6"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_39"
@@ -338,7 +375,8 @@
                 android:layout_height="24dp"
                 android:layout_row="4"
                 android:layout_column="7"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
 
         <ImageView
@@ -347,7 +385,8 @@
                 android:layout_height="24dp"
                 android:layout_row="5"
                 android:layout_column="0"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_41"
@@ -355,7 +394,8 @@
                 android:layout_height="24dp"
                 android:layout_row="5"
                 android:layout_column="1"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_42"
@@ -363,7 +403,8 @@
                 android:layout_height="24dp"
                 android:layout_row="5"
                 android:layout_column="2"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
 
         <ImageView
@@ -372,7 +413,8 @@
                 android:layout_height="24dp"
                 android:layout_row="5"
                 android:layout_column="3"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_44"
@@ -380,7 +422,8 @@
                 android:layout_height="24dp"
                 android:layout_row="5"
                 android:layout_column="4"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_45"
@@ -388,7 +431,8 @@
                 android:layout_height="24dp"
                 android:layout_row="5"
                 android:layout_column="5"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_46"
@@ -396,7 +440,8 @@
                 android:layout_height="24dp"
                 android:layout_row="5"
                 android:layout_column="6"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_47"
@@ -404,7 +449,8 @@
                 android:layout_height="24dp"
                 android:layout_row="5"
                 android:layout_column="7"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_48"
@@ -412,7 +458,8 @@
                 android:layout_height="24dp"
                 android:layout_row="6"
                 android:layout_column="0"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_49"
@@ -420,7 +467,8 @@
                 android:layout_height="24dp"
                 android:layout_row="6"
                 android:layout_column="1"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_50"
@@ -428,7 +476,8 @@
                 android:layout_height="24dp"
                 android:layout_row="6"
                 android:layout_column="2"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
 
         <ImageView
@@ -437,7 +486,8 @@
                 android:layout_height="24dp"
                 android:layout_row="6"
                 android:layout_column="3"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_52"
@@ -445,7 +495,8 @@
                 android:layout_height="24dp"
                 android:layout_row="6"
                 android:layout_column="4"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_53"
@@ -453,7 +504,8 @@
                 android:layout_height="24dp"
                 android:layout_row="6"
                 android:layout_column="5"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_54"
@@ -461,7 +513,8 @@
                 android:layout_height="24dp"
                 android:layout_row="6"
                 android:layout_column="6"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_55"
@@ -469,7 +522,8 @@
                 android:layout_height="24dp"
                 android:layout_row="6"
                 android:layout_column="7"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_56"
@@ -477,7 +531,8 @@
                 android:layout_height="24dp"
                 android:layout_row="7"
                 android:layout_column="0"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_57"
@@ -485,7 +540,8 @@
                 android:layout_height="24dp"
                 android:layout_row="7"
                 android:layout_column="1"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_58"
@@ -493,7 +549,8 @@
                 android:layout_height="24dp"
                 android:layout_row="7"
                 android:layout_column="2"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
 
         <ImageView
@@ -502,7 +559,8 @@
                 android:layout_height="24dp"
                 android:layout_row="7"
                 android:layout_column="3"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_60"
@@ -510,7 +568,8 @@
                 android:layout_height="24dp"
                 android:layout_row="7"
                 android:layout_column="4"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_61"
@@ -518,7 +577,8 @@
                 android:layout_height="24dp"
                 android:layout_row="7"
                 android:layout_column="5"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_62"
@@ -526,7 +586,8 @@
                 android:layout_height="24dp"
                 android:layout_row="7"
                 android:layout_column="6"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
         <ImageView
                 android:id="@+id/imageView_63"
@@ -534,9 +595,66 @@
                 android:layout_height="24dp"
                 android:layout_row="7"
                 android:layout_column="7"
-                app:srcCompat="@drawable/defaultbutton" />
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
 
     </GridLayout>
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="30dp">
+        <ImageView
+                android:id="@+id/imageView_70"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_row="0"
+                android:layout_column="3"
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
+
+        <ImageView
+                android:id="@+id/imageView_71"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_row="0"
+                android:layout_column="4"
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
+
+        <ImageView
+                android:id="@+id/imageView_72"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_row="0"
+                android:layout_column="5"
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
+
+        <ImageView
+                android:id="@+id/imageView_73"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_row="0"
+                android:layout_column="6"
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
+
+        <ImageView
+                android:id="@+id/imageView_74"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_row="0"
+                android:layout_column="7"
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
+
+        <ImageView
+                android:id="@+id/imageView_75"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_row="1"
+                android:layout_column="0"
+                app:srcCompat="@drawable/defaultbutton"
+                android:onClick="findID"/>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/row_1"

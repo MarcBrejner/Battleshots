@@ -728,7 +728,7 @@ public class setupActivity extends AppCompatActivity {
 
         @Override
         protected void onDestroy () {
-            server.deleteGameDataBase(gameID);
+            //server.deleteGameDataBase(gameID);
             super.onDestroy();
         }
 
