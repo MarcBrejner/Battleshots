@@ -28,8 +28,11 @@ public class BattleActivity extends AppCompatActivity {
     DatabaseReference playerRef, otherPlayerRef;
     ValueEventListener valueEventListener;
     ArrayList<Point> shipParts;
-    HashMap<String, Object> Player1ShipInfo, player1Info,Ship1Info;
+    HashMap<String, Object> player2Info, player1Info;
     public final int DEFAULT_GRID_ID = 2131230887;
+    public final int DEFAULT_SHOOTBUTTON_ID = 2131230763;
+    GridLayout gridLayout;
+    int gridSize = 8;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,18 @@ public class BattleActivity extends AppCompatActivity {
 
         });
 
+        otherPlayerRef.addValueEventListener(valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                player2Info = (HashMap<String, Object>) dataSnapshot.getValue();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+
+        });
+
 
 
 
@@ -70,19 +85,13 @@ public class BattleActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
-        Button btn = (Button) findViewById(view.getId());
-        btn.setText(Integer.toString(view.getId()-DEFAULT_GRID_ID));
+        Point point = convertIndexToPoint(view.getId()-DEFAULT_SHOOTBUTTON_ID);
+        Toast.makeText(getApplicationContext(),point.toString(), Toast.LENGTH_SHORT).show();
     }
 
     public void test(View view) {
-
-        for(int i = 0; i <= 63; i++){
-
-        }
-
         paintShips(getShips(player1Info));
         Toast.makeText(getApplicationContext(),"gnomed", Toast.LENGTH_SHORT).show();
-
 
     }
 
@@ -144,7 +153,10 @@ public class BattleActivity extends AppCompatActivity {
     }
 
     public int convertPointToIndex(Point point) {
-        return point.getX() * 8 + point.getY();
+        return point.getX() * gridSize + point.getY();
+    }
+    public Point convertIndexToPoint(int index) {
+        return new Point(index%gridSize,index/gridSize);
     }
 
 
