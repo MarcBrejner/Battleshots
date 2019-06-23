@@ -679,12 +679,12 @@
 
     </RelativeLayout>
     <GridLayout
-            android:layout_width="113dp"
+            android:layout_width="254dp"
             android:layout_height="124dp"
             android:layout_alignParentStart="true"
             android:columnCount="4"
             android:orientation="horizontal"
-            android:rowCount="4">
+            android:rowCount="1">
 
         <ImageView
                 android:id="@+id/ship_one"
@@ -693,11 +693,26 @@
                 android:src="@mipmap/ship_one"
         />
         <ImageView
+                android:src="@mipmap/ship_two"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/ship_two"
+                android:layout_row="0" android:layout_column="1"/>
+
+        <ImageView
                 android:src="@mipmap/ship_three"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/ship_three"
-        />
+                android:layout_row="0" android:layout_column="2"/>
+
+        <ImageView
+                android:src="@mipmap/ship_four"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/ship_four"
+                android:layout_row="0" android:layout_column="3"/>
+
 
     </GridLayout>
 
