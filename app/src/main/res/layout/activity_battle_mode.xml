@@ -4,8 +4,96 @@
               android:id="@+id/battle_map"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:orientation="vertical"
               android:weightSum="13"
-              tools:context="BattleActivity" android:orientation="vertical">
+              tools:context="BattleActivity">
+
+
+
+
+
+
+    <LinearLayout
+            android:id="@+id/row_0"
+            android:layout_width="192dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.4"
+            android:padding="0dp">
+
+        <Button
+                android:id="@+id/button_a0"
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="0.4"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"/>
+
+        <Button
+                android:id="@+id/button_a1"
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="0.4"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"/>
+
+        <Button
+                android:id="@+id/button_a2"
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="0.4"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="2"/>
+
+        <Button
+                android:id="@+id/button_a3"
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="0.4"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="3"/>
+
+        <Button
+                android:id="@+id/button_a4"
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="0.4"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="4"/>
+
+        <Button
+                android:id="@+id/button_a5"
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="0.4"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="5"/>
+
+        <Button
+                android:id="@+id/button_a6"
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="0.4"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="6"/>
+
+        <Button
+                android:id="@+id/button_a7"
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="0.4"
+                android:background="@drawable/defaultbutton"
+                android:onClick="onClick"
+                android:tag="7"/>
+
+
+    </LinearLayout>
+
+
 
     <LinearLayout
             android:layout_width="192dp"
@@ -561,6 +649,10 @@
                 android:onClick="onClick"
                 android:tag="63"/>
     </LinearLayout>
+
+
+
+
     <LinearLayout
             android:id="@+id/row_1"
             android:layout_width="match_parent"
@@ -1194,15 +1286,8 @@
                 android:onClick="onClick"
                 android:tag="63"/>
 
-        <Button
-                android:id="@+id/button_test"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="5"
-                android:background="@drawable/defaultbutton"
-                android:onClick="test"
-                android:tag="63"/>
-
     </LinearLayout>
+
+
 
 </LinearLayout>

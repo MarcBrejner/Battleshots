@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -35,8 +36,10 @@ public class BattleActivity extends AppCompatActivity {
     HashMap<String, Object> otherPlayerInfo, playerInfo, destroyedInfo, turnInfo;
     public final int DEFAULT_GRID_ID = 2131230763;
     public final int DEFAULT_SHOOTBUTTON_ID = 2131230827;
-    int gridSize = 8, hitCount = 0;
-    Boolean yourTurn = false;
+    int gridSize = 8, hitCount = 0, enemyShipsHit = 0;
+    Boolean yourTurn = false, ShipsPainted = false;
+    int prevViewID = 999;
+
 
 
 
@@ -57,18 +60,29 @@ public class BattleActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 playerInfo = (HashMap<String, Object>) dataSnapshot.getValue();
+                Boolean goTime = (Boolean) playerInfo.get("turn");
+
+                if(!ShipsPainted) {
+                    paintShips(getShips(playerInfo));
+                    ShipsPainted = true;
+                }
 
                 if(playerInfo.get("destroyed_parts") != null ){
                     destroyedInfo = (HashMap<String, Object>) playerInfo.get("destroyed_parts");
                     paintDestroyedPart(destroyedInfo);
-                    hitCount++;
-                    Toast.makeText(getApplicationContext(),"You got hit, do a shot!", Toast.LENGTH_SHORT).show();
+
                     if(hitCount > 9){
                         openLoseDialog();
                     }
                }
 
-                Boolean goTime = (Boolean) playerInfo.get("turn");
+
+                if(goTime != null) {
+                    if (goTime && hitCount < 10) {
+                        enableButtons();
+                        openTurnDialog();
+                    }
+                }
 
 
             }
@@ -93,6 +107,8 @@ public class BattleActivity extends AppCompatActivity {
         });
 
 
+
+
     }
 
     public void onClick(View view) {
@@ -102,17 +118,21 @@ public class BattleActivity extends AppCompatActivity {
         otherPlayerShipParts = getShips(otherPlayerInfo);
 
         if(otherPlayerShipParts.contains(point)){
-            btn.setBackground(ContextCompat.getDrawable(this,R.drawable.chosenbutton));
+            btn.setBackground(ContextCompat.getDrawable(this,R.drawable.destroyedbutton));
             otherPlayerRef.child("destroyed_parts").setValue(point);
+            Toast.makeText(getApplicationContext(),"It's a hit!", Toast.LENGTH_SHORT).show();
+            enemyShipsHit++;
 
         } else {
             btn.setBackground(ContextCompat.getDrawable(this, R.drawable.missedbutton));
+            Toast.makeText(getApplicationContext(),"You missed", Toast.LENGTH_SHORT).show();
         }
-    }
 
-    public void test(View view) {
-        paintShips(getShips(playerInfo));
-        Toast.makeText(getApplicationContext(),"gnomed", Toast.LENGTH_SHORT).show();
+        playerRef.child("turn").setValue(false);
+        otherPlayerRef.child("turn").setValue(true);
+        disableButtons();
+
+
     }
 
     public ArrayList<Point> getShips (HashMap<String, Object> playerInfo){
@@ -157,6 +177,7 @@ public class BattleActivity extends AppCompatActivity {
             y = shipParts.get(i).getY();
             viewID = x + y*gridSize;
 
+
           Button btn = findViewById(DEFAULT_GRID_ID + viewID);
           btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chosenbutton));
         }
@@ -167,12 +188,22 @@ public class BattleActivity extends AppCompatActivity {
         int y;
         int viewID;
 
+
         x = (int)(long) destroyedInfo.get("x");
         y = (int)(long) destroyedInfo.get("y");
         viewID = x + y*gridSize;
 
+
+        if(viewID != prevViewID){
+            hitCount++;
+            Toast.makeText(getApplicationContext(),"You got hit, do a shot!", Toast.LENGTH_SHORT).show();
+        }
+
+        prevViewID = viewID;
+
+
         Button btn = findViewById(DEFAULT_GRID_ID+viewID);
-        btn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.destroyedbutton));
+        btn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.haps));
     }
 
     public void assignPlayers(String playerID, String gameID){
@@ -193,6 +224,21 @@ public class BattleActivity extends AppCompatActivity {
     public Point convertIndexToPoint(int index) {
         return new Point(index%gridSize,index/gridSize);
     }
+
+    public void disableButtons(){
+        for(int i = 0; i < gridSize*gridSize; i++ ){
+            Button btn = findViewById(DEFAULT_SHOOTBUTTON_ID + i);
+            btn.setEnabled(false);
+        }
+    }
+
+    public void enableButtons() {
+        for (int i = 0; i < gridSize * gridSize; i++) {
+            Button btn = findViewById(DEFAULT_SHOOTBUTTON_ID + i);
+            btn.setEnabled(true);
+        }
+    }
+
 
 
     public void openLoseDialog() {
@@ -233,6 +279,44 @@ public class BattleActivity extends AppCompatActivity {
 
     }
 
+    public void openTurnDialog() {
+
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+
+        // Set Title
+        TextView title = new TextView(this);
+        // Title Properties
+        title.setText("Your turn to shoot!");
+        title.setPadding(10, 10, 10, 10);   // Set Position
+        title.setGravity(Gravity.CENTER);
+        title.setTextColor(Color.BLACK);
+        title.setTextSize(20);
+        alertDialog.setCustomTitle(title);
+
+
+        // Set OK Button
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+
+        new Dialog(getApplicationContext());
+        alertDialog.show();
+
+        // Set Properties for OK Button
+        final Button okBT = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+        LinearLayout.LayoutParams neutralBtnLP = (LinearLayout.LayoutParams) okBT.getLayoutParams();
+        neutralBtnLP.gravity = Gravity.FILL_HORIZONTAL;
+        okBT.setPadding(0, 10, 0, 10);   // Set Position
+        okBT.setTextColor(Color.BLUE);
+        okBT.setLayoutParams(neutralBtnLP);
+
+    }
+
+
+    @Override
     protected void onDestroy(){
         playerRef.removeEventListener(valueEventListener);
         otherPlayerRef.removeEventListener(valueEventListener);
