@@ -12,8 +12,7 @@ public class Player {
     private int gridSize = 8;
     public List<Point> grid;
     public HashSet<Point> shipList;
-    private List<Ship> ships;
-    public boolean hasShip = false;
+    public List<Ship> ships;
 
     public Player(String name) {
         this.playerName = name;
@@ -24,17 +23,16 @@ public class Player {
     }
 
     public void addShip(Point point, int length, Direction direction, GameModel gameModel){
-        for(Point shipPoint : shipList) {
+      /*  for(Point shipPoint : shipList) {
             Log.d("shipLits:", shipPoint.toString());
-            Log.d("Ship Size: ",""+ ships.size());
         }
+        Log.d("Ship Size: ",""+ ships.size());*/
 
             if (direction == Direction.DOWN && 0 > point.getY() + (length - 1) ||
                     direction == Direction.UP && gridSize <= (length - 1) - point.getY() ||
                     direction == Direction.LEFT && gridSize <= (length - 1) + point.getX() ||
                     direction == Direction.RIGHT && 0 > point.getX() - (length - 1)) {
-                hasShip = true;
-            } else {
+            } else if (!hasShipInside(point, direction, length)) {
                 Ship ship = new Ship(point, length, direction, "Ship_" + length);
                 ships.add(ship);
                 for (Point shipPart : ship.getShip()) {
