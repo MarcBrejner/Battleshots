@@ -1,19 +1,22 @@
 package com.example.battleshots;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
+import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.GridLayout;
-import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.*;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,11 +32,12 @@ public class BattleActivity extends AppCompatActivity {
     ValueEventListener valueEventListener;
     ArrayList<Point> playerShipParts, otherPlayerShipParts;
 
-    HashMap<String, Object> otherPlayerInfo, playerInfo;
+    HashMap<String, Object> otherPlayerInfo, playerInfo, destroyedInfo, turnInfo;
     public final int DEFAULT_GRID_ID = 2131230763;
     public final int DEFAULT_SHOOTBUTTON_ID = 2131230827;
-    GridLayout gridLayout;
-    int gridSize = 8;
+    int gridSize = 8, hitCount = 0;
+    Boolean yourTurn = false;
+
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,19 +48,29 @@ public class BattleActivity extends AppCompatActivity {
         gameID = getIntent().getStringExtra("gameID");
         server.createGameRef(gameID);
         playerID = getIntent().getStringExtra("playerID");
+        assignPlayers(playerID,gameID);
 
-        if (playerID.equals("1")) {
-            playerRef = server.reference.child("Game").child(gameID).child("Player 1");
-            otherPlayerRef = server.reference.child("Game").child(gameID).child("Player 2");
-        } else  {
-            playerRef = server.reference.child("Game").child(gameID).child("Player 2");
-            otherPlayerRef = server.reference.child("Game").child(gameID).child("Player 1");
-        }
 
+
+        //add ValueEventListener to current player
         playerRef.addValueEventListener(valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 playerInfo = (HashMap<String, Object>) dataSnapshot.getValue();
+
+                if(playerInfo.get("destroyed_parts") != null ){
+                    destroyedInfo = (HashMap<String, Object>) playerInfo.get("destroyed_parts");
+                    paintDestroyedPart(destroyedInfo);
+                    hitCount++;
+                    Toast.makeText(getApplicationContext(),"You got hit, do a shot!", Toast.LENGTH_SHORT).show();
+                    if(hitCount > 9){
+                        openLoseDialog();
+                    }
+               }
+
+                Boolean goTime = (Boolean) playerInfo.get("turn");
+
+
             }
 
             @Override
@@ -65,6 +79,7 @@ public class BattleActivity extends AppCompatActivity {
 
         });
 
+        //add ValueEventListener to enemy player
         otherPlayerRef.addValueEventListener(valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -78,11 +93,6 @@ public class BattleActivity extends AppCompatActivity {
         });
 
 
-
-
-
-
-        // TODO: A lot of stuff....
     }
 
     public void onClick(View view) {
@@ -93,7 +103,8 @@ public class BattleActivity extends AppCompatActivity {
 
         if(otherPlayerShipParts.contains(point)){
             btn.setBackground(ContextCompat.getDrawable(this,R.drawable.chosenbutton));
-            //otherPlayerRef.child("destroyed_parts").setValue(point);
+            otherPlayerRef.child("destroyed_parts").setValue(point);
+
         } else {
             btn.setBackground(ContextCompat.getDrawable(this, R.drawable.missedbutton));
         }
@@ -102,10 +113,6 @@ public class BattleActivity extends AppCompatActivity {
     public void test(View view) {
         paintShips(getShips(playerInfo));
         Toast.makeText(getApplicationContext(),"gnomed", Toast.LENGTH_SHORT).show();
-    }
-
-    public void colorButton(){
-
     }
 
     public ArrayList<Point> getShips (HashMap<String, Object> playerInfo){
@@ -148,15 +155,36 @@ public class BattleActivity extends AppCompatActivity {
 
             x = shipParts.get(i).getX();
             y = shipParts.get(i).getY();
-            viewID = x + y*8;
+            viewID = x + y*gridSize;
 
           Button btn = findViewById(DEFAULT_GRID_ID + viewID);
           btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chosenbutton));
         }
     }
 
-    public void findID(View view){
-        Toast.makeText(getApplicationContext(),Integer.toString( view.getId()), Toast.LENGTH_LONG).show();
+    public void paintDestroyedPart(HashMap<String,Object> destroyedInfo){
+        int x;
+        int y;
+        int viewID;
+
+        x = (int)(long) destroyedInfo.get("x");
+        y = (int)(long) destroyedInfo.get("y");
+        viewID = x + y*gridSize;
+
+        Button btn = findViewById(DEFAULT_GRID_ID+viewID);
+        btn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.destroyedbutton));
+    }
+
+    public void assignPlayers(String playerID, String gameID){
+        if (playerID.equals("1")) {
+            playerRef = server.reference.child("Game").child(gameID).child("Player 1");
+            otherPlayerRef = server.reference.child("Game").child(gameID).child("Player 2");
+            playerRef.child("turn").setValue(true);
+            otherPlayerRef.child("turn").setValue(false);
+        } else  {
+            playerRef = server.reference.child("Game").child(gameID).child("Player 2");
+            otherPlayerRef = server.reference.child("Game").child(gameID).child("Player 1");
+        }
     }
 
     public int convertPointToIndex(Point point) {
@@ -164,6 +192,52 @@ public class BattleActivity extends AppCompatActivity {
     }
     public Point convertIndexToPoint(int index) {
         return new Point(index%gridSize,index/gridSize);
+    }
+
+
+    public void openLoseDialog() {
+
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+
+        // Set Title
+        TextView title = new TextView(this);
+        // Title Properties
+        title.setText("You lost :(");
+        title.setPadding(10, 10, 10, 10);   // Set Position
+        title.setGravity(Gravity.CENTER);
+        title.setTextColor(Color.BLACK);
+        title.setTextSize(20);
+        alertDialog.setCustomTitle(title);
+
+
+        // Set OK Button
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(getApplicationContext(), StartMenuActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
+        new Dialog(getApplicationContext());
+        alertDialog.show();
+
+        // Set Properties for OK Button
+        final Button okBT = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+        LinearLayout.LayoutParams neutralBtnLP = (LinearLayout.LayoutParams) okBT.getLayoutParams();
+        neutralBtnLP.gravity = Gravity.FILL_HORIZONTAL;
+        okBT.setPadding(0, 10, 0, 10);   // Set Position
+        okBT.setTextColor(Color.BLUE);
+        okBT.setLayoutParams(neutralBtnLP);
+
+    }
+
+    protected void onDestroy(){
+        playerRef.removeEventListener(valueEventListener);
+        otherPlayerRef.removeEventListener(valueEventListener);
+        server.deleteGameDataBase(gameID);
+        super.onDestroy();
     }
 
 
