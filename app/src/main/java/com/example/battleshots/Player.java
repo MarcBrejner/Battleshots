@@ -10,7 +10,7 @@ public class Player {
     private int gridSize = 8;
     public List<Point> grid, shipList;
     private List<Ship> ships;
-    public boolean hasShip = false, noShipsLeft = false;
+    public boolean hasShip = false;
 
     public Player(String name) {
         this.playerName = name;
@@ -25,15 +25,12 @@ public class Player {
             Log.d("shipLits:", shipPoint.toString());
             Log.d("Ship Size: ",""+ ships.size());
         }
-        // hasShip = hasShipInside(point, direction, length);
-        if (!hasShip) {
+
             if (direction == Direction.DOWN && 0 > point.getY() - (length - 1) ||
                     direction == Direction.UP && gridSize <= (length - 1) + point.getY() ||
                     direction == Direction.LEFT && gridSize <= (length - 1) + point.getX() ||
                     direction == Direction.RIGHT && 0 > point.getX() - (length - 1)) {
                 hasShip = true;
-            } else if (ships.size() >= 4) {
-                noShipsLeft = true;
             } else {
                 Ship ship = new Ship(point, length, direction, "Ship_" + length);
                 ships.add(ship);
@@ -41,14 +38,12 @@ public class Player {
                     shipList.add(shipPart);
                     grid.get(gameModel.convertPointToIndex(shipPart)).setStatus(Status.DEPLOYED);
                 }
-            }
+
         }
     }
 
 
     public boolean hasShipInside(Point point, Direction direction, int length) {
-
-
         for (int i = 0; i < length; i++) {
             if (direction == Direction.LEFT && shipList.contains(new Point(point.getX() + i, point.getY()))) {
                 return true;

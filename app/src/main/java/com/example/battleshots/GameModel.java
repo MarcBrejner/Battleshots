@@ -42,7 +42,7 @@ public class GameModel {
     }
 
     public Point convertIndexToPoint(int index) {
-        return new Point(index/gridSize,index%gridSize);
+        return new Point(index%gridSize,index/gridSize);
     }
 
     public void checkShot(Point shot, String playerName) {

@@ -25,15 +25,16 @@ public class setupActivity extends AppCompatActivity {
 
     private String gameID, playerID;
     private int btnID, btnClickAmount = 0, prevbtnID, shipSize, btnDefault = 2131230763;
-    HashSet<Point> shipList;
     Map<String, Object> info;
     Direction direction = Direction.DOWN;
     Map<String, Integer> startPositions;
+    Map<String, Direction> directionsList;
     private String rotationFlag = "", newShipFlag = "", occupiedFlag = "";
     private int shipOneID, shipTwoID, shipThreeID, shipFourID;
     private boolean isReady = false, ship1placed, ship2placed, ship3placed, ship4placed, allShipIsPlaced;
-
+    ValueEventListener playerListener, otherPlayerListener;
     GameModel gameModel;
+    int shipPlaced = 0;
     Server server;
     DatabaseReference playerRef, otherPlayerRef;
     String playerName;
@@ -46,6 +47,7 @@ public class setupActivity extends AppCompatActivity {
 
         server = new Server();
        startPositions = new HashMap<>();
+       directionsList = new HashMap<>();
 
 
         if (getIntent().getStringExtra("gameID") != null) {
@@ -81,7 +83,7 @@ public class setupActivity extends AppCompatActivity {
             otherPlayerRef = server.reference.child("Game").child(gameID).child("Player 1");
         }
 
-        otherPlayerRef.addValueEventListener(new ValueEventListener() {
+        otherPlayerRef.addValueEventListener(otherPlayerListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 info = (HashMap<String, Object>) dataSnapshot.getValue();
@@ -180,11 +182,9 @@ public class setupActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
+        // TODO: BUGS WITH FLAGS FOR DIRECTION, CANNOT SAVE SHIPS FROM CORNERS
         Button btn = (Button) findViewById(view.getId());
         btnID = btn.getId();
-        setStartPosition(shipSize);
-
-        Toast.makeText(getApplicationContext(),""+startPositions.toString(),Toast.LENGTH_SHORT ).show();
 
         if (shipSize == 0) {
             Toast.makeText(getApplicationContext(), "Pick your naval ship", Toast.LENGTH_SHORT).show();
@@ -192,19 +192,15 @@ public class setupActivity extends AppCompatActivity {
         /* else if(containShip(btnID-btnDefault)) {
             Toast.makeText(getApplicationContext(), ""+ Arrays.toString(shipList.toArray()), Toast.LENGTH_SHORT).show();
         } */
-            if (btnID == prevbtnID && shipOneID == btnID && !ship1placed) {
-
+            if (shipSize == 1 && btnID == prevbtnID && shipOneID == btnID && !ship1placed) {
                 rotateShip();
             } else if (shipSize == 2 && shipTwoID == btnID && prevbtnID == btnID && !ship2placed) {
-
                 rotateShip();
             } else if (shipSize == 3 && shipThreeID == btnID && prevbtnID == btnID && !ship3placed) {
-
                 rotateShip();
             } else if (shipSize == 4 && shipFourID == btnID && prevbtnID == btnID && !ship4placed) {
-
                 rotateShip();
-            } else if (btnID != prevbtnID ) { // Skrives for at skibet ikke forsvinder
+            } else if (btnID != prevbtnID ) {
                 if (prevbtnID != 0 && shipOneID != 0 && shipSize == 1) {
                     clearOldShip(shipOneID);
                 } else if (prevbtnID != 0 && shipTwoID != 0 && shipSize == 2) {
@@ -291,7 +287,6 @@ public class setupActivity extends AppCompatActivity {
 
         if (shipSize == 1) {
             // startBtn.setText(Integer.toString(btnID-btnDefault));
-            ship1placed = true;
             startBtn.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_one));
             shipOneID = startBtn.getId();
 
@@ -306,6 +301,7 @@ public class setupActivity extends AppCompatActivity {
                 startBtn.setRotation(0);
             }
             btnClickAmount++;
+            setStartPosition(shipSize, direction);
         }
 
         if(shipSize == 2) {
@@ -314,7 +310,7 @@ public class setupActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "There is already a ship", Toast.LENGTH_SHORT).show();
                 return;
             }*/
-            ship2placed = true;
+
             shipTwoID = startBtn.getId();
             startBtn.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_two_front));
             tmpBtn1.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_two_end));
@@ -337,6 +333,7 @@ public class setupActivity extends AppCompatActivity {
                 tmpBtn1.setRotation(0);
             }
             btnClickAmount++;
+            setStartPosition(shipSize, direction);
         }
 
         if(shipSize == 3) {
@@ -345,7 +342,7 @@ public class setupActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "There is already a ship", Toast.LENGTH_SHORT).show();
                 return;
             }*/
-            ship3placed = true;
+
             shipThreeID = startBtn.getId();
             startBtn.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_three_front));
             tmpBtn1.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_three_middle));
@@ -375,6 +372,7 @@ public class setupActivity extends AppCompatActivity {
                 tmpBtn2.setRotation(0);
             }
             btnClickAmount++;
+            setStartPosition(shipSize, direction);
         }
 
         if(shipSize == 4) {
@@ -383,7 +381,7 @@ public class setupActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "There is already a ship", Toast.LENGTH_SHORT).show();
                 return;
             }*/
-            ship4placed = true;
+
             shipFourID = startBtn.getId();
             startBtn.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_four_front));
             tmpBtn1.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_four_front_middle));
@@ -420,6 +418,7 @@ public class setupActivity extends AppCompatActivity {
                 tmpBtn3.setRotation(0);
             }
             btnClickAmount++;
+            setStartPosition(shipSize, direction);
         }
     }
 
@@ -667,19 +666,23 @@ public class setupActivity extends AppCompatActivity {
     }
 
 
-        public void setStartPosition (int shipSize) {
+        public void setStartPosition (int shipSize, Direction direction) {
             // Index 0 gets player1, needs a method to figure out which player is who.
             if (shipSize == 1) {
                 startPositions.put("point1", btnID-btnDefault);
+                directionsList.put("direction1", direction);
             }
             if (shipSize == 2) {
                 startPositions.put("point2", btnID-btnDefault);
+                directionsList.put("direction2", direction);
             }
             if (shipSize == 3) {
                 startPositions.put("point3", btnID-btnDefault);
+                directionsList.put("direction3", direction);
             }
             if (shipSize == 4) {
                 startPositions.put("point4", btnID-btnDefault);
+                directionsList.put("direction4", direction);
             }
         }
 
@@ -701,7 +704,47 @@ public class setupActivity extends AppCompatActivity {
 
 
         public void savePositions (View view) {
-            if (!ship1placed || !ship2placed || !ship3placed || !ship4placed) {
+        if (startPositions.get("point1") != null) {
+            if (gameModel.getPlayers().get(0).hasShipInside(gameModel.convertIndexToPoint(startPositions.get("point1")), directionsList.get("direction1"), 1)) {
+                Toast.makeText(getApplicationContext(), "Contains other ship", Toast.LENGTH_SHORT).show();
+            } else {
+                gameModel.getPlayers().get(0).addShip(gameModel.convertIndexToPoint(startPositions.get("point1")), 1, directionsList.get("direction1"), gameModel);
+                shipPlaced++;
+                ship1placed = true;
+            }
+        }
+
+            if (startPositions.get("point2") != null) {
+                if (gameModel.getPlayers().get(0).hasShipInside(gameModel.convertIndexToPoint(startPositions.get("point2")), directionsList.get("direction2"), 2)) {
+                    Toast.makeText(getApplicationContext(), "Contains other ship", Toast.LENGTH_SHORT).show();
+                } else {
+                    gameModel.getPlayers().get(0).addShip(gameModel.convertIndexToPoint(startPositions.get("point2")), 2, directionsList.get("direction2"), gameModel);
+                    shipPlaced++;
+                    ship2placed = true;
+                }
+            }
+
+            if (startPositions.get("point3") != null) {
+                if (gameModel.getPlayers().get(0).hasShipInside(gameModel.convertIndexToPoint(startPositions.get("point3")),  directionsList.get("direction3"), 3)) {
+                    Toast.makeText(getApplicationContext(), "Contains other ship", Toast.LENGTH_SHORT).show();
+                } else {
+                    gameModel.getPlayers().get(0).addShip(gameModel.convertIndexToPoint(startPositions.get("point3")), 3, directionsList.get("direction3"), gameModel);
+                    shipPlaced++;
+                    ship3placed = true;
+                }
+            }
+
+            if (startPositions.get("point4") != null) {
+                if (gameModel.getPlayers().get(0).hasShipInside(gameModel.convertIndexToPoint(startPositions.get("point4")),  directionsList.get("direction4"), 4)) {
+                    Toast.makeText(getApplicationContext(), "Contains other ship", Toast.LENGTH_SHORT).show();
+                } else {
+                    gameModel.getPlayers().get(0).addShip(gameModel.convertIndexToPoint(startPositions.get("point4")), 4,  directionsList.get("direction4"), gameModel);
+                    shipPlaced++;
+                    ship4placed = true;
+                }
+            }
+
+        if (!ship1placed || !ship2placed || !ship3placed || !ship4placed) {
                 Toast.makeText(getApplicationContext(), "All ships must be placed", Toast.LENGTH_SHORT).show();
             } else {
                 // Index 0 gets player1, needs a method to figure out which player is who.
@@ -709,23 +752,13 @@ public class setupActivity extends AppCompatActivity {
                 for(Point shippoints : ship.getShip()) {
                     shipList.add(shippoints);
                 }
+           }*/
 
-            }*/
 
-                    gameModel.getPlayers().get(0).addShip(gameModel.convertIndexToPoint(startPositions.get("point1")), 1, direction, gameModel);
-                    gameModel.getPlayers().get(0).addShip(gameModel.convertIndexToPoint(startPositions.get("point2")), 2, direction, gameModel);
-                    gameModel.getPlayers().get(0).addShip(gameModel.convertIndexToPoint(startPositions.get("point3")), 3, direction, gameModel);
-                    gameModel.getPlayers().get(0).addShip(gameModel.convertIndexToPoint(startPositions.get("point4")), 4, direction, gameModel);
-
-                if (gameModel.getPlayers().get(0).hasShip) {
-                    //Toast.makeText(getApplicationContext(), ""+ gameModel.getPlayers().get(0).shipList.toArray().toString(), Toast.LENGTH_SHORT).show();
-                    gameModel.getPlayers().get(0).hasShip = false;
-                } else if (gameModel.getPlayers().get(0).noShipsLeft) {
-                    Toast.makeText(getApplicationContext(), "All ships have been placed", Toast.LENGTH_SHORT).show();
-                } else {
-                        server.addShipToDatabase(this, gameModel.getPlayers().get(0), gameID, playerID);
-                        allShipIsPlaced = true;
-                    }
+            if (shipPlaced == 4) {
+             server.addShipToDatabase(this, gameModel.getPlayers().get(0), gameID, playerID);
+            allShipIsPlaced = true;
+        }
                 }
             }
 
@@ -743,7 +776,7 @@ public class setupActivity extends AppCompatActivity {
 
         @Override
         protected void onDestroy () {
-            //server.deleteGameDataBase(gameID);
+        otherPlayerRef.removeEventListener(otherPlayerListener);
             super.onDestroy();
         }
 
