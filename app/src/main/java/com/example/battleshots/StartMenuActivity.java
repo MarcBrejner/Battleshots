@@ -91,6 +91,11 @@ public class StartMenuActivity extends AppCompatActivity implements Serializable
         openJoinDialog();
     }
 
+    public void rulesActivity(View view) {
+        Intent intent = new Intent(getApplicationContext(), gameRulesActivity.class);
+        startActivity(intent);
+    }
+
 
 
     public void openNameDialog() {
@@ -131,7 +136,6 @@ public class StartMenuActivity extends AppCompatActivity implements Serializable
         // Set Properties for OK Button
         final Button okBT = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
         LinearLayout.LayoutParams neutralBtnLP = (LinearLayout.LayoutParams) okBT.getLayoutParams();
-        neutralBtnLP.gravity = Gravity.FILL_HORIZONTAL;
         okBT.setPadding(0, 10, 0, 10);   // Set Position
         okBT.setTextColor(Color.BLUE);
         okBT.setLayoutParams(neutralBtnLP);

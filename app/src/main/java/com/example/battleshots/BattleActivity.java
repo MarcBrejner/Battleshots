@@ -277,7 +277,7 @@ public class BattleActivity extends AppCompatActivity {
         // Set Properties for OK Button
         final Button okBT = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
         LinearLayout.LayoutParams neutralBtnLP = (LinearLayout.LayoutParams) okBT.getLayoutParams();
-        neutralBtnLP.gravity = Gravity.FILL_HORIZONTAL;
+        neutralBtnLP.gravity = Gravity.CENTER;
         okBT.setPadding(0, 10, 0, 10);   // Set Position
         okBT.setTextColor(Color.BLUE);
         okBT.setLayoutParams(neutralBtnLP);
@@ -313,7 +313,7 @@ public class BattleActivity extends AppCompatActivity {
         // Set Properties for OK Button
         final Button okBT = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
         LinearLayout.LayoutParams neutralBtnLP = (LinearLayout.LayoutParams) okBT.getLayoutParams();
-        neutralBtnLP.gravity = Gravity.FILL_HORIZONTAL;
+        neutralBtnLP.gravity = Gravity.CENTER;
         okBT.setPadding(0, 10, 0, 10);   // Set Position
         okBT.setTextColor(Color.BLUE);
         okBT.setLayoutParams(neutralBtnLP);

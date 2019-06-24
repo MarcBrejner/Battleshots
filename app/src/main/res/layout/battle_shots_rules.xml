@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|center_horizontal"
+
+        android:background="@color/blue"
+        android:orientation="vertical">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/rules_logo_id"
+            android:layout_centerHorizontal="true"
+            android:text="Rules of Battle Shots"
+            android:textSize="40dp"
+            android:textColor="@color/white"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/rules_logo_id"
+                android:layout_width="250dp"
+                android:layout_height="160dp"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/splashscreen"
+                android:layout_gravity="center_horizontal"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="You will get a total of 4 ships"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="24dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textStyle="bold"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="These ships have length 1, 2, 3 and 4 "
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:layout_marginBottom="24dp"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="You should buy 10 shots, 1 for each ship part"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:layout_marginBottom="24dp"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="If you get hit you have to take a shot"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:layout_marginBottom="24dp"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Win or get drunk!"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:layout_marginBottom="24dp"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"/>
+    
+    <Button
+            android:layout_width="164dp"
+            android:layout_height="34dp"
+            android:text="Back"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/white"
+            android:layout_margin="24dp"/>
+</LinearLayout>
