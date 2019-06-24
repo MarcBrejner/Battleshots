@@ -12,11 +12,16 @@
         <activity android:name=".JoinGameActivity"
             android:label="@string/title_activity_join_game"
                   android:noHistory="true"
+                  android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".StartMenuActivity" />
+        <activity android:name=".StartMenuActivity"
+                  android:screenOrientation="portrait"
+        />
         <activity android:name=".CreateGameActivity"
-                    android:noHistory="true"/>
-        <activity android:name=".SplashScreen">
+                    android:noHistory="true"
+        android:screenOrientation="portrait"/>
+        <activity android:name=".SplashScreen"
+        android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

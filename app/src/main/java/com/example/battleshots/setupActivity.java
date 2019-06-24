@@ -53,6 +53,7 @@ public class setupActivity extends AppCompatActivity {
         setContentView(R.layout.content_setup_map);
 
 
+
         server = new Server();
        startPositions = new HashMap<>();
        directionsList = new HashMap<>();

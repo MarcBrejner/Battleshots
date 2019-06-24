@@ -70,7 +70,8 @@ public class BattleActivity extends AppCompatActivity {
                 if(playerInfo.get("destroyed_parts") != null ){
                     destroyedInfo = (HashMap<String, Object>) playerInfo.get("destroyed_parts");
                     paintDestroyedPart(destroyedInfo);
-
+                    hitCount++;
+                    Toast.makeText(getApplicationContext(),"You got hit, do a shot!", Toast.LENGTH_SHORT).show();
                     if(hitCount > 9){
                         openLoseDialog();
                     }

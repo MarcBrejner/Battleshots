@@ -8,17 +8,13 @@
               android:weightSum="13"
               tools:context="BattleActivity">
 
-
-
-
-
-
     <LinearLayout
             android:id="@+id/row_0"
-            android:layout_width="192dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.4"
-            android:padding="0dp">
+            android:padding="0dp"
+            android:layout_gravity="top|left">
 
         <Button
                 android:id="@+id/button_a0"
@@ -90,13 +86,17 @@
                 android:onClick="onClick"
                 android:tag="7"/>
 
+        <TextView
+                android:id="@+id/stats_1"
+                android:layout_width="218dp"
+                android:layout_height="24dp"
+                android:text=""
+        />
+
 
     </LinearLayout>
-
-
-
     <LinearLayout
-            android:layout_width="192dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.4">
 
@@ -172,11 +172,17 @@
                 android:onClick="onClick"
                 android:tag="15"/>
 
+        <TextView
+                android:id="@+id/stats_2"
+                android:layout_width="218dp"
+                android:layout_height="24dp"
+        />
+
 
     </LinearLayout>
 
     <LinearLayout
-            android:layout_width="192dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.4">
 
@@ -252,11 +258,17 @@
                 android:onClick="onClick"
                 android:tag="23"/>
 
+        <TextView
+                android:id="@+id/stats_3"
+                android:layout_width="218dp"
+                android:layout_height="24dp"
+        />
+
 
     </LinearLayout>
 
     <LinearLayout
-            android:layout_width="192dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.4">
 
@@ -332,11 +344,15 @@
                 android:onClick="onClick"
                 android:tag="31"/>
 
+        <TextView android:layout_width="218dp"
+                  android:layout_height="24dp"
+        />
+
 
     </LinearLayout>
 
     <LinearLayout
-            android:layout_width="192dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.4">
 
@@ -412,10 +428,14 @@
                 android:onClick="onClick"
                 android:tag="39"/>
 
+        <TextView android:layout_width="218dp"
+                  android:layout_height="24dp"
+        />
+
     </LinearLayout>
 
     <LinearLayout
-            android:layout_width="192dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.4">
 
@@ -491,10 +511,14 @@
                 android:onClick="onClick"
                 android:tag="47"/>
 
+        <TextView android:layout_width="218dp"
+                  android:layout_height="24dp"
+        />
+
     </LinearLayout>
 
     <LinearLayout
-            android:layout_width="192dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.4">
 
@@ -570,10 +594,14 @@
                 android:onClick="onClick"
                 android:tag="55"/>
 
+        <TextView android:layout_width="218dp"
+                  android:layout_height="24dp"
+        />
+
     </LinearLayout>
 
     <LinearLayout
-            android:layout_width="192dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.4">
 
@@ -648,11 +676,11 @@
                 android:background="@drawable/defaultbutton"
                 android:onClick="onClick"
                 android:tag="63"/>
+
+        <TextView android:layout_width="218dp"
+                  android:layout_height="24dp"
+        />
     </LinearLayout>
-
-
-
-
     <LinearLayout
             android:id="@+id/row_1"
             android:layout_width="match_parent"
@@ -1286,8 +1314,15 @@
                 android:onClick="onClick"
                 android:tag="63"/>
 
+        <Button
+                android:id="@+id/button_test"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:background="@drawable/defaultbutton"
+                android:onClick="test"
+                android:tag="63"/>
+
     </LinearLayout>
-
-
 
 </LinearLayout>
