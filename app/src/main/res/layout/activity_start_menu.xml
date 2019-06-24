@@ -50,22 +50,4 @@
             android:background="@color/white"
             android:layout_margin="24dp"/>
 
-    <Button
-            android:text="Game Setup"
-            android:layout_width="164dp"
-            android:layout_height="34dp"
-            android:onClick="setupMap"
-            android:background="@color/white"
-            android:layout_margin="24dp"
-    />
-
-    <Button
-            android:text="Battle mode(test)"
-            android:layout_width="164dp"
-            android:layout_height="34dp"
-            android:background="@color/white"
-            android:onClick="battleMap"
-            android:layout_margin="24dp"
-    />
-
 </LinearLayout>
