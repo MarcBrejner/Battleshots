@@ -27,6 +27,17 @@
                 android:src="@mipmap/splashscreen"
                 android:layout_gravity="center_horizontal"/>
 
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="To rotate ships click the same square again"
+            android:textSize="16dp"
+            android:textColor="@color/white"
+            android:layout_marginBottom="16dp"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"/>
+
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
