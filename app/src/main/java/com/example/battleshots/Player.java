@@ -11,7 +11,7 @@ public class Player {
     private String playerName;
     private int gridSize = 8;
     public List<Point> grid;
-    public HashSet<Point> shipList;
+    public HashSet<Integer> shipList;
     public List<Ship> ships;
 
     public Player(String name) {
@@ -32,11 +32,11 @@ public class Player {
                     direction == Direction.UP && gridSize <= (length - 1) - point.getY() ||
                     direction == Direction.LEFT && gridSize <= (length - 1) + point.getX() ||
                     direction == Direction.RIGHT && 0 > point.getX() - (length - 1)) {
-            } else if (!hasShipInside(point, direction, length)) {
+            } else if (!hasShipInside(point, direction, length, gameModel)) {
                 Ship ship = new Ship(point, length, direction, "Ship_" + length);
                 ships.add(ship);
                 for (Point shipPart : ship.getShip()) {
-                    shipList.add(shipPart);
+                    shipList.add(gameModel.convertPointToIndex(shipPart));
                     grid.get(gameModel.convertPointToIndex(shipPart)).setStatus(Status.DEPLOYED);
                 }
 
@@ -44,17 +44,17 @@ public class Player {
     }
 
 
-    public boolean hasShipInside(Point point, Direction direction, int length) {
+    public boolean hasShipInside(Point point, Direction direction, int length, GameModel gameModel) {
         Log.d("Ships:", "ship_" + length + ": Direction - " + direction + " point" + point.toString());
         Log.d("ShipsList:", Arrays.toString(shipList.toArray()));
         for (int i = 0; i < length; i++) {
-            if (direction == Direction.LEFT && shipList.contains(new Point(point.getX() + i, point.getY()))) {
+            if (direction == Direction.LEFT && shipList.contains(gameModel.convertPointToIndex(new Point(point.getX() + i, point.getY())))) {
                 return true;
-            } else if (direction == Direction.RIGHT && shipList.contains(new Point(point.getX() - i, point.getY()))) {
+            } else if (direction == Direction.RIGHT && shipList.contains(gameModel.convertPointToIndex(new Point(point.getX() - i, point.getY())))) {
                 return true;
-            } else if (direction == Direction.UP && shipList.contains(new Point(point.getX(), point.getY() - i))) {
+            } else if (direction == Direction.UP && shipList.contains(gameModel.convertPointToIndex(new Point(point.getX(), point.getY() - i)))) {
                 return true;
-            } else if (direction == Direction.DOWN && shipList.contains(new Point(point.getX(), point.getY() + i))) {
+            } else if (direction == Direction.DOWN && shipList.contains(gameModel.convertPointToIndex(new Point(point.getX(), point.getY() + i)))) {
                 return true;
             }
         }
