@@ -124,10 +124,10 @@ public class CreateGameActivity extends AppCompatActivity {
     }
 
     public String generateGameID(){
-        char[] chars1 = "QW".toCharArray();
+        char[] chars1 = "QWERTYUIOPASDFGHJKLZXCVBNM1234567890".toCharArray();
         StringBuilder stringBuilder = new StringBuilder();
         Random random = new Random();
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 5; i++)
         {
             char c1 = chars1[random.nextInt(chars1.length)];
             stringBuilder.append(c1);
