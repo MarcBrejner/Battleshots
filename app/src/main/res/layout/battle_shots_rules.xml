@@ -10,12 +10,11 @@
         android:orientation="vertical">
 
     <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@id/rules_logo_id"
-            android:layout_centerHorizontal="true"
             android:text="Rules of Battle Shots"
-            android:textSize="40dp"
+            android:textSize="34dp"
             android:textColor="@color/white"
             android:layout_gravity="center_horizontal"
             android:textStyle="bold"/>
@@ -33,9 +32,9 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:text="You will get a total of 4 ships"
-                    android:textSize="20dp"
+                    android:textSize="16dp"
                     android:textColor="@color/white"
-                    android:layout_marginBottom="24dp"
+                    android:layout_marginBottom="16dp"
                     android:layout_gravity="center_horizontal"
                     android:textStyle="bold"/>
 
@@ -44,9 +43,9 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="These ships have length 1, 2, 3 and 4 "
-            android:textSize="20dp"
+            android:textSize="16dp"
             android:textColor="@color/white"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="16dp"
             android:layout_gravity="center_horizontal"
             android:textStyle="bold"/>
 
@@ -55,9 +54,9 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="You should buy 10 shots, 1 for each ship part"
-            android:textSize="20dp"
+            android:textSize="16dp"
             android:textColor="@color/white"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="16dp"
             android:layout_gravity="center_horizontal"
             android:textStyle="bold"/>
 
@@ -66,9 +65,9 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="If you get hit you have to take a shot"
-            android:textSize="20dp"
+            android:textSize="16dp"
             android:textColor="@color/white"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="16dp"
             android:layout_gravity="center_horizontal"
             android:textStyle="bold"/>
 
@@ -77,9 +76,9 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="Win or get drunk!"
-            android:textSize="20dp"
+            android:textSize="16dp"
             android:textColor="@color/white"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="16dp"
             android:layout_gravity="center_horizontal"
             android:textStyle="bold"/>
     
@@ -89,5 +88,6 @@
             android:text="Back"
             android:layout_gravity="center_horizontal"
             android:background="@color/white"
-            android:layout_margin="24dp"/>
+            android:layout_margin="24dp"
+            android:onClick="onClick"/>
 </LinearLayout>
