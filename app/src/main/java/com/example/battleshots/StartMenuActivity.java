@@ -25,7 +25,7 @@ import java.util.List;
 public class StartMenuActivity extends AppCompatActivity implements Serializable {
 
 
-    public String playerName, joinGameID;
+    public String playerName, joinGameID, prevGameID;
 
     Server server;
     ChildEventListener childEventListener;
@@ -35,7 +35,6 @@ public class StartMenuActivity extends AppCompatActivity implements Serializable
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_menu);
-        openNameDialog();
 
         server = new Server();
 
@@ -70,6 +69,8 @@ public class StartMenuActivity extends AppCompatActivity implements Serializable
             }
         });
 
+        loadPlayerName();
+
     }
 
     @Override
@@ -88,19 +89,8 @@ public class StartMenuActivity extends AppCompatActivity implements Serializable
 
     public void joinGame(View view) {
         openJoinDialog();
-
-        //startActivity(intent);
     }
 
-    public void setupMap(View view) {
-        Intent intent = new Intent(getApplicationContext(), setupActivity.class);
-        startActivity(intent);
-    }
-
-    public void battleMap(View view) {
-        Intent intent = new Intent(getApplicationContext(), BattleActivity.class);
-        startActivity(intent);
-    }
 
 
     public void openNameDialog() {
@@ -198,6 +188,25 @@ public class StartMenuActivity extends AppCompatActivity implements Serializable
         okBT.setLayoutParams(neutralBtnLP);
 
     }
+
+    public void loadPlayerName(){
+
+        if(getIntent().getStringExtra("prevPlayerName") != null){
+
+            if(getIntent().getStringExtra("prevGameID") != null){
+                prevGameID = getIntent().getStringExtra("prevGameID");
+                server.deleteGameDataBase(prevGameID);
+            }
+
+            playerName = getIntent().getStringExtra("prevPlayerName");
+            TextView playerNameText = (TextView) findViewById(R.id.playerName_id);
+            playerNameText.setText("Welcome " + playerName);
+        } else {
+            openNameDialog();
+        }
+
+    }
+
 }
 
 
