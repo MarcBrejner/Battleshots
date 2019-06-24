@@ -1,15 +1,11 @@
 package com.example.battleshots;
 
-import android.graphics.*;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.Handler;
-import android.media.Image;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,11 +13,10 @@ import android.widget.Toast;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-
-import java.util.*;
-
-import android.content.Intent;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class setupActivity extends AppCompatActivity {
 
@@ -34,7 +29,7 @@ public class setupActivity extends AppCompatActivity {
     private String rotationFlag = "", newShipFlag = "", occupiedFlag = "";
     private int shipOneID, shipTwoID, shipThreeID, shipFourID;
     private boolean isReady = false, ship1placed, ship2placed, ship3placed, ship4placed, allShipIsPlaced;
-    ValueEventListener playerListener, otherPlayerListener;
+    ValueEventListener otherPlayerListener;
     GameModel gameModel;
     int shipPlaced = 0;
     Server server;
@@ -43,8 +38,7 @@ public class setupActivity extends AppCompatActivity {
     ImageView boat1, boat2, boat3, boat4;
     DatabaseReference playerRef, otherPlayerRef;
     String playerName;
-//    Bitmap waterColor = BitmapFactory.decodeResource(getResources(), R.drawable.water);
-   //  Drawable waterImage =  bitmapToBitmapDrawable(addBorderColor(waterColor,2));
+
 
 
     @Override
@@ -53,12 +47,13 @@ public class setupActivity extends AppCompatActivity {
         setContentView(R.layout.content_setup_map);
 
 
-
+        //init
         server = new Server();
-       startPositions = new HashMap<>();
-       directionsList = new HashMap<>();
-       lengthList = new HashMap<>();
+        startPositions = new HashMap<>();
+        directionsList = new HashMap<>();
+        lengthList = new HashMap<>();
 
+        //Update View every 2 seconds
         handler = new Handler();
         r = new Runnable() {
             @Override
@@ -82,32 +77,15 @@ public class setupActivity extends AppCompatActivity {
         }; handler.postDelayed(r, 1000);
 
 
-
+        //Get information from previous activity
         if (getIntent().getStringExtra("gameID") != null) {
             gameID = getIntent().getStringExtra("gameID");
             playerID = getIntent().getStringExtra("playerID");
             playerName = getIntent().getStringExtra("pName");
-            Log.d("AllIDS", gameID + " + " + playerID + " + " + playerName + " +");
             gameModel = new GameModel(playerName);
         }
-        // FOR TESTING
-        else {
-            gameModel = new GameModel("test");
-            gameID = "1";
-            playerID = "1";
-            server.createGame(gameID, gameModel.getPlayers().get(0));
-            server.joinGame(gameID, new Player("dummy"));
-        }
-        // REMOVE WHEN TESTING IS DONE
 
-
-        // TODO: Make a list of saved ship index based on the button indexes to
-        //  ensure that ships stay on the screen when placed
-
-        /*
-        btnList = new List<>();
-         */
-
+        //Assign players
         if (playerID.equals("1")) {
             playerRef = server.reference.child("Game").child(gameID).child("Player 1");
             otherPlayerRef = server.reference.child("Game").child(gameID).child("Player 2");
@@ -116,6 +94,7 @@ public class setupActivity extends AppCompatActivity {
             otherPlayerRef = server.reference.child("Game").child(gameID).child("Player 1");
         }
 
+        //Add eventlistener to other player
         otherPlayerRef.addValueEventListener(otherPlayerListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -124,6 +103,8 @@ public class setupActivity extends AppCompatActivity {
                 if (info != null) {
                     Boolean otherPlayerIsReady = (Boolean) info.get("isReady");
                     Boolean beginGame = (Boolean) info.get("gameStarted");
+
+                    //if game is ready to start, the game begins
                     if (otherPlayerIsReady != null) {
                         if (otherPlayerIsReady & isReady) {
                             Intent intent = new Intent(getApplicationContext(), BattleActivity.class);
@@ -154,6 +135,7 @@ public class setupActivity extends AppCompatActivity {
 
             }
         });
+
 
         boat1 = findViewById(R.id.ship_one);
         boat1.setOnClickListener(new View.OnClickListener() {
@@ -200,25 +182,15 @@ public class setupActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //server.addGameModelToDatabase(gameModel);
-    }
-
     public void onClick(View view) {
-        // TODO: BUGS WITH OVERLAP ON SHIPS
-        Button btn = (Button) findViewById(view.getId());
+
+        Button btn = findViewById(view.getId());
         btnID = btn.getId();
 
-
-
+        //Rotate and place ship
         if (shipSize == 0) {
             Toast.makeText(getApplicationContext(), "Pick your naval ship", Toast.LENGTH_SHORT).show();
         } else {
-        /* else if(containShip(btnID-btnDefault)) {
-            Toast.makeText(getApplicationContext(), ""+ Arrays.toString(shipList.toArray()), Toast.LENGTH_SHORT).show();
-        } */
             if (shipSize == 1 && btnID == prevbtnID && shipOneID == btnID && !ship1placed) {
                 rotateShip();
             } else if (shipSize == 2 && shipTwoID == btnID && prevbtnID == btnID && !ship2placed) {
@@ -241,20 +213,15 @@ public class setupActivity extends AppCompatActivity {
                 btnClickAmount = 0;
                 direction = Direction.DOWN;
                 if (btn.getBackground().getConstantState() == getResources().getDrawable(R.drawable.defaultbutton).getConstantState()) {
-                    placeBigShip(btn, direction, rotationFlag, "NEW_SHIP");
+                    placeShip(btn, direction, rotationFlag, "NEW_SHIP");
                 }
             }
         }
     }
 
-
-    public void placeBigShip(Button startBtn, Direction direction, String rotationFlag, String newShipFlag) {
+    //Place the whole ship
+    public void placeShip(Button startBtn, Direction direction, String rotationFlag, String newShipFlag) {
         int tmpId = startBtn.getId();
-        /*if (isOccupied(startBtn)) {
-            Toast.makeText(getApplicationContext(), "There is already a ship", Toast.LENGTH_SHORT).show();
-            return;
-        }*/
-
         int dir = 0;
         int prevDir = 0;
 
@@ -314,10 +281,8 @@ public class setupActivity extends AppCompatActivity {
 
 
         if (shipSize == 1 && !ship1placed) {
-            // startBtn.setText(Integer.toString(btnID-btnDefault));
 
             startBtn.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_one));
-           //  startBtn.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_one));
             shipOneID = startBtn.getId();
 
             if (direction == Direction.RIGHT) {
@@ -335,11 +300,6 @@ public class setupActivity extends AppCompatActivity {
         }
 
         if(shipSize == 2 && !ship2placed) {
-            //startBtn.setText(Integer.toString(btnID-btnDefault));
-            /*if (isOccupied(tmpBtn1)) {
-                Toast.makeText(getApplicationContext(), "There is already a ship", Toast.LENGTH_SHORT).show();
-                return;
-            }*/
 
             shipTwoID = startBtn.getId();
             startBtn.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_two_front));
@@ -367,11 +327,6 @@ public class setupActivity extends AppCompatActivity {
         }
 
         if(shipSize == 3 && !ship3placed) {
-            //startBtn.setText(Integer.toString(btnID-btnDefault));
-            /*if (isOccupied(tmpBtn1) || isOccupied(tmpBtn2)) {
-                Toast.makeText(getApplicationContext(), "There is already a ship", Toast.LENGTH_SHORT).show();
-                return;
-            }*/
 
             shipThreeID = startBtn.getId();
             startBtn.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_three_front));
@@ -406,11 +361,6 @@ public class setupActivity extends AppCompatActivity {
         }
 
         if(shipSize == 4 && !ship4placed) {
-            //startBtn.setText(Integer.toString(btnID-btnDefault));
-            /*if (isOccupied(tmpBtn1) || isOccupied(tmpBtn2) || isOccupied(tmpBtn3)) {
-                Toast.makeText(getApplicationContext(), "There is already a ship", Toast.LENGTH_SHORT).show();
-                return;
-            }*/
 
             shipFourID = startBtn.getId();
             startBtn.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_four_front));
@@ -459,11 +409,11 @@ public class setupActivity extends AppCompatActivity {
             switch (btnClickAmount % 2) {
                 case 0:
                     direction = Direction.DOWN;
-                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
+                    placeShip(btn, direction, rotationFlag, newShipFlag);
                     break;
                 case 1:
                     direction = Direction.LEFT;
-                    placeBigShip(btn, direction, "TOP_LEFT", newShipFlag);
+                    placeShip(btn, direction, "TOP_LEFT", newShipFlag);
                     clearShipDirection(Direction.DOWN);
                     break;
             }
@@ -471,68 +421,68 @@ public class setupActivity extends AppCompatActivity {
             switch (btnClickAmount % 2) {
                 case 0:
                     direction = Direction.UP;
-                    placeBigShip(btn, direction, "BOTTOM_LEFT", newShipFlag);
+                    placeShip(btn, direction, "BOTTOM_LEFT", newShipFlag);
                     clearShipDirection(Direction.LEFT);
                     break;
                 case 1:
                     direction = Direction.LEFT;
-                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
+                    placeShip(btn, direction, rotationFlag, newShipFlag);
                     break;
             }
         } else if ((btnID - btnDefault) % 8 > 8 - shipSize && (btnID - btnDefault + (shipSize - 1) * 8) > 63) {
             switch (btnClickAmount % 2) {
                 case 0:
                     direction = Direction.RIGHT;
-                    placeBigShip(btn, direction, "BOTTOM_RIGHT", newShipFlag);
+                    placeShip(btn, direction, "BOTTOM_RIGHT", newShipFlag);
                     clearShipDirection(Direction.UP);
                     break;
                 case 1:
                     direction = Direction.UP;
-                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
+                    placeShip(btn, direction, rotationFlag, newShipFlag);
                     break;
             }
         } else if ((btnID - btnDefault) % 8 > 8 - shipSize && (btnID - btnDefault - (shipSize - 1) * 8) <= 0) {
             switch (btnClickAmount % 2) {
                 case 0:
                     direction = Direction.DOWN;
-                    placeBigShip(btn, direction, "TOP_RIGHT", newShipFlag);
+                    placeShip(btn, direction, "TOP_RIGHT", newShipFlag);
                     clearShipDirection(Direction.RIGHT);
                     break;
                 case 1:
                     direction = Direction.RIGHT;
-                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
+                    placeShip(btn, direction, rotationFlag, newShipFlag);
                     break;
             }
         } else if ((btnID - btnDefault) % 8 < shipSize - 1 || occupiedFlag == "SHIP_LEFT") {
             switch (btnClickAmount % 3) {
                 case 0:
                     direction = Direction.DOWN;
-                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
+                    placeShip(btn, direction, rotationFlag, newShipFlag);
                     break;
                 case 1:
                     direction = Direction.UP;
-                    placeBigShip(btn, direction, "LEFT", newShipFlag);
+                    placeShip(btn, direction, "LEFT", newShipFlag);
                     clearShipDirection(Direction.DOWN);
                     break;
                 case 2:
                     direction = Direction.LEFT;
-                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
+                    placeShip(btn, direction, rotationFlag, newShipFlag);
                     break;
             }
         } else if ((btnID - btnDefault) % 8 > 8 - shipSize) {
             switch (btnClickAmount % 3) {
                 case 0:
                     direction = Direction.DOWN;
-                    placeBigShip(btn, direction, "RIGHT", newShipFlag);
+                    placeShip(btn, direction, "RIGHT", newShipFlag);
                     clearShipDirection(Direction.UP);
                     break;
                 case 1:
                     direction = Direction.RIGHT;
-                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
+                    placeShip(btn, direction, rotationFlag, newShipFlag);
                     break;
                 case 2:
                     direction = Direction.UP;
-                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
+                    placeShip(btn, direction, rotationFlag, newShipFlag);
                     break;
             }
 
@@ -540,15 +490,15 @@ public class setupActivity extends AppCompatActivity {
             switch (btnClickAmount % 3) {
                 case 0:
                     direction = Direction.DOWN;
-                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
+                    placeShip(btn, direction, rotationFlag, newShipFlag);
                     break;
                 case 1:
                     direction = Direction.RIGHT;
-                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
+                    placeShip(btn, direction, rotationFlag, newShipFlag);
                     break;
                 case 2:
                     direction = Direction.LEFT;
-                    placeBigShip(btn, direction, "TOP", newShipFlag);
+                    placeShip(btn, direction, "TOP", newShipFlag);
                     clearShipDirection(Direction.RIGHT);
                     break;
             }
@@ -557,15 +507,15 @@ public class setupActivity extends AppCompatActivity {
             switch (btnClickAmount % 3) {
                 case 0:
                     direction = Direction.RIGHT;
-                    placeBigShip(btn, direction, "BOTTOM", newShipFlag);
+                    placeShip(btn, direction, "BOTTOM", newShipFlag);
                     break;
                 case 1:
                     direction = Direction.UP;
-                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
+                    placeShip(btn, direction, rotationFlag, newShipFlag);
                     break;
                 case 2:
                     direction = Direction.LEFT;
-                    placeBigShip(btn, direction, "BOTTOM", newShipFlag);
+                    placeShip(btn, direction, "BOTTOM", newShipFlag);
                     clearShipDirection(Direction.RIGHT);
                     break;
             }
@@ -574,19 +524,19 @@ public class setupActivity extends AppCompatActivity {
             switch (btnClickAmount % 4) {
                 case 0:
                     direction = Direction.DOWN;
-                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
+                    placeShip(btn, direction, rotationFlag, newShipFlag);
                     break;
                 case 1:
                     direction = Direction.RIGHT;
-                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
+                    placeShip(btn, direction, rotationFlag, newShipFlag);
                     break;
                 case 2:
                     direction = Direction.UP;
-                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
+                    placeShip(btn, direction, rotationFlag, newShipFlag);
                     break;
                 case 3:
                     direction = Direction.LEFT;
-                    placeBigShip(btn, direction, rotationFlag, newShipFlag);
+                    placeShip(btn, direction, rotationFlag, newShipFlag);
                     break;
             }
         }
@@ -697,7 +647,6 @@ public class setupActivity extends AppCompatActivity {
 
 
         public void setStartPosition (int shipSize, Direction direction) {
-            // Index 0 gets player1, needs a method to figure out which player is who.
             if (shipSize == 1 && !ship1placed) {
                 startPositions.put("point1", btnID-btnDefault);
                 directionsList.put("direction1", direction);
@@ -721,23 +670,6 @@ public class setupActivity extends AppCompatActivity {
             }
         }
 
-        public boolean isOccupied (Button btn){
-            boolean Occu = true;
-            if (btn.getBackground().getConstantState() == getResources().getDrawable(R.drawable.defaultbutton).getConstantState()) {
-                Occu = false;
-            } else if (shipSize == 1 && btn.getBackground().getConstantState() == getResources().getDrawable(R.mipmap.ship_one).getConstantState()) {
-                Occu = false;
-            } else if (shipSize == 2 && btn.getBackground().getConstantState() == getResources().getDrawable(R.mipmap.ship_two_front).getConstantState()) {
-                Occu = false;
-            } else if (shipSize == 3 && btn.getBackground().getConstantState() == getResources().getDrawable(R.mipmap.ship_three_front).getConstantState()) {
-                Occu = false;
-            } else if (shipSize == 4 && btn.getBackground().getConstantState() == getResources().getDrawable(R.mipmap.ship_four_front).getConstantState()) {
-                Occu = false;
-            }
-            return Occu;
-        }
-
-
         public void savePositions (View view) {
         if (startPositions.get("point1") != null) {
             if (gameModel.getPlayers().get(0).hasShipInside(gameModel.convertIndexToPoint(startPositions.get("point1")),
@@ -748,8 +680,6 @@ public class setupActivity extends AppCompatActivity {
                 shipPlaced++;
                 ship1placed = true;
                 boat1.setVisibility(View.GONE);
-
-                Toast.makeText(getApplicationContext(), "Succesfully added patrol boat", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -762,7 +692,6 @@ public class setupActivity extends AppCompatActivity {
                     shipPlaced++;
                     ship2placed = true;
                     boat2.setVisibility(View.GONE);
-                    Toast.makeText(getApplicationContext(), "Succesfully added destroyer", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -775,7 +704,6 @@ public class setupActivity extends AppCompatActivity {
                     shipPlaced++;
                     ship3placed = true;
                     boat3.setVisibility(View.GONE);
-                    Toast.makeText(getApplicationContext(), "Succesfully added cruiser", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -788,7 +716,6 @@ public class setupActivity extends AppCompatActivity {
                     shipPlaced++;
                     ship4placed = true;
                     boat4.setVisibility(View.GONE);
-                    Toast.makeText(getApplicationContext(), "Succesfully added battleship", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -804,7 +731,6 @@ public class setupActivity extends AppCompatActivity {
         }
     }
 
-
         public void readyToBattle (View view){
             if (!allShipIsPlaced) {
                 // Also need shipTwoID and shipThreeID
@@ -816,12 +742,6 @@ public class setupActivity extends AppCompatActivity {
             }
         }
 
-        @Override
-        protected void onDestroy () {
-        otherPlayerRef.removeEventListener(otherPlayerListener);
-            handler.removeCallbacksAndMessages(null);
-            super.onDestroy();
-        }
 
     private void updateView(int index, Direction direction, int length) {
         Button btn1, btn2, btn3, btn4;
@@ -854,7 +774,7 @@ public class setupActivity extends AppCompatActivity {
                 btn1.setRotation(0);
                 btn2.setRotation(0);
             } else if (direction == Direction.UP) {
-                btn2 = findViewById(btnDefault-index-8);
+                btn2 = findViewById(btnDefault+index-8);
 
                 btn2.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_two_end));
                 btn1.setRotation(180);
@@ -953,32 +873,7 @@ public class setupActivity extends AppCompatActivity {
         }
     }
 
-    public void makeButtonsUnclickable (int index, Direction direction, int length) {
 
-    }
-
-  /*  public BitmapDrawable combineImage(int imgID, int imgID2) {
-        Bitmap img1 = BitmapFactory.decodeResource(getResources(), imgID);
-        Bitmap img2 = BitmapFactory.decodeResource(getResources(), imgID2);
-        Bitmap overlay = Bitmap.createBitmap(img1.getWidth(), img1.getHeight(), img1.getConfig());
-        Canvas canvas = new Canvas(overlay);
-        img2 = addBorderColor(img2, 1);
-        canvas.drawBitmap(img2, new Matrix(), null);
-        canvas.drawBitmap( img1,  new Matrix(), null);
-        return bitmapToBitmapDrawable(overlay);
-    }
-
-    public BitmapDrawable bitmapToBitmapDrawable(Bitmap bitmap) {
-        return new BitmapDrawable(getResources(), bitmap);
-    }
-
-    private Bitmap addBorderColor(Bitmap bmp, int borderSize) {
-        Bitmap bmpWithBorder = Bitmap.createBitmap(bmp.getWidth() + borderSize * 2, bmp.getHeight() +  borderSize * 2, bmp.getConfig());
-        Canvas canvas = new Canvas(bmpWithBorder);
-        canvas.drawColor(Color.parseColor("#23574B"));
-        canvas.drawBitmap(bmp, borderSize, borderSize, null);
-        return bmpWithBorder;
-    } */
     @Override
     protected void onPause() {
         handler.removeCallbacks(r);
@@ -990,4 +885,12 @@ public class setupActivity extends AppCompatActivity {
         r.run();
         super.onResume();
     }
+
+    @Override
+    protected void onDestroy () {
+        otherPlayerRef.removeEventListener(otherPlayerListener);
+        handler.removeCallbacksAndMessages(null);
+        super.onDestroy();
+    }
+
 }

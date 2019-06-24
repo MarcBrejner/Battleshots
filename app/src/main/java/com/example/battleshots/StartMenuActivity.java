@@ -4,11 +4,11 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
@@ -16,7 +16,6 @@ import android.widget.*;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -124,7 +123,7 @@ public class StartMenuActivity extends AppCompatActivity implements Serializable
             public void onClick(DialogInterface dialog, int which) {
                 playerName = input.getText().toString();
 
-                TextView playerNameText = (TextView) findViewById(R.id.playerName_id);
+                TextView playerNameText = findViewById(R.id.playerName_id);
                 playerNameText.setText("Welcome " + playerName);
             }
         });
@@ -203,7 +202,7 @@ public class StartMenuActivity extends AppCompatActivity implements Serializable
             }
 
             playerName = getIntent().getStringExtra("prevPlayerName");
-            TextView playerNameText = (TextView) findViewById(R.id.playerName_id);
+            TextView playerNameText = findViewById(R.id.playerName_id);
             playerNameText.setText("Welcome " + playerName);
         } else {
             openNameDialog();

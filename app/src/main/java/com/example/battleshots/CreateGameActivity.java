@@ -1,9 +1,9 @@
 package com.example.battleshots;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -11,7 +11,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 public class CreateGameActivity extends AppCompatActivity {
 
@@ -21,7 +23,7 @@ public class CreateGameActivity extends AppCompatActivity {
     public String player2Name = "Waiting for player 2";
     GameModel gameModel;
     Intent startMenuIntent;
-    Map<String, Object> playerInfo;
+    Map<String, Object> playerInfo, gameInfo;
     ValueEventListener valueEventListener;
 
     @Override
@@ -31,6 +33,21 @@ public class CreateGameActivity extends AppCompatActivity {
 
         //Generate random gameID
         gameID = generateGameID();
+
+        //Check if game with GameID already exists
+        server.reference.child("Game").child(gameID).addListenerForSingleValueEvent(valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            if(dataSnapshot.exists()){
+                    gameID = generateGameID();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
         //get Player1 from startMenuIntent
@@ -46,16 +63,16 @@ public class CreateGameActivity extends AppCompatActivity {
         server.joinGame(gameID,dummyPlayer);
 
         //Set textViews
-        TextView gameHostedTextView = (TextView) findViewById(R.id.gamehosted_id);
+        TextView gameHostedTextView = findViewById(R.id.gamehosted_id);
         gameHostedTextView.setText("Your Game has been hosted");
 
-        TextView gameIdTextView = (TextView) findViewById(R.id.gameidtext_id);
+        TextView gameIdTextView = findViewById(R.id.gameidtext_id);
         gameIdTextView.setText("Game ID : " + gameID);
 
-        TextView player1TextView = (TextView) findViewById(R.id.player1_id);
+        TextView player1TextView = findViewById(R.id.player1_id);
         player1TextView.setText("Player 1 : " + player1.getPlayerName());
 
-        final TextView player2TextView = (TextView) findViewById(R.id.player2_id);
+        final TextView player2TextView = findViewById(R.id.player2_id);
         player2TextView.setText("Player 2 : " + "Waiting for player 2");
 
         server.gameRef.addValueEventListener(valueEventListener = new ValueEventListener() {
@@ -74,9 +91,6 @@ public class CreateGameActivity extends AppCompatActivity {
             }
 
         });
-
-
-
     }
 
     @Override
@@ -109,19 +123,18 @@ public class CreateGameActivity extends AppCompatActivity {
         }
     }
 
-
-
     public String generateGameID(){
-        char[] chars1 = "QWERTYUIOPASDFGHJKLZXCVBNM1234567890".toCharArray();
+        char[] chars1 = "QW".toCharArray();
         StringBuilder stringBuilder = new StringBuilder();
         Random random = new Random();
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 1; i++)
         {
             char c1 = chars1[random.nextInt(chars1.length)];
             stringBuilder.append(c1);
         }
         String generated_gameID = stringBuilder.toString();
         return generated_gameID;
+
     }
 }
 

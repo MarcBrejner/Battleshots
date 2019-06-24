@@ -89,7 +89,7 @@
         <TextView
                 android:id="@+id/stats_1"
                 android:layout_width="218dp"
-                android:layout_height="24dp"
+                android:layout_height="26dp"
                 android:text=""
         />
 
@@ -175,7 +175,7 @@
         <TextView
                 android:id="@+id/stats_2"
                 android:layout_width="218dp"
-                android:layout_height="24dp"
+                android:layout_height="26dp"
         />
 
 
@@ -261,7 +261,7 @@
         <TextView
                 android:id="@+id/stats_3"
                 android:layout_width="218dp"
-                android:layout_height="24dp"
+                android:layout_height="26dp"
         />
 
 

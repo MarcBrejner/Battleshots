@@ -1,16 +1,17 @@
 package com.example.battleshots;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JoinGameActivity extends AppCompatActivity {
 
@@ -38,7 +39,7 @@ public class JoinGameActivity extends AppCompatActivity {
         server.joinGame(gameID, player2);
 
 
-        final TextView gameIdTextView = (TextView) findViewById(R.id.gameidtext_id);
+        final TextView gameIdTextView = findViewById(R.id.gameidtext_id);
         gameIdTextView.setText("Game ID : " + gameID);
 
          server.gameRef.addValueEventListener(valueEventListener = new ValueEventListener() {

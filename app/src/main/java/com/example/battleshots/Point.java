@@ -49,12 +49,7 @@ public class Point {
         else if (this.getClass() != object.getClass()) {
             return false;
         }
-        else if (this.x != other.x || this.y != other.y) {
-            return false;
-        }
-        else {
-            return true;
-        }
+        else return this.x == other.x && this.y == other.y;
     }
 
     public String toString() {

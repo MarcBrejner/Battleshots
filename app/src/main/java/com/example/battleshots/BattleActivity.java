@@ -4,25 +4,26 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.zip.Inflater;
 
 public class BattleActivity extends AppCompatActivity {
 
@@ -36,7 +37,7 @@ public class BattleActivity extends AppCompatActivity {
     HashMap<String, Object> otherPlayerInfo, playerInfo, destroyedInfo;
     public final int DEFAULT_GRID_ID = 2131230763;
     public final int DEFAULT_SHOOTBUTTON_ID = 2131230827;
-    int gridSize = 8, hitCount = 0, enemyShipsHit = 0, prevViewID = 999;;
+    int gridSize = 8, hitCount = 0, enemyShipsHit = 0, prevViewID = 999;
     Boolean yourTurn = false, ShipsPainted = false;
 
 
@@ -51,9 +52,9 @@ public class BattleActivity extends AppCompatActivity {
         playerName = getIntent().getStringExtra("pName");
         assignPlayers(playerID,gameID);
 
-        final TextView stats1text = (TextView) findViewById(R.id.stats_1);
-        final TextView stats2text = (TextView) findViewById(R.id.stats_2);
-        final TextView stats3text = (TextView) findViewById(R.id.stats_3);
+        final TextView stats1text = findViewById(R.id.stats_1);
+        final TextView stats2text = findViewById(R.id.stats_2);
+        final TextView stats3text = findViewById(R.id.stats_3);
 
 
         //add ValueEventListener to current player
@@ -64,11 +65,13 @@ public class BattleActivity extends AppCompatActivity {
                     playerInfo = (HashMap<String, Object>) dataSnapshot.getValue();
                     Boolean goTime = (Boolean) playerInfo.get("turn");
 
+                    //Paint ships if they have not already been painted
                     if (!ShipsPainted) {
                         paintShips(getShips(playerInfo));
                         ShipsPainted = true;
                     }
 
+                    //Paint destroyed parts
                     if (playerInfo.get("destroyed_parts") != null) {
                         destroyedInfo = (HashMap<String, Object>) playerInfo.get("destroyed_parts");
                         paintDestroyedPart(destroyedInfo);
@@ -78,6 +81,7 @@ public class BattleActivity extends AppCompatActivity {
                         }
                     }
 
+                    //check who's turn it is
                     if (goTime != null) {
                         if (goTime && hitCount < 10) {
                             enableButtons();
@@ -88,6 +92,7 @@ public class BattleActivity extends AppCompatActivity {
                         }
                     }
 
+                    //Set text of statistics TextViews
                     if (yourTurn) {
                         stats1text.setText("It's your turn");
                     } else {
@@ -125,6 +130,7 @@ public class BattleActivity extends AppCompatActivity {
 
         otherPlayerShipParts = getShips(otherPlayerInfo);
 
+        //Color button red if it's a hit, grey if not.
         if(otherPlayerShipParts.contains(point)){
             btn.setBackground(ContextCompat.getDrawable(this,R.drawable.destroyedbutton));
             otherPlayerRef.child("destroyed_parts").setValue(point);
@@ -136,6 +142,7 @@ public class BattleActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"You missed", Toast.LENGTH_SHORT).show();
         }
 
+        //End turn
         playerRef.child("turn").setValue(false);
         otherPlayerRef.child("turn").setValue(true);
         btn.setOnClickListener(null);
@@ -190,6 +197,7 @@ public class BattleActivity extends AppCompatActivity {
 
           Button btn = findViewById(DEFAULT_GRID_ID + viewID);
           btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chosenbutton));
+
         }
     }
 
@@ -254,7 +262,7 @@ public class BattleActivity extends AppCompatActivity {
         title.setText("You lost :(");
         title.setPadding(10, 10, 10, 10);   // Set Position
         title.setGravity(Gravity.CENTER);
-        title.setTextColor(Color.BLACK);
+        title.setTextColor(Color.RED);
         title.setTextSize(20);
         alertDialog.setCustomTitle(title);
 
