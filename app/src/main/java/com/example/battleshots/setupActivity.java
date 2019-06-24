@@ -2,6 +2,7 @@ package com.example.battleshots;
 
 import android.graphics.*;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -38,12 +39,16 @@ public class setupActivity extends AppCompatActivity {
     Server server;
     DatabaseReference playerRef, otherPlayerRef;
     String playerName;
+    Bitmap waterColor = BitmapFactory.decodeResource(getResources(), R.drawable.water);
+    Drawable waterImage =  bitmapToBitmapDrawable(addBorderColor(waterColor,2));
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_setup_map);
+
+
 
         server = new Server();
        startPositions = new HashMap<>();
@@ -182,7 +187,7 @@ public class setupActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
-        // TODO: BUGS WITH FLAGS FOR DIRECTION, CANNOT SAVE SHIPS FROM CORNERS
+        // TODO: BUGS WITH OVERLAP ON SHIPS
         Button btn = (Button) findViewById(view.getId());
         btnID = btn.getId();
 
@@ -287,7 +292,9 @@ public class setupActivity extends AppCompatActivity {
 
         if (shipSize == 1) {
             // startBtn.setText(Integer.toString(btnID-btnDefault));
-            startBtn.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_one));
+
+            startBtn.setBackground(combineImage(R.mipmap.ship_one, R.drawable.water));
+           //  startBtn.setBackground(ContextCompat.getDrawable(this, R.mipmap.ship_one));
             shipOneID = startBtn.getId();
 
             if (direction == Direction.RIGHT) {
@@ -705,8 +712,8 @@ public class setupActivity extends AppCompatActivity {
 
         public void savePositions (View view) {
         if (startPositions.get("point1") != null) {
-            if (gameModel.getPlayers().get(0).hasShipInside(gameModel.convertIndexToPoint(startPositions.get("point1")), directionsList.get("direction1"), 1)) {
-                Toast.makeText(getApplicationContext(), "Contains other ship", Toast.LENGTH_SHORT).show();
+            if (gameModel.getPlayers().get(0).hasShipInside(gameModel.convertIndexToPoint(startPositions.get("point1")), directionsList.get("direction1"), 1) && !ship1placed) {
+                Toast.makeText(getApplicationContext(), "Patrol boat contains other ship", Toast.LENGTH_SHORT).show();
             } else {
                 gameModel.getPlayers().get(0).addShip(gameModel.convertIndexToPoint(startPositions.get("point1")), 1, directionsList.get("direction1"), gameModel);
                 shipPlaced++;
@@ -715,8 +722,8 @@ public class setupActivity extends AppCompatActivity {
         }
 
             if (startPositions.get("point2") != null) {
-                if (gameModel.getPlayers().get(0).hasShipInside(gameModel.convertIndexToPoint(startPositions.get("point2")), directionsList.get("direction2"), 2)) {
-                    Toast.makeText(getApplicationContext(), "Contains other ship", Toast.LENGTH_SHORT).show();
+                if (gameModel.getPlayers().get(0).hasShipInside(gameModel.convertIndexToPoint(startPositions.get("point2")), directionsList.get("direction2"), 2) && !ship2placed) {
+                    Toast.makeText(getApplicationContext(), "Destroyer contains other ship", Toast.LENGTH_SHORT).show();
                 } else {
                     gameModel.getPlayers().get(0).addShip(gameModel.convertIndexToPoint(startPositions.get("point2")), 2, directionsList.get("direction2"), gameModel);
                     shipPlaced++;
@@ -725,8 +732,8 @@ public class setupActivity extends AppCompatActivity {
             }
 
             if (startPositions.get("point3") != null) {
-                if (gameModel.getPlayers().get(0).hasShipInside(gameModel.convertIndexToPoint(startPositions.get("point3")),  directionsList.get("direction3"), 3)) {
-                    Toast.makeText(getApplicationContext(), "Contains other ship", Toast.LENGTH_SHORT).show();
+                if (gameModel.getPlayers().get(0).hasShipInside(gameModel.convertIndexToPoint(startPositions.get("point3")),  directionsList.get("direction3"), 3) && !ship3placed) {
+                    Toast.makeText(getApplicationContext(), "Cruiser contains other ship", Toast.LENGTH_SHORT).show();
                 } else {
                     gameModel.getPlayers().get(0).addShip(gameModel.convertIndexToPoint(startPositions.get("point3")), 3, directionsList.get("direction3"), gameModel);
                     shipPlaced++;
@@ -735,8 +742,8 @@ public class setupActivity extends AppCompatActivity {
             }
 
             if (startPositions.get("point4") != null) {
-                if (gameModel.getPlayers().get(0).hasShipInside(gameModel.convertIndexToPoint(startPositions.get("point4")),  directionsList.get("direction4"), 4)) {
-                    Toast.makeText(getApplicationContext(), "Contains other ship", Toast.LENGTH_SHORT).show();
+                if (gameModel.getPlayers().get(0).hasShipInside(gameModel.convertIndexToPoint(startPositions.get("point4")),  directionsList.get("direction4"), 4) && !ship4placed) {
+                    Toast.makeText(getApplicationContext(), "Battleship contains other ship", Toast.LENGTH_SHORT).show();
                 } else {
                     gameModel.getPlayers().get(0).addShip(gameModel.convertIndexToPoint(startPositions.get("point4")), 4,  directionsList.get("direction4"), gameModel);
                     shipPlaced++;
@@ -780,41 +787,12 @@ public class setupActivity extends AppCompatActivity {
             super.onDestroy();
         }
 
-    /* public boolean containShip(int index) {
-        if (direction == Direction.DOWN) {
-            for(int i = 0; i < shipSize; i++) {
-                if(shipList.contains(gameModel.convertIndexToPoint(index-i*8))) {
-                    return true;
-                }
-            }
-        } else if (direction == Direction.UP) {
-            for (int i = 0; i < shipSize; i++) {
-                if(shipList.contains(gameModel.convertIndexToPoint(index+i*8))) {
-                    return true;
-                }
-            }
-        } else if (direction == Direction.LEFT) {
-            for (int i = 0; i < shipSize; i++) {
-                if(shipList.contains(gameModel.convertIndexToPoint(index+i))) {
-                    return true;
-                }
-            }
-        } else if (direction == Direction.RIGHT) {
-            for (int i = 0; i < shipSize; i++) {
-                if(shipList.contains(gameModel.convertIndexToPoint(index-i))) {
-                    return true;
-                }
-            }
-        }
-        return  false;
-    } */
-
-    /* public BitmapDrawable combineImage(int imgID, int imgID2) {
+    public BitmapDrawable combineImage(int imgID, int imgID2) {
         Bitmap img1 = BitmapFactory.decodeResource(getResources(), imgID);
         Bitmap img2 = BitmapFactory.decodeResource(getResources(), imgID2);
         Bitmap overlay = Bitmap.createBitmap(img1.getWidth(), img1.getHeight(), img1.getConfig());
         Canvas canvas = new Canvas(overlay);
-        img2 = addWhiteBorder(img2, 15);
+        img2 = addBorderColor(img2, 1);
         canvas.drawBitmap(img2, new Matrix(), null);
         canvas.drawBitmap( img1,  new Matrix(), null);
         return bitmapToBitmapDrawable(overlay);
@@ -824,11 +802,11 @@ public class setupActivity extends AppCompatActivity {
         return new BitmapDrawable(getResources(), bitmap);
     }
 
-    private Bitmap addWhiteBorder(Bitmap bmp, int borderSize) {
+    private Bitmap addBorderColor(Bitmap bmp, int borderSize) {
         Bitmap bmpWithBorder = Bitmap.createBitmap(bmp.getWidth() + borderSize * 2, bmp.getHeight() +  borderSize * 2, bmp.getConfig());
         Canvas canvas = new Canvas(bmpWithBorder);
-        canvas.drawColor(Color.WHITE);
+        canvas.drawColor(Color.parseColor("#23574B"));
         canvas.drawBitmap(bmp, borderSize, borderSize, null);
         return bmpWithBorder;
-    } */
+    }
 }

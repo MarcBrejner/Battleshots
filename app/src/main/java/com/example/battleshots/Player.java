@@ -3,12 +3,15 @@ package com.example.battleshots;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 public class Player {
     private String playerName;
     private int gridSize = 8;
-    public List<Point> grid, shipList;
+    public List<Point> grid;
+    public HashSet<Point> shipList;
     private List<Ship> ships;
     public boolean hasShip = false;
 
@@ -16,7 +19,7 @@ public class Player {
         this.playerName = name;
         grid = new ArrayList<>();
         ships = new ArrayList<>();
-        shipList = new ArrayList<>();
+        shipList = new HashSet<>();
         makeGrid();
     }
 
@@ -26,8 +29,8 @@ public class Player {
             Log.d("Ship Size: ",""+ ships.size());
         }
 
-            if (direction == Direction.DOWN && 0 > point.getY() - (length - 1) ||
-                    direction == Direction.UP && gridSize <= (length - 1) + point.getY() ||
+            if (direction == Direction.DOWN && 0 > point.getY() + (length - 1) ||
+                    direction == Direction.UP && gridSize <= (length - 1) - point.getY() ||
                     direction == Direction.LEFT && gridSize <= (length - 1) + point.getX() ||
                     direction == Direction.RIGHT && 0 > point.getX() - (length - 1)) {
                 hasShip = true;
@@ -44,6 +47,8 @@ public class Player {
 
 
     public boolean hasShipInside(Point point, Direction direction, int length) {
+        Log.d("Ships:", "ship_" + length + ": Direction - " + direction + " point" + point.toString());
+        Log.d("ShipsList:", Arrays.toString(shipList.toArray()));
         for (int i = 0; i < length; i++) {
             if (direction == Direction.LEFT && shipList.contains(new Point(point.getX() + i, point.getY()))) {
                 return true;
