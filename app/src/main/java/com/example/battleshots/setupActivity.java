@@ -722,10 +722,12 @@ public class setupActivity extends AppCompatActivity {
         if (!allShipIsPlaced) {
             // Also need shipTwoID and shipThreeID
             Toast.makeText(getApplicationContext(), "Not all ships have been placed", Toast.LENGTH_SHORT).show();
-        } else {
+        } else if (!isReady) {
             playerRef.child("isReady").setValue(true);
             isReady = true;
             Toast.makeText(getApplicationContext(), "You are now ready for battle!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "Waiting for other player", Toast.LENGTH_SHORT).show();
         }
     }
 
