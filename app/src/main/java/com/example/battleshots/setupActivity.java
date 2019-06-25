@@ -651,12 +651,13 @@ public class setupActivity extends AppCompatActivity {
 
     public void savePositions (View view) {
         if (startPositions.get("point1") != null) {
-            if (!allShipIsPlaced) {
+            if (!ship1placed) {
                 if (gameModel.getPlayers().get(0).hasShipInside(gameModel.convertIndexToPoint(startPositions.get("point1")),
-                        directionsList.get("direction1"), 1, gameModel) || ship1placed) {
+                        directionsList.get("direction1"), 1, gameModel)) {
                     Toast.makeText(getApplicationContext(), "Patrol boat contains other ship", Toast.LENGTH_SHORT).show();
-                } else if (!ship1placed) {
-                    gameModel.getPlayers().get(0).addShip(gameModel.convertIndexToPoint(startPositions.get("point1")), 1, directionsList.get("direction1"), gameModel);
+                } else {
+                    gameModel.getPlayers().get(0).addShip(gameModel.convertIndexToPoint(startPositions.get("point1")),
+                            lengthList.get("length1"), directionsList.get("direction1"), gameModel);
                     shipPlaced++;
                     ship1placed = true;
                     boat1.setVisibility(View.GONE);
@@ -665,11 +666,11 @@ public class setupActivity extends AppCompatActivity {
         }
 
         if (startPositions.get("point2") != null) {
-            if (!allShipIsPlaced) {
+            if (!ship2placed) {
                 if (gameModel.getPlayers().get(0).hasShipInside(gameModel.convertIndexToPoint(startPositions.get("point2")),
-                        directionsList.get("direction2"), 2, gameModel) || ship2placed) {
+                        directionsList.get("direction2"), 2, gameModel)) {
                     Toast.makeText(getApplicationContext(), "Destroyer contains other ship", Toast.LENGTH_SHORT).show();
-                } else if (!ship2placed) {
+                } else {
                     gameModel.getPlayers().get(0).addShip(gameModel.convertIndexToPoint(startPositions.get("point2")), 2, directionsList.get("direction2"), gameModel);
                     shipPlaced++;
                     ship2placed = true;
@@ -679,11 +680,11 @@ public class setupActivity extends AppCompatActivity {
         }
 
         if (startPositions.get("point3") != null) {
-            if (!allShipIsPlaced) {
+            if (!ship3placed) {
                 if (gameModel.getPlayers().get(0).hasShipInside(gameModel.convertIndexToPoint(startPositions.get("point3")),
-                        directionsList.get("direction3"), 3, gameModel) || ship3placed) {
+                        directionsList.get("direction3"), 3, gameModel)) {
                     Toast.makeText(getApplicationContext(), "Cruiser contains other ship", Toast.LENGTH_SHORT).show();
-                } else if (!ship3placed) {
+                } else {
                     gameModel.getPlayers().get(0).addShip(gameModel.convertIndexToPoint(startPositions.get("point3")), 3, directionsList.get("direction3"), gameModel);
                     shipPlaced++;
                     ship3placed = true;
@@ -693,11 +694,11 @@ public class setupActivity extends AppCompatActivity {
         }
 
         if (startPositions.get("point4") != null) {
-            if (!allShipIsPlaced) {
+            if (!ship4placed) {
                 if (gameModel.getPlayers().get(0).hasShipInside(gameModel.convertIndexToPoint(startPositions.get("point4")),
-                        directionsList.get("direction4"), 4, gameModel) || ship4placed) {
+                        directionsList.get("direction4"), 4, gameModel)) {
                     Toast.makeText(getApplicationContext(), "Battleship contains other ship", Toast.LENGTH_SHORT).show();
-                } else if (!ship4placed) {
+                } else {
                     gameModel.getPlayers().get(0).addShip(gameModel.convertIndexToPoint(startPositions.get("point4")), 4, directionsList.get("direction4"), gameModel);
                     shipPlaced++;
                     ship4placed = true;
