@@ -67,9 +67,7 @@ public class StartMenuActivity extends AppCompatActivity implements Serializable
 
             }
         });
-
         loadPlayerName();
-
     }
 
     @Override
@@ -78,13 +76,11 @@ public class StartMenuActivity extends AppCompatActivity implements Serializable
         super.onDestroy();
     }
 
-
     public void createGame(View view) {
         Intent intent = new Intent(getApplicationContext(), CreateGameActivity.class);
         intent.putExtra("pName", playerName);
         startActivity(intent);
     }
-
 
     public void joinGame(View view) {
         openJoinDialog();
@@ -94,8 +90,6 @@ public class StartMenuActivity extends AppCompatActivity implements Serializable
         Intent intent = new Intent(getApplicationContext(), gameRulesActivity.class);
         startActivity(intent);
     }
-
-
 
     public void openNameDialog() {
 
@@ -128,7 +122,6 @@ public class StartMenuActivity extends AppCompatActivity implements Serializable
             }
         });
 
-
         new Dialog(getApplicationContext());
         alertDialog.show();
 
@@ -138,11 +131,9 @@ public class StartMenuActivity extends AppCompatActivity implements Serializable
         okBT.setPadding(0, 10, 0, 10);   // Set Position
         okBT.setTextColor(Color.BLUE);
         okBT.setLayoutParams(neutralBtnLP);
-
     }
 
     public void openJoinDialog() {
-
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 
         // Set Title
@@ -160,11 +151,9 @@ public class StartMenuActivity extends AppCompatActivity implements Serializable
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         alertDialog.setView(input);
 
-
         // Set OK Button
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-
                 if (values.contains(input.getText().toString())) {
                     joinGameID = input.getText().toString();
                     Intent intent = new Intent(getApplicationContext(), JoinGameActivity.class);
@@ -174,10 +163,8 @@ public class StartMenuActivity extends AppCompatActivity implements Serializable
                 } else {
                     Toast.makeText(getApplicationContext(), "Game ID doesn't exist", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
-
 
         new Dialog(getApplicationContext());
         alertDialog.show();
@@ -189,27 +176,21 @@ public class StartMenuActivity extends AppCompatActivity implements Serializable
         okBT.setPadding(0, 10, 0, 10);   // Set Position
         okBT.setTextColor(Color.BLUE);
         okBT.setLayoutParams(neutralBtnLP);
-
     }
 
     public void loadPlayerName(){
-
         if(getIntent().getStringExtra("prevPlayerName") != null){
-
             if(getIntent().getStringExtra("prevGameID") != null){
                 prevGameID = getIntent().getStringExtra("prevGameID");
                 server.deleteGameDataBase(prevGameID);
             }
-
             playerName = getIntent().getStringExtra("prevPlayerName");
             TextView playerNameText = findViewById(R.id.playerName_id);
             playerNameText.setText("Welcome " + playerName);
         } else {
             openNameDialog();
         }
-
     }
-
 }
 
 

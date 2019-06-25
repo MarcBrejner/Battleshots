@@ -38,17 +38,15 @@ public class CreateGameActivity extends AppCompatActivity {
         server.reference.child("Game").child(gameID).addListenerForSingleValueEvent(valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            if(dataSnapshot.exists()){
+                if(dataSnapshot.exists()){
                     gameID = generateGameID();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
-
 
         //get Player1 from startMenuIntent
         startMenuIntent = getIntent();
@@ -80,6 +78,7 @@ public class CreateGameActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 playerInfo = (HashMap<String, Object>)dataSnapshot.child("Player 2").getValue();
                 String playerName = (String) playerInfo.get("playerName");
+
                 if (playerName != null) {
                     player2TextView.setText("Player 2 : " + playerName);
                     player2Name = playerName;
@@ -89,19 +88,7 @@ public class CreateGameActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
-
         });
-    }
-
-    @Override
-    protected void onDestroy() {
-        server.gameRef.removeEventListener(valueEventListener);
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onPause(){
-        super.onPause();
     }
 
     public void startGame(View view){
@@ -127,14 +114,19 @@ public class CreateGameActivity extends AppCompatActivity {
         char[] chars1 = "QWERTYUIOPASDFGHJKLZXCVBNM1234567890".toCharArray();
         StringBuilder stringBuilder = new StringBuilder();
         Random random = new Random();
-        for (int i = 0; i < 5; i++)
-        {
+
+        for (int i = 0; i < 5; i++) {
             char c1 = chars1[random.nextInt(chars1.length)];
             stringBuilder.append(c1);
         }
         String generated_gameID = stringBuilder.toString();
         return generated_gameID;
+    }
 
+    @Override
+    protected void onDestroy() {
+        server.gameRef.removeEventListener(valueEventListener);
+        super.onDestroy();
     }
 }
 

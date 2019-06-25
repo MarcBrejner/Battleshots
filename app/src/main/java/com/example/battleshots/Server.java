@@ -7,7 +7,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class Server {
     FirebaseDatabase database;
     DatabaseReference reference;
@@ -48,7 +47,6 @@ public class Server {
             shipInfo.put("points", player.getShips().get(i).getShip());
             shipInfo.put("isDestroyed", player.getShips().get(i).isDestroyed());
             shipInfo.put("size", player.getShips().get(i).getShipSize());
-            // Toast.makeText(context, shipInfo.toString(), Toast.LENGTH_SHORT).show();
             gameRef.child("Player " + playerID).child("ships").child(shipName).updateChildren(shipInfo);
         }
     }
@@ -59,7 +57,6 @@ public class Server {
         gameRef.child("Player " + playerID).updateChildren(info);
 
         convertShipInfoToMap(player, playerID, context);
-
     }
 
     public void deleteGameDataBase(String GameID) {

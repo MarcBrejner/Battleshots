@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +28,6 @@ import java.util.Map;
 
 public class BattleActivity extends AppCompatActivity {
 
-    GameModel gameModel = new GameModel ("gamemodel");
     Server server = new Server();
     String playerID, gameID, playerName;
     DatabaseReference playerRef, otherPlayerRef;
@@ -39,7 +39,6 @@ public class BattleActivity extends AppCompatActivity {
     public final int DEFAULT_SHOOTBUTTON_ID = 2131230827;
     int gridSize = 8, hitCount = 0, enemyShipsHit = 0, prevViewID = 999;
     Boolean yourTurn = false, ShipsPainted = false;
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +54,6 @@ public class BattleActivity extends AppCompatActivity {
         final TextView stats1text = findViewById(R.id.stats_1);
         final TextView stats2text = findViewById(R.id.stats_2);
         final TextView stats3text = findViewById(R.id.stats_3);
-
 
         //add ValueEventListener to current player
         playerRef.addValueEventListener(playerValueEventListener = new ValueEventListener() {
@@ -106,7 +104,6 @@ public class BattleActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
-
         });
 
         //add ValueEventListener to enemy player
@@ -120,7 +117,6 @@ public class BattleActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
-
         });
     }
 
@@ -136,7 +132,6 @@ public class BattleActivity extends AppCompatActivity {
             otherPlayerRef.child("destroyed_parts").setValue(point);
             Toast.makeText(getApplicationContext(),"It's a hit!", Toast.LENGTH_SHORT).show();
             enemyShipsHit++;
-
         } else {
             btn.setBackground(ContextCompat.getDrawable(this, R.drawable.missedbutton));
             Toast.makeText(getApplicationContext(),"You missed", Toast.LENGTH_SHORT).show();
@@ -154,37 +149,34 @@ public class BattleActivity extends AppCompatActivity {
     }
 
     public ArrayList<Point> getShips (HashMap<String, Object> playerInfo){
-
         Map<String, Object> playerShipInfo = (HashMap<String, Object>) playerInfo.get("ships");
         Map<String, Object> playerShipXInfo;
         List<Object> pointInfo;
         Map<String, Object> pointJ;
 
-         int x;
-         int y;
-         ArrayList<Point> shipParts = new ArrayList<Point>();
+        int x;
+        int y;
 
-         for(int i = 1; i < 5; i++){
+        ArrayList<Point> shipParts = new ArrayList<Point>();
 
-             playerShipXInfo = (HashMap<String, Object>) playerShipInfo.get("Ship_"+i);
+        for(int i = 1; i < 5; i++){
+            playerShipXInfo = (HashMap<String, Object>) playerShipInfo.get("Ship_"+i);
 
-             pointInfo = (ArrayList<Object>) playerShipXInfo.get("points");
+            pointInfo = (ArrayList<Object>) playerShipXInfo.get("points");
 
-             for(int j = 0; j < i; j++) {
+            for(int j = 0; j < i; j++) {
 
-                 pointJ = (HashMap<String, Object>) pointInfo.get(j);
-                 x = (int)(long) pointJ.get("x");
-                 y = (int)(long) pointJ.get("y");
+                pointJ = (HashMap<String, Object>) pointInfo.get(j);
+                x = (int)(long) pointJ.get("x");
+                y = (int)(long) pointJ.get("y");
 
-                 shipParts.add(new Point(x,y));
-
-             }
+                shipParts.add(new Point(x,y));
+            }
         }
-         return shipParts;
+        return shipParts;
     }
 
     public void paintShips(ArrayList<Point> shipParts){
-
         int x;
         int y;
         int viewID;
@@ -195,9 +187,8 @@ public class BattleActivity extends AppCompatActivity {
             y = shipParts.get(i).getY();
             viewID = x + y*gridSize;
 
-          Button btn = findViewById(DEFAULT_GRID_ID + viewID);
-          btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chosenbutton));
-
+            Button btn = findViewById(DEFAULT_GRID_ID + viewID);
+            btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chosenbutton));
         }
     }
 
@@ -205,7 +196,6 @@ public class BattleActivity extends AppCompatActivity {
         int x;
         int y;
         int viewID;
-
 
         x = (int)(long) destroyedInfo.get("x");
         y = (int)(long) destroyedInfo.get("y");
@@ -227,7 +217,7 @@ public class BattleActivity extends AppCompatActivity {
             otherPlayerRef = server.reference.child("Game").child(gameID).child("Player 2");
             playerRef.child("turn").setValue(true);
             otherPlayerRef.child("turn").setValue(false);
-        } else  {
+        } else {
             playerRef = server.reference.child("Game").child(gameID).child("Player 2");
             otherPlayerRef = server.reference.child("Game").child(gameID).child("Player 1");
         }
@@ -239,7 +229,6 @@ public class BattleActivity extends AppCompatActivity {
 
     public void disableButtons(){
         for(int i = 0; i < gridSize*gridSize; i++ ){
-
             Button btn = findViewById(DEFAULT_SHOOTBUTTON_ID + i);
             btn.setEnabled(false);
         }
@@ -253,7 +242,6 @@ public class BattleActivity extends AppCompatActivity {
     }
 
     public void openLoseDialog() {
-
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 
         // Set Title
@@ -266,7 +254,6 @@ public class BattleActivity extends AppCompatActivity {
         title.setTextSize(20);
         alertDialog.setCustomTitle(title);
 
-
         // Set OK Button
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
@@ -278,7 +265,6 @@ public class BattleActivity extends AppCompatActivity {
             }
         });
 
-
         new Dialog(getApplicationContext());
         alertDialog.show();
 
@@ -289,11 +275,9 @@ public class BattleActivity extends AppCompatActivity {
         okBT.setPadding(0, 10, 0, 10);   // Set Position
         okBT.setTextColor(Color.BLUE);
         okBT.setLayoutParams(neutralBtnLP);
-
     }
 
     public void openTurnDialog() {
-
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 
         // Set Title
@@ -306,14 +290,12 @@ public class BattleActivity extends AppCompatActivity {
         title.setTextSize(20);
         alertDialog.setCustomTitle(title);
 
-
         // Set OK Button
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
             }
         });
-
 
         new Dialog(getApplicationContext());
         alertDialog.show();
@@ -325,11 +307,9 @@ public class BattleActivity extends AppCompatActivity {
         okBT.setPadding(0, 10, 0, 10);   // Set Position
         okBT.setTextColor(Color.BLUE);
         okBT.setLayoutParams(neutralBtnLP);
-
     }
 
     public void openWinDialog() {
-
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 
         // Set Title
@@ -342,7 +322,6 @@ public class BattleActivity extends AppCompatActivity {
         title.setTextSize(20);
         alertDialog.setCustomTitle(title);
 
-
         // Set OK Button
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
@@ -352,7 +331,6 @@ public class BattleActivity extends AppCompatActivity {
                 finish();
             }
         });
-
 
         new Dialog(getApplicationContext());
         alertDialog.show();
@@ -364,7 +342,6 @@ public class BattleActivity extends AppCompatActivity {
         okBT.setPadding(0, 10, 0, 10);   // Set Position
         okBT.setTextColor(Color.BLUE);
         okBT.setLayoutParams(neutralBtnLP);
-
     }
 
     @Override
@@ -373,11 +350,4 @@ public class BattleActivity extends AppCompatActivity {
         otherPlayerRef.removeEventListener(otherPlayerValueListener);
         super.onDestroy();
     }
-
-
-
-
-
-
-
 }

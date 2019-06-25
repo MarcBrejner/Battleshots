@@ -1,9 +1,6 @@
 package com.example.battleshots;
 
-import android.util.Log;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -23,30 +20,23 @@ public class Player {
     }
 
     public void addShip(Point point, int length, Direction direction, GameModel gameModel){
-      /*  for(Point shipPoint : shipList) {
-            Log.d("shipLits:", shipPoint.toString());
-        }
-        Log.d("Ship Size: ",""+ ships.size());*/
+        if (direction == Direction.DOWN && 0 > point.getY() + (length - 1) ||
+                direction == Direction.UP && gridSize <= (length - 1) - point.getY() ||
+                direction == Direction.LEFT && gridSize <= (length - 1) + point.getX() ||
+                direction == Direction.RIGHT && 0 > point.getX() - (length - 1)) {
 
-            if (direction == Direction.DOWN && 0 > point.getY() + (length - 1) ||
-                    direction == Direction.UP && gridSize <= (length - 1) - point.getY() ||
-                    direction == Direction.LEFT && gridSize <= (length - 1) + point.getX() ||
-                    direction == Direction.RIGHT && 0 > point.getX() - (length - 1)) {
-            } else if (!hasShipInside(point, direction, length, gameModel)) {
-                Ship ship = new Ship(point, length, direction, "Ship_" + length);
-                ships.add(ship);
-                for (Point shipPart : ship.getShip()) {
-                    shipList.add(gameModel.convertPointToIndex(shipPart));
-                    grid.get(gameModel.convertPointToIndex(shipPart)).setStatus(Status.DEPLOYED);
-                }
-
+        } else if (!hasShipInside(point, direction, length, gameModel)) {
+            Ship ship = new Ship(point, length, direction, "Ship_" + length);
+            ships.add(ship);
+            for (Point shipPart : ship.getShip()) {
+                shipList.add(gameModel.convertPointToIndex(shipPart));
+                grid.get(gameModel.convertPointToIndex(shipPart)).setStatus(Status.DEPLOYED);
+            }
         }
     }
 
 
     public boolean hasShipInside(Point point, Direction direction, int length, GameModel gameModel) {
-        Log.d("Ships:", "ship_" + length + ": Direction - " + direction + " point" + point.toString());
-        Log.d("ShipsList:", Arrays.toString(shipList.toArray()));
         for (int i = 0; i < length; i++) {
             if (direction == Direction.LEFT && shipList.contains(gameModel.convertPointToIndex(new Point(point.getX() + i, point.getY())))) {
                 return true;
@@ -61,7 +51,6 @@ public class Player {
         return false;
     }
 
-
     public void makeGrid() {
         for(int i = 0; i < gridSize; i++) {
             for(int j = 0; j < gridSize; j++) {
@@ -74,24 +63,11 @@ public class Player {
         return playerName;
     }
 
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
     public List<Point> getGrid() {
         return grid;
-    }
-
-    public void setGrid(List<Point> grid) {
-        this.grid = grid;
     }
 
     public List<Ship> getShips() {
         return ships;
     }
-
-    public void setShip(List<Ship> ship) {
-        this.ships = ship;
-    }
-
 }

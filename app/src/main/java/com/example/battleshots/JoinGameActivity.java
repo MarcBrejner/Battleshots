@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JoinGameActivity extends AppCompatActivity {
-
     public String gameID;
     Server server = new Server();
 
@@ -24,53 +23,42 @@ public class JoinGameActivity extends AppCompatActivity {
     Map<String, Object> info;
     ValueEventListener valueEventListener;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_game);
 
-
         startMenuIntent = getIntent();
         gameID = startMenuIntent.getStringExtra("joinGameID");
-
 
         player2 = new Player(startMenuIntent.getStringExtra("pName"));
         server.joinGame(gameID, player2);
 
-
         final TextView gameIdTextView = findViewById(R.id.gameidtext_id);
         gameIdTextView.setText("Game ID : " + gameID);
 
-         server.gameRef.addValueEventListener(valueEventListener = new ValueEventListener() {
-             @Override
-             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                 info = (HashMap<String, Object>) dataSnapshot.getValue();
-                 Boolean isStarting = (Boolean) info.get("isStarted");
-                 //Toasttest
+        server.gameRef.addValueEventListener(valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                info = (HashMap<String, Object>) dataSnapshot.getValue();
+                Boolean isStarting = (Boolean) info.get("isStarted");
 
-                 if(isStarting) {
-                     //Launch setupActivity
-                     Toast.makeText(getApplicationContext(),"Game is Starting", Toast.LENGTH_SHORT).show();
-                     Intent intent = new Intent(getApplicationContext(), setupActivity.class);
-                     intent.putExtra("gameID", gameID);
-                     intent.putExtra("playerID", "2");
-                     intent.putExtra("pName", player2.getPlayerName());
-                     startActivity(intent);
-                     finish();
-                 }
-             }
+                if(isStarting) {
+                    //Launch setupActivity
+                    Toast.makeText(getApplicationContext(),"Game is Starting", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), setupActivity.class);
+                    intent.putExtra("gameID", gameID);
+                    intent.putExtra("playerID", "2");
+                    intent.putExtra("pName", player2.getPlayerName());
+                    startActivity(intent);
+                    finish();
+                }
+            }
 
-             @Override
-             public void onCancelled(@NonNull DatabaseError databaseError) {
-             }
-
-         });
-
-    }
-    @Override
-    protected void onPause(){
-        super.onPause();
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 
     @Override
