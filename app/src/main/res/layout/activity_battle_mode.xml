@@ -9,28 +9,25 @@
               tools:context="BattleActivity">
 
     <LinearLayout
-            android:id="@+id/row_0"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.4"
             android:padding="0dp"
-            android:layout_gravity="top|left">
+            android:layout_gravity="start">
 
         <Button
                 android:id="@+id/button_a0"
                 android:layout_width="0dp"
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
-                android:background="@drawable/defaultbutton"
-                android:onClick="onClick"/>
+                android:background="@drawable/defaultbutton"/>
 
         <Button
                 android:id="@+id/button_a1"
                 android:layout_width="0dp"
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
-                android:background="@drawable/defaultbutton"
-                android:onClick="onClick"/>
+                android:background="@drawable/defaultbutton"/>
 
         <Button
                 android:id="@+id/button_a2"
@@ -38,7 +35,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="2"/>
 
         <Button
@@ -47,7 +43,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="3"/>
 
         <Button
@@ -56,7 +51,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="4"/>
 
         <Button
@@ -65,7 +59,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="5"/>
 
         <Button
@@ -74,7 +67,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="6"/>
 
         <Button
@@ -83,7 +75,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="7"/>
 
         <TextView
@@ -106,7 +97,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="8"/>
 
         <Button
@@ -115,7 +105,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="9"/>
 
         <Button
@@ -124,7 +113,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="10"/>
 
         <Button
@@ -133,7 +121,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="11"/>
 
         <Button
@@ -142,7 +129,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="12"/>
 
         <Button
@@ -151,7 +137,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="13"/>
 
         <Button
@@ -160,7 +145,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="14"/>
 
         <Button
@@ -169,7 +153,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="15"/>
 
         <TextView
@@ -196,7 +179,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="16"/>
 
         <Button
@@ -205,7 +187,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="17"/>
 
         <Button
@@ -214,7 +195,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="18"/>
 
         <Button
@@ -223,7 +203,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="19"/>
 
         <Button
@@ -232,7 +211,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="20"/>
 
         <Button
@@ -241,7 +219,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="21"/>
 
         <Button
@@ -250,7 +227,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="22"/>
 
         <Button
@@ -259,7 +235,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="23"/>
 
         <TextView
@@ -282,7 +257,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="24"/>
 
         <Button
@@ -291,7 +265,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="25"/>
 
         <Button
@@ -300,7 +273,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="26"/>
 
         <Button
@@ -309,7 +281,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="27"/>
 
         <Button
@@ -318,7 +289,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="28"/>
 
         <Button
@@ -327,7 +297,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="29"/>
 
         <Button
@@ -336,7 +305,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="30"/>
 
         <Button
@@ -345,7 +313,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="31"/>
 
 
@@ -372,7 +339,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="32"/>
 
         <Button
@@ -381,7 +347,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="33"/>
 
         <Button
@@ -390,7 +355,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="34"/>
 
         <Button
@@ -399,7 +363,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="35"/>
 
         <Button
@@ -408,7 +371,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="36"/>
 
         <Button
@@ -417,7 +379,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="37"/>
 
         <Button
@@ -426,7 +387,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="38"/>
 
         <Button
@@ -435,7 +395,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="39"/>
 
 
@@ -458,7 +417,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="40"/>
 
         <Button
@@ -467,7 +425,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="41"/>
 
         <Button
@@ -476,7 +433,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="42"/>
 
         <Button
@@ -485,7 +441,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="43"/>
 
         <Button
@@ -494,7 +449,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="44"/>
 
         <Button
@@ -503,7 +457,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="45"/>
 
         <Button
@@ -512,7 +465,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="46"/>
 
         <Button
@@ -521,7 +473,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="47"/>
 
         <TextView
@@ -546,7 +497,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="48"/>
 
         <Button
@@ -555,7 +505,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="49"/>
 
         <Button
@@ -564,7 +513,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="50"/>
 
         <Button
@@ -573,7 +521,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="51"/>
 
         <Button
@@ -582,7 +529,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="52"/>
 
         <Button
@@ -591,7 +537,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="53"/>
 
         <Button
@@ -600,7 +545,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="54"/>
 
         <Button
@@ -609,7 +553,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="55"/>
 
         <TextView android:layout_width="218dp"
@@ -629,7 +572,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="56"/>
 
         <Button
@@ -638,7 +580,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="57"/>
 
         <Button
@@ -647,7 +588,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="58"/>
 
         <Button
@@ -656,7 +596,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="59"/>
 
         <Button
@@ -665,7 +604,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="60"/>
 
         <Button
@@ -674,7 +612,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="61"/>
 
         <Button
@@ -683,7 +620,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="62"/>
 
         <Button
@@ -692,7 +628,6 @@
                 android:layout_height="24dp"
                 android:layout_weight="0.4"
                 android:background="@drawable/defaultbutton"
-                android:onClick="onClick"
                 android:tag="63"/>
 
         <TextView android:layout_width="218dp"

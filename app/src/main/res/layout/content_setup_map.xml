@@ -8,15 +8,7 @@
               android:weightSum="8"
               tools:context="setupActivity">
 
-    <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-    </RelativeLayout>
-
     <LinearLayout
-            android:id="@+id/row_1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"

@@ -74,6 +74,7 @@ public class BattleActivity extends AppCompatActivity {
                         destroyedInfo = (HashMap<String, Object>) playerInfo.get("destroyed_parts");
                         paintDestroyedPart(destroyedInfo);
 
+
                         if (hitCount > 9) {
                             openLoseDialog();
                         }
